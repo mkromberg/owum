@@ -1,0 +1,20 @@
+ OWUM;wr;CR;NL;TNEvents;FilePath;TNWork;arbejde;sejladser;dokumenter
+ ⍝ Generate HTML output with OWUM events and work lists
+
+ ⎕NUNTIE ⎕NNUMS
+ FilePath←⎕SE.Link.LaunchDir,'\'
+ TNEvents←(FilePath,'Data\Events')⎕FSTIE 0
+ TNWork←(FilePath,'Data\Worklists')⎕FSTIE 0
+
+ wr←{⍵ ⎕NAPPEND TN}
+ CR←⎕UCS 13
+ NL←⎕UCS 13 10
+
+ (arbejde sejladser)←OWUMEvents
+ dokumenter←OWUMDocuments
+ OWUMindex arbejde sejladser dokumenter
+ OWUMWorklists
+
+ ⎕←3 1⍴'Now run' '' '      OWUMCopy 0'
+ ⎕NUNTIE ⎕NNUMS
+ ⎕FUNTIE ⎕FNUMS

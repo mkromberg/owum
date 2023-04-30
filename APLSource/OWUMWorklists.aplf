@@ -1,0 +1,21 @@
+ OWUMWorklists;TN;Work;list;hdrs;i;done;z
+
+ TN←'Arbejdslister' NewPage 'Website\Arbejdslister.htm'
+
+ Work←⎕FREAD TNWork 2
+ hdrs←'ID' 'Beskrivelse' 'Hvem' 'Status'
+
+ :For i :In ⍳≢Work
+     list←⎕FREAD TNWork,10+i
+     list[done;2]←'<s>'∘,¨list[done←⍸list[;4]=2;2],¨⊂'</s>'
+     list[;4]←'' 'Startet' 'Afsluttet' 'Status ukendt'[0 1 2⍳list[;4]]
+     list[;1]←((⍕i),'-')∘,¨⍕¨list[;1]
+
+     wr'<h2>',(⍕i),'. ',(i⊃Work),'</h2>'
+     wr'<p>'
+     z←'LEFT'HTMLTable'' hdrs list (5 70 15 5)
+     wr z
+     wr'</p>'
+ :EndFor
+
+ ⎕NUNTIE TN

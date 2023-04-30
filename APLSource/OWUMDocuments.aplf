@@ -1,0 +1,19 @@
+ documents←OWUMDocuments;TN;files;p;dates;hdrs;names;dir;i;m;dts
+ TN←'Dokumenter Anna Elise'NewPage'Website\Dokumenter.htm'
+ dir←⎕SE.Link.LaunchDir,'/Website/Documents/'
+ files←(≢dir)↓¨⊃0(⎕NINFO⍠1)dir,'*.*'
+ dates←(m←p=11)/¨(¯1+p←files⍳¨' ')↑¨files ⍝ 11='yyyy-mm-dd '
+ names←(11×p=11)↓¨files
+ names←('<a href="Documents/')∘,¨files,¨(⊂'" target="_blank">'),¨names,¨⊂'</a>'
+ dts←dates
+ dates[i]←'__da__dddd D. mmmm YYYY'(1200⌶)1 ⎕DT 2⊃¨'- '∘⎕VFI¨dates[i←⍸m]
+ documents←(dates,⍪names)[⍒dts;]
+
+ hdrs←'Dato' 'Dokument'
+
+ wr'<h1>Dokumentarkiv</h1>'
+ wr'<p>'
+ wr'LEFT'HTMLTable''hdrs documents
+ wr'</p>'
+
+ ⎕NUNTIE TN
