@@ -6,6 +6,8 @@
  hdrs←'ID' 'Status' 'Beskrivelse' 'Hvem'
  status←{'<a href="mailto:admin@owum.dk?subject=',⍵,'&body=',⍵,'"><button>',⍺,'</button></a>'}
 
+ wr bhome,bakt,bdok
+
  :For i :In ⍳≢Work
      list←⎕FREAD TNWork,10+i
      list←list[⍒list[;4];],⊂''

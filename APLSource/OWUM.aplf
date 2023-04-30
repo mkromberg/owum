@@ -1,14 +1,16 @@
- OWUM;wr;CR;NL;TNEvents;FilePath;TNWork;arbejde;sejladser;dokumenter
+ OWUM;wr;arbejde;sejladser;dokumenter;bakt;barb;bdok;bhome
  ⍝ Generate HTML output with OWUM events and work lists
 
- ⎕NUNTIE ⎕NNUMS
- FilePath←⎕SE.Link.LaunchDir,'\'
- TNEvents←(FilePath,'Data\Events')⎕FSTIE 0
- TNWork←(FilePath,'Data\Worklists')⎕FSTIE 0
+ TieOWUMFiles
 
  wr←{⍵ ⎕NAPPEND TN}
  CR←⎕UCS 13
  NL←⎕UCS 13 10
+
+ bakt←'<a href="Aktiviteter.htm"><button>Alle Aktiviteter</button></a> &nbsp;'
+ barb←'<a href="Arbejdslister.htm"><button>Arbejdslister</button></a> &nbsp;'
+ bdok←'<a href="Dokumenter.htm"><button>Alle Dokumenter</button></a> &nbsp;'
+ bhome←'<a href="index.htm"><button>Forsiden</button></a> &nbsp;'
 
  (arbejde sejladser)←OWUMEvents
  dokumenter←OWUMDocuments

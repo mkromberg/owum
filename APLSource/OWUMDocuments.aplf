@@ -11,6 +11,8 @@
 
  hdrs←'Dato' 'Dokument'
 
+ wr bhome,bakt,barb
+
  wr'<h1>Dokumentarkiv</h1>'
  wr'<p>'
  wr'LEFT'HTMLTable''hdrs documents
