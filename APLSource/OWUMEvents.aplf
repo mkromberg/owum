@@ -1,4 +1,4 @@
- (arbejde sejladser)←OWUMEvents;TN;antal;a;A;n;i;j;p;min;q;qq;m;ryttere;last;ix;Events;t;today;d;hdrs
+ (arbejde sejladser)←OWUMEvents;TN;antal;a;A;n;i;j;p;min;q;qq;m;ryttere;last;ix;Events;t;today;d;hdrs;tilmeld
  ⍝ Return individual results
 
  TN←'Aktivitetskalender Anna Elise'NewPage'Website\Aktiviteter.htm'
@@ -13,19 +13,24 @@
  d←'<span title="'∘,¨d,¨⊂'">'
  t,←d,¨(⍕∘≢¨p),¨⊂'</span>'
 
- hdrs←'Dato' 'Beskrivelse' 'Tilmeldte'
+ hdrs←'Dato' 'Beskrivelse' 'Tilmeldte' ''
+
+ tilmeld←{'<a href="mailto:admin@owum.dk?subject=Tilmelding til ',⍺,⍵,'&body=Jeg melder mig hermed til ',⍺,⍵,'"><button>Tilmeld</button></a>'}
 
  :If 0≠≢sejladser←(t[;3]=2)⌿t[;1 2 5 4] ⍝ Sejladser
+     sejladser[;2]←sejladser[;2],¨(0≠≢¨sejladser[;4])/¨' - Skipper '∘,¨sejladser[;4],¨' '
+     sejladser[;4]←'sejladsen '∘tilmeld¨ sejladser[;1]
      wr'<h2>Sejladser</h2>'
      wr'<p>'
-     wr'LEFT' HTMLTable '' (hdrs,⊂'Skipper') sejladser
+     wr'LEFT' HTMLTable '' hdrs sejladser (15 40 10 10)
      wr'</p>'
  :End
 
  :If 0≠≢arbejde←(t[;3]=1)⌿t[;1 2 5] ⍝ Arbejdsdage
+     arbejde,←'arbejdsdagen '∘tilmeld¨ arbejde[;1]
      wr'<h2>Arbejdsdage</h2>'
      wr'<p>'
-     wr'LEFT'HTMLTable'' hdrs arbejde
+     wr'LEFT'HTMLTable'' hdrs arbejde (15 40 10 10)
      wr'</p>'
  :End
 

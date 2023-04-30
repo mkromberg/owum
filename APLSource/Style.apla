@@ -1,7 +1,7 @@
 (
  '<style type="text/css">'
  '    '
- (⎕UCS 9 9),'#OWUMSTYLE BODY { color: #000000; background-color: white; font-family: Verdana; margin-left: 10px; margin-top: 10px; margin- right: 10px}'
+ (⎕UCS 9 9),'#OWUMSTYLE BODY { color: #000000; background-color: white; font-family: Verdana; padding-left: 20px; margin-top: 10px; padding-right: 10px}'
  (⎕UCS 9 9),'#OWUMSTYLE A:link { color: #336699; font-weight: bold; text-decoration: underline; }'
  (⎕UCS 9 9),'#OWUMSTYLE A:visited { color: #6699cc; font-weight: bold; text-decoration: underline; }'
  (⎕UCS 9 9),'#OWUMSTYLE A:active { color: #336699; font-weight: bold; text-decoration: underline; }'

@@ -15,6 +15,6 @@
  OWUMindex arbejde sejladser dokumenter
  OWUMWorklists
 
- ⎕←3 1⍴'Now run' '' '      OWUMCopy 0'
+ ⎕←3 1⍴'Now run' '' '     OWUMCopy 0'
  ⎕NUNTIE ⎕NNUMS
  ⎕FUNTIE ⎕FNUMS

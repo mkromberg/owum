@@ -1,19 +1,23 @@
- OWUMWorklists;TN;Work;list;hdrs;i;done;z
+ OWUMWorklists;TN;Work;list;hdrs;i;done;z;status;j
 
  TN←'Arbejdslister' NewPage 'Website\Arbejdslister.htm'
 
  Work←⎕FREAD TNWork 2
- hdrs←'ID' 'Beskrivelse' 'Hvem' 'Status'
+ hdrs←'ID' 'Status' 'Beskrivelse' 'Hvem'
+ status←{'<a href="mailto:admin@owum.dk?subject=',⍵,'&body=',⍵,'"><button>',⍺,'</button></a>'}
 
  :For i :In ⍳≢Work
      list←⎕FREAD TNWork,10+i
+     list←list[⍒list[;4];],⊂''
+     list[;1]←((⍕i),'-')∘,¨⍕¨list[;1]
+     list[j;5]←'Start'∘status¨'Jeg er startet på opgave '∘,¨list[j←⍸list[;4]=0;1],¨⊂'.'
+     list[j;5]←'Afslut'∘status¨'Opgave '∘,¨list[j←⍸list[;4]=1;1],¨⊂' er afsluttet.'
      list[done;2]←'<s>'∘,¨list[done←⍸list[;4]=2;2],¨⊂'</s>'
      list[;4]←'' 'Startet' 'Afsluttet' 'Status ukendt'[0 1 2⍳list[;4]]
-     list[;1]←((⍕i),'-')∘,¨⍕¨list[;1]
 
      wr'<h2>',(⍕i),'. ',(i⊃Work),'</h2>'
      wr'<p>'
-     z←'LEFT'HTMLTable'' hdrs list (5 70 15 5)
+     z←'LEFT'HTMLTable'' (hdrs,⊂'') (list[;1 4 2 3 5]) (5 5 65 15 5)
      wr z
      wr'</p>'
  :EndFor

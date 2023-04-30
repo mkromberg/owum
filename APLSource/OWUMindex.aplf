@@ -1,24 +1,22 @@
- result←OWUMindex(arbejde sejladser dokumenter);TN;tit;data;btn;b1;b3;btns;rows;tbl
+ result←OWUMindex(arbejde sejladser dokumenter);TN;tit;data;btn;b1;b3;btns;rows;tbl;b2
  ⍝ Return individual results
 
  TN←'Anna Elise''s Medlemsside'NewPage'Website\index.htm'
 
  wr'<h1>Anna Elise (OWUM)s medlemsside</h1>'
-
  b1←'<a href="Aktiviteter.htm"><button>Alle Aktiviteter</button></a> &nbsp;'
+ b2←'<a href="Arbejdslister.htm"><button>Arbejdslister</button></a> &nbsp;'
  b3←'<a href="Dokumenter.htm"><button>Alle Dokumenter</button></a> &nbsp;'
- btns←'<a href="Arbejdslister.htm"><button>Arbejdslister</button></a> &nbsp;'
 
- tbl←0 3⍴0
+ tbl←0 2⍴0
  rows←⍬
  arbejde[;3]←('\d+' ⎕R '(& tilmeldte)') arbejde[;3]
  sejladser[;3]←('\d+' ⎕R '(& tilmeldte)') sejladser[;3]
- sejladser[;3]←sejladser[;3],¨(0≠≢¨sejladser[;4])/¨'Skipper '∘,¨sejladser[;4]
 
- :For (tit data btn) :In ('Næste sejlads'sejladser b1)('Næste arbejdsdag'arbejde b1)('Nyeste dokument'dokumenter b3)
+ :For (tit data) :In ('Næste sejlads'sejladser)('Næste arbejdsdag'arbejde)('Nyeste dokument'dokumenter)
      :If 0≠≢data
          rows,←⊂tit
-         tbl⍪←(⊃data) (∊'&nbsp;'∘,¨1↓,1↑data) btn
+         tbl⍪←(⊃data) (∊'&nbsp;'∘,¨1↓,1↑data)
      :Else
          btns,←btn
      :EndIf
@@ -27,7 +25,7 @@
  wr '<p>'
  wr HTMLTable rows '' tbl
  wr '<br />'
- wr btns
+ wr b1,b2,b3
  wr '</p>'
  wr'<br />'
 
