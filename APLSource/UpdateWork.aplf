@@ -1,0 +1,15 @@
+r←UpdateWork (id status);cn;new;s;ix;group;maxg;maxi
+⍝ UpdateWork '1-5' 'færdig'
+
+TieOWUMFiles
+s←'startet' 'færdig'⍳⊂¯1 ⎕C status
+(group ix)←2↑2⊃'-' ⎕VFI id
+maxg←¯11+2⊃⎕FSIZE TNWork
+('Gruppe skal være 1-',⍕maxg) ⎕SIGNAL (~group∊⍳maxg)/11
+'Status skal være startet eller færdig' ⎕SIGNAL (3=s)/11
+cn←10+group
+maxi←≢new←⎕FREAD TNWork,cn
+('Opgavenr skal være 1-',⍕maxi) ⎕SIGNAL (~ix∊⍳maxi)/11
+⎕←new[ix;]⊣new[ix;4]←s
+⍞
+new ⎕FREPLACE TNWork cn

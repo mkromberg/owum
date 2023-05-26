@@ -1,0 +1,11 @@
+r←NewWork (group desc who);cn;new;id
+⍝ NewEvent 1 'Sejl slåes under' 'Ole, Gitte, Morten, Thorkil'
+
+TieOWUMFiles
+cn←10+group
+new←⎕FREAD TNWork,cn
+id←1+⌈⌿new[;1]
+new⍪←r←id desc who 0
+⎕←¯4↑new
+⍞
+new ⎕FREPLACE TNWork cn
