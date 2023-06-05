@@ -1,0 +1,15 @@
+JoinEvent (date names);dir;i;info;cn;z
+⍝ JoinEvent startdate names
+
+TieOWUMFiles
+dir←⎕FREAD TNEvents 2
+:If 1≠≢i←⍸dir[;1]=1 ⎕DT ⊂date
+    ('Kan ikke finde aktivitet som starter ',⍕date)⎕SIGNAL 11
+:EndIf
+names←,⊆names
+info←⎕FREAD TNEvents,cn←10+i
+info←info⍪(⍪names),⊂''
+⎕←dir[i;]
+⎕←info
+z←⍞
+info ⎕FREPLACE TNEvents,cn
