@@ -10,6 +10,8 @@
  arbejde[;3]←('\d+' ⎕R '(& tilmeldte)') arbejde[;3]
  sejladser[;3]←('\d+' ⎕R '(& tilmeldte)') sejladser[;3]
 
+ rows,←⊂'Mandagsmøde'
+ tbl⍪←'Hver mandag kl 18:00' ''
  :For (tit data) :In ('Næste sejlads'sejladser)('Næste arbejdsdag'arbejde)('Nyeste dokument'dokumenter)
      :If 0≠≢data
          rows,←⊂tit
@@ -24,6 +26,7 @@
  wr '</p>'
  wr'<br />'
 
+ wr'<p>NB Kalenderen kan være opdateret - klik på "Alle Aktiviteter" for en opdateret liste.</p>'
  wr'<img src="Calendar\2023-Sommer.png" width="90%">'
 
  ⎕NUNTIE TN
