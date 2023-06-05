@@ -1,5 +1,5 @@
-r←UpdateWork (id status);cn;new;s;ix;group;maxg;maxi
-⍝ UpdateWork '1-5' 'færdig'
+r←UpdateWork (id status who);cn;new;s;ix;group;maxg;maxi
+⍝ UpdateWork '1-5' 'færdig' 'Steffen'
 
 TieOWUMFiles
 s←'startet' 'færdig'⍳⊂¯1 ⎕C status
@@ -10,6 +10,6 @@ maxg←¯11+2⊃⎕FSIZE TNWork
 cn←10+group
 maxi←≢new←⎕FREAD TNWork,cn
 ('Opgavenr skal være 1-',⍕maxi) ⎕SIGNAL (~ix∊⍳maxi)/11
-⎕←new[ix;]⊣new[ix;4]←s
+⎕←new[ix;]⊣new[ix;3 4]←who s
 ⍞
 new ⎕FREPLACE TNWork cn
