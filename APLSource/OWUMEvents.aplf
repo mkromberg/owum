@@ -5,7 +5,7 @@
 
  Events←⎕FREAD TNEvents 2
  today←1 ⎕DT ⊂3↑⎕TS
- t←(m←Events[;1]≥today)⌿Events ⍝ Today or later
+ t←(m←((-≢Events)↑1)∨Events[;1]≥today)⌿Events ⍝ Today or later
  t←t[g←⍋t[;1];]
  d←(≠/t[;1 2])/¨' +'∘,¨⍕¨-/t[;2 1]
  t[;1]←('__da__dddd D. mmmm'(1200⌶)t[;1]),¨d

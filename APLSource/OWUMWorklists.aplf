@@ -1,6 +1,6 @@
  OWUMWorklists;TN;Work;list;hdrs;i;done;z;status;j
 
- TN←'Arbejdslister' NewPage 'Website\Arbejdslister.htm'
+ TN←'Arbejdslister'NewPage'Website\Arbejdslister.htm'
 
  Work←⎕FREAD TNWork 2
  hdrs←'ID' 'Status' 'Beskrivelse' 'Hvem'
@@ -8,20 +8,21 @@
 
  wr bhome,bakt,bdok
 
- :For i :In ⍳≢Work
-     list←⎕FREAD TNWork,10+i
-     list←list[⍒list[;4];],⊂''
-     list[;1]←((⍕i),'-')∘,¨⍕¨list[;1]
-     list[j;5]←'Start'∘status¨'Jeg er startet på opgave '∘,¨list[j←⍸list[;4]=0;1],¨⊂'.'
-     list[j;5]←'Afslut'∘status¨'Opgave '∘,¨list[j←⍸list[;4]=1;1],¨⊂' er afsluttet.'
-     list[done;2]←'<s>'∘,¨list[done←⍸list[;4]=2;2],¨⊂'</s>'
-     list[;4]←'' 'Startet' 'Afsluttet' 'Status ukendt'[0 1 2⍳list[;4]]
+ :For i :In ⍸~(6↑¨Work)∊⊂'Arkiv '
+     :If 0≠≢list←⎕FREAD TNWork,10+i
+         list←list[⍒list[;4];],⊂''
+         list[;1]←((⍕i),'-')∘,¨⍕¨list[;1]
+         list[j;5]←'Start'∘status¨'Jeg er startet på opgave '∘,¨list[j←⍸list[;4]=0;1],¨⊂'.'
+         list[j;5]←'Afslut'∘status¨'Opgave '∘,¨list[j←⍸list[;4]=1;1],¨⊂' er afsluttet.'
+         list[done;2]←'<s>'∘,¨list[done←⍸list[;4]=2;2],¨⊂'</s>'
+         list[;4]←'' 'Startet' 'Afsluttet' 'Status ukendt'[0 1 2⍳list[;4]]
 
-     wr'<h2>',(⍕i),'. ',(i⊃Work),'</h2>'
-     wr'<p>'
-     z←'LEFT'HTMLTable'' (hdrs,⊂'') (list[;1 4 2 3 5]) (5 5 65 15 5)
-     wr z
-     wr'</p>'
+         wr'<h2>',(⍕i),'. ',(i⊃Work),'</h2>'
+         wr'<p>'
+         z←'LEFT'HTMLTable''(hdrs,⊂'')(list[;1 4 2 3 5])(5 5 65 15 5)
+         wr z
+         wr'</p>'
+     :EndIf
  :EndFor
 
  ⎕NUNTIE TN

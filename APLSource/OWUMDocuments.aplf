@@ -6,10 +6,11 @@
  names←(11×p=11)↓¨files
  names←('<a href="Documents/')∘,¨files,¨(⊂'" target="_blank">'),¨names,¨⊂'</a>'
  dts←dates
- dates[i]←'__da__dddd D. mmmm YYYY'(1200⌶)1 ⎕DT 2⊃¨'- '∘⎕VFI¨dates[i←⍸m]
- documents←(dates,⍪names)[⍒dts;]
+ dates[i]←'__da__dddd D. mmmm'(1200⌶)1 ⎕DT 2⊃¨'- '∘⎕VFI¨dates[i←⍸m]
+ documents←((4↑¨dts),dates,⍪names)[⍒dts;]
+ documents[⍸~≠documents[;1];1]←⊂''
 
- hdrs←'Dato' 'Dokument'
+ hdrs←'År' 'Dato' 'Dokument'
 
  wr bhome,bakt,barb
 

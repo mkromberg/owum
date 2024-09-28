@@ -4,8 +4,9 @@ r←NewWork (group desc who);cn;new;id
 TieOWUMFiles
 cn←10+group
 new←⎕FREAD TNWork,cn
-id←1+⌈⌿new[;1]
+id←1+⌈⌿0,new[;1]
 new⍪←r←id desc who 0
-⎕←¯4↑new
-⍞
-new ⎕FREPLACE TNWork cn
+⎕←(-4⌊≢new)↑new
+:If ~∨/'stop'⍷⎕C ⍞
+    new ⎕FREPLACE TNWork cn
+:EndIf
