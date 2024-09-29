@@ -1,16 +1,18 @@
 ReadTables root;data
 
-:Trap 2
+:Trap 2 ⍝ Hope we have v20
     VGET←⎕VGET ⋄ VSET←⎕VSET
-:Else
+:Else   ⍝ Earlier than v20
     VGET←QVGET ⋄ VSET←QVSET
 :EndTrap
 
 data←root,'/Data/'
 USERS←ReadCSV data,'Users.csv'
 MEDLEMMER←ReadCSV data,'Medlemsliste.csv'
+
 WORK←ReadCSV data,'Worklists.csv'
 WORKGROUPS←ReadCSV data,'Workgroups.csv'
 STATUSES←ReadCSV data,'Statuses.csv'
+EVENTS←ReadCSV data,'Events.csv'
 
 DOCS←ReadDocs data,'Documents/'

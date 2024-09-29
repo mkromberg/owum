@@ -1,0 +1,12 @@
+MakeEventGrid parent;sf;props;t;m
+t←EVENTS.(⍉↑(Type∊'Arbejdsdag' 'Møde')∘/¨Fra Til Beskrivelse Deltagere)
+t[;1]←t[;1],¨(≢/t[;1 2])/¨' - '∘,¨t[;2]
+t[;4]←{{0=⍵:'-' ⋄ ⍕⍵}0.5×≢⎕JSON ⍵}¨t[;4]  ⍝ Antal tilmeldinger
+t←1 0 1 1/t
+
+sf←parent,'.DAGE'
+sf eWC 'SubForm' ('Flex' 'column')('Size' (250 450))
+(sf,'.L') eWC'Label' 'Arbejds-og Mødedage' ('Font' 'Noto Sans' 13)
+
+props←'Grid' t ('CellWidths' (150 200 10))('ColTitles' ('Datoer' 'Beskrivelse' '#Tilm.'))('TitleWidth' 0)('Size' (250 450))
+(sf,'.G') eWC props
