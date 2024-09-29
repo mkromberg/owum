@@ -1,0 +1,20 @@
+MakeMain;formsize;bcol;rows;name;error
+ bcol←219 252 252 ⍝ Pale blue
+
+ :If 0=≢name←(MEDLEMMER.Navn,⊂'')[MEDLEMMER.Mail⍳⊂USERID]
+     →ERROR ⊣ error←'Kunne ikke finde din oplysninger.'
+ :EndIf
+
+ rows←'flex-direction: row, flex-wrap: wrap, justify-content: space-between, gap: 5px, align-items: flex-start'
+
+ 'F1'eWC'Form' 'Anne Elise''s Medlemsside'(50 50) ('Coord' 'Pixel')('Flex' 'fill')('BCol' bcol)
+ 'F1.L1' eWC 'Label' ('Velkommen, ',name,(~ADMIN)/' (ingen ændringer mulige)') (10 10)(23 500)
+ 'F1.L2' eWC 'Label' MSG (30 10)(23 150)
+ →0
+
+ ERROR:
+ 'MB1'eWC'MsgBox' 'OWUM Login'error 'Error' 'OK'('Event'('MsgBtn1' 'MsgBtn2' 'MsgBtn3')1)
+ R←eDQ'MB1'
+ eEX'MB1'
+
+ EWC.closeConnection _EWC.conn

@@ -1,0 +1,31 @@
+ MakeLogin;formsize;rows;bcol;size;image;aspect
+ ⎕←size←'.'eWG'DevCaps'
+ aspect←(1+>/⊃size)⊃'wide' 'tall'
+ image←'/resources/images/ae-',aspect,'-frame.jpg'
+ bcol←219 252 252 ⍝ Pale blue
+ formsize←350 300
+
+ 'AE'eWC'BitMap'('File'image)
+ USERID←'' ⍝ Global state
+
+ rows←'flex-direction: row, flex-wrap: wrap, justify-content: space-between, gap: 5px, align-items: flex-start'
+
+ 'F1'eWC'Form' 'Please Login'(50 50)('Coord' 'Pixel')('Flex' 'fill')('BCol'bcol)('Picture' 'AE' 2)('CSS'rows)
+
+ 'F1.INPUT'eWC'SubForm'('Size'(100,1↓formsize))('Flex' 'row')
+
+ 'F1.INPUT.CREDS'eWC'SubForm'('Flex' 'row')('CSS'rows)('BCol'bcol)
+ 'F1.INPUT.CREDS.USERID' 'User ID'LabelAbove'Edit' ''('Size'(23 150))
+ 'F1.INPUT.CREDS.PWD' 'Password'LabelAbove'Edit' ''('Size'(23 100))('Password' '*')
+ 'F1.INPUT.CREDS.PIN' 'Pin kode'LabelAbove'Edit' ''('Size'(23 50))('Password' '*')
+
+ 'F1.INPUT.CREDS.PWD.C' eWS 'Text' '' ⍝ Work around JSWC #240
+ 'F1.INPUT.CREDS.PIN.C' eWS 'Text' '' ⍝ Ditto
+
+ 'F1.INPUT.CREDS.BTNS'eWC'SubForm'('Flex' 'column')
+ 'F1.INPUT.CREDS.BTNS.LOGIN'eWC'Button' 'Login'('Size'(23 80))('Event' 'Select' 'CBLogin')
+ 'F1.INPUT.CREDS.BTNS.SENDPIN'eWC'Button' 'Send Pin'('Size'(23 80))('Event' 'Select' 'CBLogin')
+
+ 'F1.INPUT.FILL'eWC'SubForm'('Size'(400 400))
+
+ eNQ'F1.INPUT.CREDS.USERID' 'GotFocus'

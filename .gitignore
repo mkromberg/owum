@@ -1,5 +1,5 @@
 Website/*
 APLSource/mailinglist.txt
+APLSource/app_*
 Data/*.*
-Data/Events.dcf
-Data/Worklists.dcf
+Data/Documents

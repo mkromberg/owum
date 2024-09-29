@@ -1,0 +1,17 @@
+Run mode;root;z
+
+:If 0=≢mode
+    mode←'Multi'
+:EndIf
+
+:If 0=⎕NC 'EWC' ⍝ We need EWC and expect it to be a sibling folder
+   root←{⊃⎕NPARTS ¯1↓⍵}⍣2⊢⊃⎕NPARTS 4⊃5179⌶⊃⎕SI
+   ⎕SE.Link.Create 'EWC' (root,'jswc/EWC')
+:EndIf
+
+:If 0=⎕NC 'DRC'
+    'DRC' ⎕CY 'conga'
+    z←DRC.Init ''
+:EndIf
+
+ app.Run mode

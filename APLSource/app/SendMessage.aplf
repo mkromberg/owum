@@ -1,0 +1,7 @@
+SendMessage (recipient subject body);mailserver;sender;password;port
+mailserver←'send.one.com'
+port←587
+sender←'admin@owum.dk'
+password←2 ⎕NQ '.' 'GetEnvironment' 'OWUM_ADMIN_PASS'
+
+SendMail (mailserver port sender password recipient subject body)

@@ -1,0 +1,16 @@
+ReadTables root;data
+
+:Trap 2
+    VGET←⎕VGET ⋄ VSET←⎕VSET
+:Else
+    VGET←QVGET ⋄ VSET←QVSET
+:EndTrap
+
+data←root,'/Data/'
+USERS←ReadCSV data,'Users.csv'
+MEDLEMMER←ReadCSV data,'Medlemsliste.csv'
+WORK←ReadCSV data,'Worklists.csv'
+WORKGROUPS←ReadCSV data,'Workgroups.csv'
+STATUSES←ReadCSV data,'Statuses.csv'
+
+DOCS←ReadDocs data,'Documents/'

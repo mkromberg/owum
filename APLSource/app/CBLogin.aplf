@@ -1,0 +1,49 @@
+ CBLogin args;ctl;series;R;user;pwd;error;pin;t;i;u;DATE;PIN;d;pinvalid;expired;date;msgmode
+ ...
+ MSG←''
+ msgmode←'Error'
+
+ ctl←'.'(≠⊆⊢)⊃args
+ t←{'F1.INPUT.CREDS.',⍵,'.C'}¨'USERID' 'PWD' 'PIN'
+ (user pwd pin)←t eWG¨⊂'Text'
+ i←USERS.(⍉↑(⎕C UserId)Password)⍳user pwd
+
+ :If (≢USERS.UserId)<i
+     →ERROR⊣error←'Forkert bruger, passord eller pin'
+ :EndIf
+
+ (USERID NAME PIN DATE)←i⊃¨USERS.(UserId Name Pin Date)
+ :If (PIN≢pin)∧(0≠≢pin)∧'SENDPIN'≢⊃⌽ctl
+     →ERROR⊣error←'Forkert bruger, passord eller pin'
+ :EndIf
+
+ :If expired←(0≠≢PIN)∧(0≠≡DATE)
+     d←1 ⎕DT ⊂⌽2⊃'-' ⎕VFI DATE
+ :AndIf expired←d<⌊1 ⎕DT 'J'
+     MSG←'Din pin kode er udløbet - rekvirer en ny hvis du vil opdatere siden.'
+ :EndIf
+
+ ADMIN←(pin≡PIN)∧~expired
+
+ :Select ⊃⌽ctl
+ :Case 'LOGIN'
+     MakeMain
+
+ :Case 'SENDPIN'
+     ...
+     pin←100000+?899999
+     date←90+⌊1 ⎕DT 'J'
+     USERS.Pin[i]←⊂⍕pin
+     USERS.Date[i]←'DD-MM-YYYY' (1200⌶) date
+     WriteTable 'USERS'
+
+     t←'DD/MM YYYY' (1200⌶) date
+     SendMessage USERID 'Ny OWUM pinkode' ('Koden ',(⍕pin),' er gyldig til ',t)
+     →ERROR ⊣ error←'Ny pinkode er afsendt til ',USERID ⊣ msgmode←'Info'
+ :EndSelect
+ →0
+
+ERROR:
+ 'MB1'eWC'MsgBox' 'OWUM Login'error msgmode 'OK'('Event'('MsgBtn1' 'MsgBtn2' 'MsgBtn3')1)
+ R←eDQ'MB1'
+ eEX'MB1'
