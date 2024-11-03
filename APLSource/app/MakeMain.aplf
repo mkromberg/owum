@@ -10,15 +10,17 @@ MakeMain;formsize;bcol;rows;name;error;tb;sf
  'F1'eWC'Form' 'Anne Elise''s Medlemsside'(50 50) ('Coord' 'Pixel')('Flex' 'fill')('BCol' bcol)('CSS' rows)
 
  'F1.INTRO' eWC 'SubForm' ('Flex' 'column')('CSS' 'align-items: flex-start')
- 'F1.INTRO.HEJ' eWC 'Label' ('Velkommen, ',name,(~ADMIN)/' (ingen ændringer mulige)') ('Size' (23 500))
+ 'F1.INTRO.HEJ' eWC 'Label' ('Velkommen, ',name,(ADMIN)/' [Administrator]') ('Size' (23 500))
+
  'F1.INTRO.MSG' eWC 'Label' MSG ('Size' (23 150))
 
  'F1.SF' eWC 'SubForm' ('Flex' 'row')
+
+ MakeAdminPanel 'F1.SF'
  MakeEventGrid 'F1.SF'
  MakeSailGrid 'F1.SF'
  MakeDokGrid 'F1.SF'
- 'F1.SF.SEJL' 'Sejladser'            LabelAbove 'Grid' (10 4⍴⊂'Sejladser') ('Size' (450 580))
- 'F1.SF.ARBO' 'Opgaver'              LabelAbove 'Grid' (10 4⍴⊂'Opgaver') ('Size' (450 580))
+
  →0
 
  ERROR:

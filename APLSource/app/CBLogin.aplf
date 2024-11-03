@@ -1,21 +1,22 @@
- CBLogin args;ctl;series;R;user;pwd;error;pin;t;i;u;DATE;PIN;d;pinvalid;expired;date;msgmode
+ CBLogin args;ctl;series;R;user;pwd;error;pin;t;i;u;DATE;PIN;d;pinvalid;expired;date;msgmode;resources;root;z
  MSG←''
  msgmode←'Error'
 
  ctl←'.'(≠⊆⊢)⊃args
- USERID←'morten@kromberg.dk'
- ADMIN←1
- →L1
 
  t←{'F1.INPUT.CREDS.',⍵,'.C'}¨'USERID' 'PWD' 'PIN'
  (user pwd pin)←t eWG¨⊂'Text'
+ :If 0=≢user
+     user←'morten@kromberg.dk' ⍝ Until we have cookies
+ :EndIf
  i←USERS.(⍉↑(⎕C UserId)Password)⍳user pwd
 
  :If (≢USERS.UserId)<i
      →ERROR⊣error←'Forkert bruger, passord eller pin'
  :EndIf
 
- (USERID NAME PIN DATE)←i⊃¨USERS.(UserId Name Pin Date)
+ (USERID NAME PIN DATE ADMIN)←i⊃¨USERS.(UserId Name Pin Date Admin)
+ ADMIN←∨/'1yY'∊ADMIN
  :If (PIN≢pin)∧(0≠≢pin)∧'SENDPIN'≢⊃⌽ctl
      →ERROR⊣error←'Forkert bruger, passord eller pin'
  :EndIf
@@ -26,7 +27,14 @@
      MSG←'Din pin kode er udløbet - rekvirer en ny hvis du vil opdatere siden.'
  :EndIf
 
- ADMIN←(pin≡PIN)∧~expired
+ ⍝ Only Admins should be able to link to sensitive documents
+
+ #.EWC.WSS.Aliases←(1 1,ADMIN)⌿{⍵ (ROOT,'/',⍵)}¨'Resources' 'Documents' 'Data'
+ :If ~0=⊃z←#.EWC.WSS.CheckAliases
+    ⎕←z ⋄ ...
+ :EndIf
+
+ 2 eNQ 'F1' 'SetCookie' ('OWUMUSER=',USERID)
 
 L1:
  :Select ⊃⌽ctl

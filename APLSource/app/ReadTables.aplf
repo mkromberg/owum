@@ -15,4 +15,4 @@ WORKGROUPS←ReadCSV data,'Workgroups.csv'
 STATUSES←ReadCSV data,'Statuses.csv'
 EVENTS←ReadCSV data,'Events.csv'
 
-DOCS←ReadDocs data,'Documents/'
+DOCS←ReadDocs root,'/Documents/'

@@ -4,14 +4,23 @@ Run mode;root;z
     mode←'Multi'
 :EndIf
 
-:If 0=⎕NC 'EWC' ⍝ We need EWC and expect it to be a sibling folder
-   root←{⊃⎕NPARTS ¯1↓⍵}⍣2⊢⊃⎕NPARTS 4⊃5179⌶⊃⎕SI
-   ⎕SE.Link.Create 'EWC' (root,'jswc/EWC')
+⍝ Load dependencies
+:If 0=≢root←{⊃⎕NPARTS ¯1↓⍵}⍣2⊢⊃⎕NPARTS 4⊃5179⌶⊃⎕SI
+:AndIf 0=≢root←{¯1↓⊃⎕NPARTS ¯1↓⍵}⎕SE.Link.LaunchDir
+    ⎕←'Unable to determine root folder' ⎕SIGNAL 11
 :EndIf
 
 :If 0=⎕NC 'DRC'
     'DRC' ⎕CY 'conga'
     z←DRC.Init ''
+:EndIf
+
+:If 0=⎕NC 'EWC' ⍝ We need EWC and expect it to be a sibling folder
+   ⎕SE.Link.Create 'EWC' (root,'jswc/EWC')
+:EndIf
+
+:If 0=⎕NC 'XL2APL'
+   ⎕SE.Link.Create 'XL2APL' (root,'XL2APL/APLSource')
 :EndIf
 
  app.Run mode

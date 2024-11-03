@@ -1,13 +1,9 @@
  MakeDokGrid parent;sf;props;t;m
  t←DOCS.(⍉↑Year Date File)
- ⍝t[;1]←t[;1],¨(≢/t[;1 2])/¨' - '∘,¨t[;2]
- ⍝t[;4]←{{0=⍵:'-' ⋄ ⍕⍵}0.5×≢⎕JSON ⍵}¨t[;4]  ⍝ Antal tilmeldinger
- ⍝t[⍸0=≢¨t[;5];5]←'?'
- ⍝t←1 0 1 1 1/t
 
  sf←parent,'.DOCS'
- sf eWC'SubForm'('Flex' 'column')('Size'(250 400))
+ sf eWC'SubForm'('Flex' 'column')('Size'(250 420))
  (sf,'.L')eWC'Label' 'Dokumenter'('Font' 'Noto Sans' 13)
-
- props←'Grid't('CellWidths'(50 100 200))('ColTitles'('År' 'Dato' 'Beskrivelse'))('TitleWidth' 0)('Size'(250 400))
+...
+ props←'Grid't('CellWidths'(50 150 200))('ColTitles'('År' 'Dato' 'Beskrivelse'))('TitleWidth' 0)('Size'(250 400))
  (sf,'.G')eWC props

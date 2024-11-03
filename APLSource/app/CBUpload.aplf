@@ -1,0 +1,18 @@
+CBUpload args;p;parent;obj;leaf;src;b64;bytes;type;name;t;tn;tempfile;z
+
+ p←'.'⍳⍨⌽obj←1⊃args
+ parent←(-p)↓obj ⋄ leaf←(1-p)↑obj
+ src←parent,'.ULU' '.ULD'⊃⍨'UD'⍳⊃⌽leaf
+
+ (t #.EWC.LOGMODES)←#.EWC.LOGMODES '' ⍝ Don't dump data to session
+ (b64 name type)←src eWG 'FileBytes' 'FileName' 'FileType'
+ #.EWC.LOGMODES←t
+
+ bytes←EWC.Base64.Decode b64
+ 1 ⎕NDELETE (tempfile←ROOT,'/Data/Medlemsliste_temp.xlsx')
+ tn←tempfile ⎕NCREATE 0
+ bytes ⎕NAPPEND tn 80
+ ⎕NUNTIE tn
+
+ z←#.XL2APL.Main.GetEntireWorkbook tempfile
+...

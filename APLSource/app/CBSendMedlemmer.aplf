@@ -1,0 +1,7 @@
+CBSendMedlemmer args
+⍝ Send medlemsliste
+
+
+...
+
+SendMessage USERID 'Anna Elise Medlemsliste' ('Koden ',(⍕pin),' er gyldig til ',t)

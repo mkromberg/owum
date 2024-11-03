@@ -2,4 +2,4 @@ Website/*
 APLSource/mailinglist.txt
 APLSource/app_*
 Data/*.*
-Data/Documents
+Documents/*.*

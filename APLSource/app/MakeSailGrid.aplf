@@ -1,8 +1,7 @@
  MakeSailGrid parent;sf;props;t;m
  t←EVENTS.(⍉↑(Type∊⊂'Sejlads')∘/¨Fra Til Beskrivelse Deltagere Skipper)
  t[;1]←t[;1],¨(≢/t[;1 2])/¨' - '∘,¨t[;2]
- t[;4]←{{0=⍵:'-' ⋄ ⍕⍵}0.5×≢⎕JSON ⍵}¨t[;4]  ⍝ Antal tilmeldinger
- t[⍸0=≢¨t[;5];5]←'?'
+ t[;4]←{{0=⍵:'' ⋄ ⍕⍵}0.5×≢⎕JSON ⍵}¨t[;4]  ⍝ Antal tilmeldinger
  t←1 0 1 1 1/t
 
  sf←parent,'.SEJL'
