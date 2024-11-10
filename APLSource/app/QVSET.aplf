@@ -1,4 +1,4 @@
- ns←ns QVSET(names values)
+ {ns}←ns QVSET(names values)
 ⍝ NB not complete, just enough for this application
 
- ⍎'ns.(',(⍕↓names),')←values'
+ ⍎'ns.(',(⍕↓names),')←',(1≠≢names)↓'⊃values'

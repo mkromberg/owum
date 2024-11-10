@@ -1,4 +1,4 @@
-MakeMain;formsize;bcol;rows;name;error;tb;sf
+MakeMain;formsize;bcol;rows;name;error;tb;sf;sfs
  bcol←219 252 252 ⍝ Pale blue
 
  :If 0=≢name←(MEDLEMMER.Navn,⊂'')[MEDLEMMER.Mail⍳⊂USERID]
@@ -7,20 +7,20 @@ MakeMain;formsize;bcol;rows;name;error;tb;sf
 
  rows←'flex-direction: row, flex-wrap: wrap, justify-content: space-between, gap: 5px, align-items: flex-start'
 
- 'F1'eWC'Form' 'Anne Elise''s Medlemsside'(50 50) ('Coord' 'Pixel')('Flex' 'fill')('BCol' bcol)('CSS' rows)
+ 'F1'eWC'Form' 'Anne Elise''s Medlemsside'(50 50) ('Coord' 'Pixel')('Flex' 'fill')('BCol' bcol)⍝('CSS' rows)
 
  'F1.INTRO' eWC 'SubForm' ('Flex' 'column')('CSS' 'align-items: flex-start')
  'F1.INTRO.HEJ' eWC 'Label' ('Velkommen, ',name,(ADMIN)/' [Administrator]') ('Size' (23 500))
 
- 'F1.INTRO.MSG' eWC 'Label' MSG ('Size' (23 150))
+ ⍝ 'F1.INTRO.MSG' eWC 'Label' MSG ('Size' (23 150))
+ sfs←MakeSFs 'F1' (('Dash' 'Oversigt')('Work' 'Arbejde')('Sail' 'Sejlplan')('Event' 'Møder/Arbejde') ('Dok' 'Dokumenter'),ADMIN/⊂'Admin' 'Admin')
 
- 'F1.SF' eWC 'SubForm' ('Flex' 'row')
-
- MakeAdminPanel 'F1.SF'
- MakeEventGrid 'F1.SF'
- MakeSailGrid 'F1.SF'
- MakeDokGrid 'F1.SF'
-
+ MakeDashboard sfs.Dash
+ MakeWorkGrid sfs.Work
+ MakeEventGrid sfs.Event
+ MakeSailGrid sfs.Sail
+ MakeDokGrid sfs.Dok
+ MakeAdminPanel ADMIN/sfs.Admin
  →0
 
  ERROR:

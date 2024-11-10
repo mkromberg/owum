@@ -55,6 +55,4 @@ L1:
  →0
 
 ERROR:
- 'MB1'eWC'MsgBox' 'OWUM Login'error msgmode 'OK'('Event'('MsgBtn1' 'MsgBtn2' 'MsgBtn3')1)
- R←eDQ'MB1'
- eEX'MB1'
+ DisplayPopup 'OWUM Login' error msgmode 'OK'

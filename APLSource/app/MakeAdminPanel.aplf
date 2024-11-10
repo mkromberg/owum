@@ -1,20 +1,8 @@
- MakeAdminPanel parent;sf;props;t;m
+ MakeAdminPanel sf;props;t;m
+ →(0=≢sf)⍴0 ⍝ Not wanted
 
- sf←parent,'.ADMIN'
- sf eWC'SubForm'('Flex' 'column')('Size'(250 450))
  sf,←'.'
 
- (sf,'BTNS')eWC'Button' ('Send Medlemsliste') ('Size'(23 200))('Event' 'Select' 'CBSendMedlemmer')
-
- →ADMIN↓0
-
- (sf,'LAO')eWC'Label' 'Administrator Opgaver'('Font' 'Noto Sans' 13)
-
- (sf,'DLUSERS')eWC'Link' 'Data/Medlemsliste.xlsx' 'Download Medlemsliste'('Download' 1)
+ (sf,'DLUSERS')eWC'Link' 'Data/Medlemsliste.xlsx' 'Hent Medlemsliste'('Download' 1)
  (sf,'ULU')eWC'Upload' ⍝ Users
- (sf,'BTNU')eWC'Button' 'Upload Medlemsliste'('Size'(20 200))('Event' 'Select' 'CBUpload')
-
- (sf,'ULD')eWC'Upload' ⍝ Document
- (sf,'BTND')eWC'Button' 'Upload Dokument'('Size'(20 200))('Event' 'Select' 'CBUpload')
- (sf,'ULDOKL')eWC'Label' 'Indtast dokumentbeskrivelse:'
- (sf,'ULDOKNAME')eWC'Edit' ''('Size'(20 400))
+ (sf,'BTNU')eWC'Button' 'Upload ny Medlemsliste'('Size'(20 200))('Event' 'Select' 'CBUpload')

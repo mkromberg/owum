@@ -1,0 +1,37 @@
+ sfs←MakeSFs(parent info);name;caption;sf;mode;fcol;bcol;titlebcol;bordercol;activebcol;passivebcol;p;tb;container;css
+
+ mode←2 ⍝ 1=Stacked SubForms, 2=Tabs
+ css←'gap: 10px'
+
+ sfs←⎕NS''
+
+ ⍝ Pre-processing
+ :Select mode
+ :Case 1
+    (container←parent,'.SFC')eWC'SubForm'('Flex' 'column')
+ :Case 2
+     container←parent
+     fcol←'FCol'(255 255 255)
+     activebcol←'ActiveBCol'(134 171 220)
+     passivebcol←'BCol'(⌊0.5×134 171 220)
+     (container←container,'.TC')eWC'TabControl'('MultiLine' 1)activebcol passivebcol fcol ⍝ ('Size'(400 500))('Attach'('Top' 'Left' 'Bottom' 'Right'))
+ :EndSelect
+
+ ⍝ Subform creation
+ :For (name caption) :In info
+     :Select mode
+         (sf←p,'.',name) eWC'SubForm'('Flex' 'column')('CSS' css)
+         (sf,'.CAP')eWC'Label' caption
+
+     :Case 2 ⍝ Tabs
+         (p←container,'.',name,'TB')eWC'TabButton'('Caption' caption)('Event' 'Select' 'CBActivateSF')
+         (sf←container,'.',name)eWC'SubForm'('Flex' 'column')('CSS' css)('TabObj'p)
+     :EndSelect
+     ⍎'sfs.',name,'←sf'
+ :EndFor
+
+⍝ Post-processing
+ :Select mode
+ :Case 2
+     eNQ ((sfs VGET ⊃⊃info),'TB') 'Select' ⍝ Select the 1st tab
+ :EndSelect

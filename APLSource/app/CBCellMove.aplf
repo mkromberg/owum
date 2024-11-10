@@ -1,0 +1,2 @@
+CBCellMove args
+⎕←'CBCellMove' args

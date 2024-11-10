@@ -1,7 +1,22 @@
-CBSendMedlemmer args
+CBSendMedlemmer args;filename;subject;cap;t
 ⍝ Send medlemsliste
+cap←'OWUM: Send medlemsliste'
 
+:If ⎕NEXISTS filename←ROOT,'/Data/Medlemsliste.xlsx'
+   subject←'Anna Elise medlemsliste dateret ',⊃'__da__DD. mmm YYYY' (1200⌶) ¯1 1 ⎕DT 3 ⎕NINFO filename
+:Else
+   →ERROR
+:EndIf
 
-...
+t←MEDLEMMER.((~Status∊⊂'Støttemedlem')⌿⍉↑ID Navn Tlf Mail By)
+t←t[⍋t;]
+t←HtmlTable (t[;1])('Navn' 'Telefon' 'Mail' 'By')(0 1↓t)
 
-SendMessage USERID 'Anna Elise Medlemsliste' ('Koden ',(⍕pin),' er gyldig til ',t)
+:Trap 0
+   SendMessage USERID subject t ''
+   DisplayPopup cap ('Medlemslisten er sendt til ',USERID) 'Info' 'OK'
+   →0
+:EndTrap
+
+ERROR:
+   DisplayPopup cap 'Kan ikke sende medlemslisten' 'Error' 'OK'

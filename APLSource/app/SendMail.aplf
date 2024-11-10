@@ -1,4 +1,4 @@
-SendMail (mailserver port sender password recipient subject body);smtp;M;⎕USING
+SendMail (mailserver port sender password recipient subject body attachment);smtp;M;⎕USING;A;S;R
 ⍝ Send message using .NET Core
 
 ⍝ mailserver←'mail.dyalog.com'
@@ -8,11 +8,24 @@ SendMail (mailserver port sender password recipient subject body);smtp;M;⎕USIN
 ⍝ subject←'Hello from Morten'
 ⍝ body←'This is a test e-mail message'
 
-  ⎕USING←'System.Net,System.Net.Mail' 'System.Net,System.Net.Primitives' '' ⍝ .NET Core
+  :Select ⊃2250⌶⍬
+  :Case 1 ⍝ .NET
+     ⎕USING←'System.Net,System.Net.Mail' 'System.Net,System.Net.Primitives' ''
+  :Case 2 ⍝ .NET Framework
+     ⎕USING←'System.Net,System.dll' ''
+  :EndSelect
 
   smtp←⎕NEW Mail.SmtpClient (mailserver port)
-  smtp.Credentials←⎕NEW NetworkCredential (sender password)
+  S←⎕NEW Mail.MailAddress (,⊆sender)
+  R←⎕NEW Mail.MailAddress (,⊆recipient)
+  smtp.Credentials←⎕NEW NetworkCredential ((⊃⊆sender) password)
 
-  M←⎕NEW Mail.MailMessage(sender recipient subject (∊body))
+  M←⎕NEW Mail.MailMessage(S R)
+  M.(Subject Body)←subject (∊body)
   M.IsBodyHtml←1
+  :If 0≠≢attachment
+  :AndIf ⎕NEXISTS attachment
+     A←⎕NEW Mail.Attachment (⊂attachment)
+     M.Attachments.Add A
+  :EndIf
   smtp.Send M

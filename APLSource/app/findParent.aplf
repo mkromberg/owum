@@ -1,0 +1,4 @@
+name←type findParent name
+:While (0≠≢name)∧type≢name eWG 'Type'
+   name←(-(⌽name)⍳'.')↓name
+:EndWhile

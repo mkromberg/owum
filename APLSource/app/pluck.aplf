@@ -1,0 +1,3 @@
+(parent leaf)←pluck obj;p
+p←(⌽obj)⍳'.'
+parent←(-p)↓obj ⋄ leaf←(1-p)↑obj

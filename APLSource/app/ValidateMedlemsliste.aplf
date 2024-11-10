@@ -1,0 +1,24 @@
+(msg cols data)←ValidateMedlemsliste book;sheet;i;m;hdr;c;ids
+⍝ Check we have a valid Medlemsliste file
+
+ msg←cols←data←⍬
+:Trap 999
+    :If (≢book)<i←book.SheetName⍳⊂'Medlemsliste'
+        →0 ⊣ msg←'Der er ikke en tab med navn Medlesliste i regnearket'
+    :Else
+        sheet←i⊃book
+    :EndIf
+    cols←MEDLEMMER.⎕nl -2
+    :If ∨/m←~(c←⎕C cols)∊hdr←⎕C,sheet.Header
+        →0 ⊣ msg←'Kolonner ikke fundet i regnearket: ',,⍕m/cols
+    :EndIf
+    data←sheet.Data[hdr⍳c]
+    i←⍸80=⎕DR¨data
+    data[i]←{(-+/∧\' '=⌽⍵)↓¨↓⍵}¨data[i]
+    ids←(cols⍳⊂'ID')⊃data
+    :If ∨/m←(⍳≢ids)≠ids⍳ids
+        →0 ⊣ msg←'ID''er gentaget: ',∪m/ids
+    :EndIf
+:Else
+   msg←'Kan ikke udtrække medlemslisten fra regnearket.'
+:EndTrap
