@@ -16,8 +16,14 @@ Run mode;root;z
 :EndIf
 
 :If 0=⎕NC 'EWC' ⍝ We need EWC and expect it to be a sibling folder
-   ⎕SE.Link.Create 'EWC' (root,'jswc/EWC')
+   ⎕SE.Link.Create 'EWC' (root,'ewc/EWC')
 :EndIf
+
+:If 0=⎕NC 'passwords' ⍝ We need EWC and expect it to be a sibling folder
+   ⎕SE.Link.Create 'passwords' (root,'passwords/APLSource')
+   passwords.Init
+:EndIf
+
 
 :If 0=⎕NC 'XL2APL'
    ⎕SE.Link.Create 'XL2APL' (root,'XL2APL/APLSource')
