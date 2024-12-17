@@ -5,5 +5,5 @@ t[;4]←{{0=⍵:'' ⋄ ⍕⍵}0.5×≢⎕JSON ⍵}¨t[;4]  ⍝ Antal tilmeldinge
 t←1 0 1 1/t
 
 addFilter sf
-props←'Grid' t ('CellWidths' (150 200 10))('ColTitles' ('Datoer' 'Beskrivelse' '#Tilm.'))('TitleWidth' 0)('Size' (500 400))('Event' 'CellMove' 'CBCellMove')
+props←'Grid' t ('CellWidths' (150 200 50))('ColTitles' ('Datoer' 'Beskrivelse' '#Tilm.'))('TitleWidth' 0)('Size' (500 400))('Event' 'CellMove' 'CBCellMove')
 (sf,'.G') eWC props

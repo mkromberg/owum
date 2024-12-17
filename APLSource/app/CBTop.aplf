@@ -1,38 +1,14 @@
- CBTop args
+ CBTop args;ctl
  ⍝ Log Out or Change Password
- ...
- MSG←''
- msgmode←'Error'
 
- ctl←'.'(≠⊆⊢)⊃args
+ ctl←⊃⌽'.'(≠⊆⊢)⊃args
+ :Select ctl
+ :Case 'LOGOUT'
+     DisplayPopup'OWUM' 'Tak for denne gang!' 'Info' 'OK'
+     USERID←''
+     MakeLogin
 
- t←{'F1.INPUT.CREDS.',⍵,'.C'}¨'USERID' 'PWD'
- (user pwd)←t eWG¨⊂'Text'
- error←'Forkert bruger eller passord'
- i←USERS.(⎕C UserId)⍳⊂user
- →(i>≢USERS.UserId)⍴ERROR
+ :Case 'NEWPWD'
+     eNQ 'F1.TC.DivTB' 'Select'
 
- (USERID NAME ADMIN SALT HASH)←i⊃¨USERS.(UserId Name Admin Salt Hash)
- (SALT HASH)←Base64.Decode¨SALT HASH
- ADMIN←∨/'1yY'∊ADMIN
- →(HASH≢#.passwords.Hash SALT pwd)⍴ERROR
-
- ⍝ Only Admins should be able to link to sensitive documents
- #.EWC.WSS.Aliases←(1 1,ADMIN)⌿{⍵(ROOT,'/',⍵)}¨'Resources' 'Documents' 'Data'
- :If ~0=⊃z←#.EWC.WSS.CheckAliases
-     ⎕←z ⋄...
- :EndIf
-
- 2 eNQ'F1' 'SetCookie'('OWUMUSER=',USERID)
-
-L1:
- :Select ⊃⌽ctl
- :Case 'LOGIN'
-     MakeMain
- :Else
-     →ERROR⊣error←'Internal error - Login not possible'
  :EndSelect
- →0
-
-ERROR:
- DisplayPopup'OWUM Login'error msgmode'OK'

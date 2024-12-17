@@ -26,7 +26,8 @@
  'F1.INPUT.CREDS.PWD' 'Password'LabelAbove'Edit' ''('Size'(23 100))('Password' '*')
 
  'F1.INPUT.CREDS.BTNS'eWC'SubForm'('Flex' 'column')
- 'F1.INPUT.CREDS.BTNS.LOGIN'eWC'Button' 'Login'('Size'(23 80))('Default' 1)('Event' 'Select' 'CBLogin')
+ 'F1.INPUT.CREDS.BTNS.LOGIN'eWC'Button' 'Login'('Size'(23 120))('Default' 1)('Event' 'Select' 'CBLogin')
+ 'F1.INPUT.CREDS.BTNS.FORGOT'eWC'Button' 'Glemt passord'('Size'(23 120))('Default' 1)('Event' 'Select' 'CBLogin')
 
  'F1.INPUT.FILL'eWC'SubForm'('Size'(400 400))
 

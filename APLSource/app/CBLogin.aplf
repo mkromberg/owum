@@ -1,37 +1,49 @@
- CBLogin args;MSG;msgmode;ctl;t;user;pwd;error;i;SALT;HASH;z
+ CBLogin args;MSG;msgmode;ctl;t;user;pwd;error;i;SALT;HASH;z;h;s
+ ⍝ Handle buttons on Login form
+
+ ctl←⊃⌽'.'(≠⊆⊢)⊃args
+
  MSG←''
  msgmode←'Error'
-
- ctl←'.'(≠⊆⊢)⊃args
 
  t←{'F1.INPUT.CREDS.',⍵,'.C'}¨'USERID' 'PWD'
  (user pwd)←t eWG¨⊂'Text'
  error←'Forkert bruger eller passord'
- i←USERS.(⎕C UserId)⍳⊂user
+ i←USERS.(⎕C UserId)⍳⊂⎕C user
  :Hold 'USERS.Login'
      →(i>≢USERS.UserId)⍴ERROR
      (USERID NAME ADMIN)←i⊃¨USERS.(UserId Name Admin)
  :EndHold
 
- ADMIN←∨/'1yY'∊ADMIN
- →(0≠≢error←ValidatePassword i pwd)⍴ERROR
 
- ⍝ Only Admins should be able to link to sensitive documents
- #.EWC.WSS.Aliases←(1 1,ADMIN)⌿{⍵ (ROOT,'/',⍵)}¨'Resources' 'Documents' 'Data'
- :If ~0=⊃z←#.EWC.WSS.CheckAliases
-    ⎕←z ⋄ ...
- :EndIf
-
- 2 eNQ 'F1' 'SetCookie' ('OWUMUSER=',USERID)
-
-L1:
- :Select ⊃⌽ctl
+ :Select ctl
  :Case 'LOGIN'
+     →(0≠≢error←ValidatePassword i pwd)⍴ERROR
+     ⍝ /// Only Admins should be able to link to sensitive documents
+     ⍝ /// This logic is broken in a multi-user system
+     ADMIN←∨/'1yY'∊ADMIN
+     #.EWC.WSS.Aliases←(1 1,ADMIN)⌿{⍵(ROOT,'/',⍵)}¨'Resources' 'Documents' 'Data'
+     z←#.EWC.WSS.CheckAliases
+
+     2 eNQ'F1' 'SetCookie'('OWUMUSER=',USERID)
      MakeMain
+
+ :Case 'FORGOT'
+     z←'Klik OK for at få sendt et nyt passord til ',user,'.'
+     z←DisplayPopup'OWUM Login'z'Query'('OK' 'Cancel')
+     :If 1=z
+         z←{⍵[?8⍴≢⍵]}'?!@&',⎕D,⎕A,⎕C ⎕A ⍝ Generate random password
+         SetPassword i z
+         z←'Dit nye passord er ',z
+         :If 0≠⊃z←SendMessage user'Nyt passord'z ⍬
+             →ERROR⊣error←2⊃z
+         :EndIf
+         z←DisplayPopup'OWUM Login' 'Check din indbakke og prøv at logge ind igen. Husk at du kan skifte passord når du er logget ind.' 'Info' 'OK'
+     :EndIf
  :Else
      →ERROR⊣error←'Internal error - Login not possible'
  :EndSelect
  →0
 
 ERROR:
- DisplayPopup 'OWUM Login' error msgmode 'OK'
+ DisplayPopup'OWUM Login'error msgmode'OK'

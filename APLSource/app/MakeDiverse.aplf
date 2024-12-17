@@ -1,10 +1,13 @@
- MakeDiverse sf;props;t;m;user
+ MakeDiverse sf;props;t;m;user;sf1;sf2;rows
 
+ rows←'flex-direction: row, flex-wrap: wrap, justify-content: space-between, gap: 5px, align-items: start'
  user←1 2⊃2 eNQ'F1' 'GetCookie' 'OWUMUSER'
 
- (sf,'.USERID')'User ID'LabelBefore'Edit'user('Size'(23 150))
- (sf,'.PWD')'Nuværende passord'LabelBefore'Edit' ''('Size'(23 100))('Password' '*')
- (sf,'.NYT1')'Nyt passord'LabelBefore'Edit' ''('Size'(23 100))('Password' '*')('Event' 'KeyPress' 'CBNewPass')('Event' 1001 'CBNewPass')
- (sf,'.NYT2')'Gentag nyt'LabelBefore'Edit' ''('Size'(23 100))('Password' '*')('Event' 'KeyPress' 'CBNewPass')('Event' 1001 'CBNewPass')
+ (sf1←sf,'.ROW1') eWC 'SubForm' ('Flex' 'row') ('CSS' rows)
+ (sf1,'.USERID')'User ID'LabelBefore'Edit'user('Size'(23 150))
+ (sf1,'.PWD')'Nuværende passord'LabelBefore'Edit' ''('Size'(23 100))('Password' '*')
+ (sf2←sf,'.ROW2') eWC 'SubForm' ('Flex' 'row') ('CSS' rows)
+ (sf2,'.NYT1')'Nyt passord'LabelBefore'Edit' ''('Size'(23 100))('Password' '*')('Event' 'KeyPress' 'CBNewPass')('Event' 1001 'CBNewPass')
+ (sf2,'.NYT2')'Gentag nyt'LabelBefore'Edit' ''('Size'(23 100))('Password' '*')('Event' 'KeyPress' 'CBNewPass')('Event' 1001 'CBNewPass')
 
- (sf,'.CHANGE')eWC'Button' 'Skift passord'('Event' 'Select' 'CBNewPass')('Active' 0)
+ (sf,'.CHANGE')eWC'Button' 'Skift passord'('Event' 'Select' 'CBNewPass')('Active' 0)('Size' (23 120))

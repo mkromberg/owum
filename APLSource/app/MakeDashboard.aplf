@@ -1,7 +1,10 @@
- MakeDashboard sf;props;t;m
+ MakeDashboard sf;props;t;m;z
  sf,←'.'
- (sf,'L1') eWC 'Label' 'Næste arbejdsdag...'
- (sf,'L2') eWC 'Label' 'Næste møde...'
- (sf,'L3') 'Seneste dokument' LabelBefore 'Link' 'Documents/2024-01-17 Referat af medlemsmode.pdf' '2024-01-17 Referat af medlemsmode.pdf'('Download' 1)
+ z←'Næste møde / arbejdsdag: ',,⍕(EVENTS.Type⍳⊂'Arbejdsdag')⊃¨EVENTS.(Beskrivelse Fra)
+ (sf,'L1') z LabelBefore 'Button' 'Alle Arbejdsdage' ('Event' 'Select' 'CBGOTO' 'Work')
+
+ z←'Næste sejlads :',⍕(EVENTS.Type⍳⊂'Sejlads')⊃¨EVENTS.(Beskrivelse Fra Skipper)
+ (sf,'L2') z LabelBefore 'Button' 'Alle Sejladser' ('Event' 'Select' 'CBGOTO' 'Sail')
+ (sf,'L3') 'Seneste dokument' LabelBefore 'Link' 'Documents/Test.pdf' '2024-01-17 Referat af medlemsmode.pdf'('Download' 1)
 
  (sf,'BTNS')eWC'Button'('Send Medlemsliste')('Size'(23 200))('Event' 'Select' 'CBSendMedlemmer')

@@ -1,11 +1,13 @@
 CBNewPass args;obj;event;ctl;parent;i;nyt2;nyt1;pwd;error;p
+⍝ Change Password
+
 (obj event)←2↑args
 parent←⍎(-p←(⌽obj)⍳'.')↓obj
 :If (,'C')≡ctl←(1-p)↑obj ⍝ One of the LabelBefore controls
-    parent←parent.##
+    parent←parent.##.##
 :EndIf
 
-(pwd nyt1 nyt2)←parent.(PWD NYT1 NYT2).C.Text
+(pwd nyt1 nyt2)←parent.(ROW1.PWD ROW2.NYT1 ROW2.NYT2).C.Text
 
 :Select event
 :Case 'KeyPress'
@@ -15,12 +17,12 @@ parent←⍎(-p←(⌽obj)⍳'.')↓obj
 :EndSelect
 
 :If 'CHANGE'≡ctl
-    ,..
     :If nyt1≢nyt2 ⍝ This should not be possible
         →0 ⊣ DisplayPopup 'Skift passord' 'De to passord er ikke ens' 'Error' 'OK'
     :ElseIf 6>≢nyt1
-        →0 ⊣ DisplayPopup 'Skift passord' 'Det nye passord må ha mindste6 tegn' 'Error' 'OK'
+        →0 ⊣ DisplayPopup 'Skift passord' 'Det nye passord må ha mindst 6 tegn' 'Error' 'OK'
     :EndIf
+
     :Hold 'USERS.UserId'
         i←USERS.UserId⍳⊂USERID
         →(0≠≢error←ValidatePassword i pwd)⍴ERROR

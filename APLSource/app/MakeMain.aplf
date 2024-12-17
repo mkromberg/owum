@@ -1,18 +1,17 @@
-MakeMain;formsize;bcol;rows;name;error;tb;sf;sfs;R
+MakeMain;formsize;bcol;name;error;tb;sf;sfs;R
+⍝ Make the main OWUM form
+
  bcol←219 252 252 ⍝ Pale blue
  :If 0=≢name←⊃(MEDLEMMER.Navn,⊂'')[MEDLEMMER.Mail⍳⊂USERID]
      →ERROR ⊣ error←'Kunne ikke finde din oplysninger.'
  :EndIf
 
- rows←'flex-direction: row, flex-wrap: wrap, justify-content: space-between, gap: 5px, align-items: flex-start'
-
- 'F1'eWC'Form' 'Anne Elise''s Medlemsside'(50 50) ('Coord' 'Pixel')('Flex' 'fill')('BCol' bcol)⍝('CSS' rows)
-
+ 'F1'eWC'Form' 'Anne Elise''s Medlemsside'(50 50) ('Coord' 'Pixel')('Flex' 'fill')('BCol' bcol)
  'F1.INTRO' eWC 'SubForm' ('Flex' 'column')('CSS' 'align-items: flex-start')
-
  MakeTop 'F1.INTRO'
 
  sfs←MakeSFs 'F1' (('Dash' 'Oversigt')('Work' 'Arbejde')('Sail' 'Sejlplan')('Event' 'Møder/Arbejde') ('Dok' 'Dokumenter') ('Div' 'Diverse'),ADMIN/⊂'Admin' 'Admin')
+
  MakeDashboard sfs.Dash
  MakeWorkGrid sfs.Work
  MakeEventGrid sfs.Event
@@ -20,6 +19,7 @@ MakeMain;formsize;bcol;rows;name;error;tb;sf;sfs;R
  MakeDokGrid sfs.Dok
  MakeDiverse sfs.Div
  MakeAdminPanel ADMIN/sfs.Admin
+ 'Dash' CBGOTO ''
  →0
 
  ERROR:

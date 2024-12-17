@@ -6,10 +6,5 @@
 
  addFilter sf
 
- props←'Grid't('CellWidths'(150 200 10 50))('ColTitles'('Datoer' 'Beskrivelse' '#Tilm.' 'Skipper'))('TitleWidth' 0)('Size'(500 450))
+ props←'Grid't('CellWidths'(150 200 30 50))('ColTitles'('Datoer' 'Beskrivelse' '#Tilm.' 'Skipper'))('TitleWidth' 0)('Size'(500 450))
  (sf,'.G')eWC props
-
- (sf,'.ULD')eWC'Upload' ⍝ Document
- (sf,'.BTND')eWC'Button' 'Upload nyt Dokument'('Size'(20 200))('Event' 'Select' 'CBUpload')
- (sf,'.ULDOKL')eWC'Label' 'Indtast dokumentbeskrivelse:'
- (sf,'.ULDOKNAME')eWC'Edit' ''('Size'(20 400))
