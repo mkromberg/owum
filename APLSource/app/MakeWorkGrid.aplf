@@ -1,0 +1,11 @@
+ MakeWorkGrid sf;props;t;m;w
+ w←WORKGROUPS.Gruppe
+
+ (sf,'.GRUPPE')eWC'Combo'w(⊃⌽w)('SelItems'((-≢w)↑1))('Size'(23 200))('Event' 'Select' 'CBWorkGroup')
+
+ addFilter sf
+ props←'Grid'(0 4⍴⊂'')('CellWidths'(25 200 100 200))('ColTitles'('ID' 'Beskrivelse' 'Status' 'Hvem'))('TitleWidth' 0)('Size'(500 550))('Event' 'CellMove' 'CBCellMove')
+ (sf,'.G')eWC props
+
+ eNQ(sf,'.GRUPPE')'Select'
+ CBWorkGroup (sf,'.GRUPPE') 'Select' ⍝ /// The NQ didn't work last time I looked

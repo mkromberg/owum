@@ -1,0 +1,35 @@
+CBNewPass args;obj;event;ctl;parent;i;nyt2;nyt1;pwd;error;p
+(obj event)←2↑args
+parent←⍎(-p←(⌽obj)⍳'.')↓obj
+:If (,'C')≡ctl←(1-p)↑obj ⍝ One of the LabelBefore controls
+    parent←parent.##
+:EndIf
+
+(pwd nyt1 nyt2)←parent.(PWD NYT1 NYT2).C.Text
+
+:Select event
+:Case 'KeyPress'
+    →0 ⊣ eNQ (1001@2)args ⍝ Enqueue after the event
+:Case 1001
+    →0 ⊣ parent.CHANGE.Active←((nyt1≡nyt2)∧6≤≢nyt1)
+:EndSelect
+
+:If 'CHANGE'≡ctl
+    ,..
+    :If nyt1≢nyt2 ⍝ This should not be possible
+        →0 ⊣ DisplayPopup 'Skift passord' 'De to passord er ikke ens' 'Error' 'OK'
+    :ElseIf 6>≢nyt1
+        →0 ⊣ DisplayPopup 'Skift passord' 'Det nye passord må ha mindste6 tegn' 'Error' 'OK'
+    :EndIf
+    :Hold 'USERS.UserId'
+        i←USERS.UserId⍳⊂USERID
+        →(0≠≢error←ValidatePassword i pwd)⍴ERROR
+        SetPassword i nyt1
+        DisplayPopup 'OWUM' 'Passord er skiftet' 'Info' 'OK'
+    :EndHold
+:EndIf
+
+→0
+
+ERROR:
+ DisplayPopup 'OWUM' error 'Error' 'OK'

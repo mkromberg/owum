@@ -1,0 +1,10 @@
+ MakeDiverse sf;props;t;m;user
+
+ user←1 2⊃2 eNQ'F1' 'GetCookie' 'OWUMUSER'
+
+ (sf,'.USERID')'User ID'LabelBefore'Edit'user('Size'(23 150))
+ (sf,'.PWD')'Nuværende passord'LabelBefore'Edit' ''('Size'(23 100))('Password' '*')
+ (sf,'.NYT1')'Nyt passord'LabelBefore'Edit' ''('Size'(23 100))('Password' '*')('Event' 'KeyPress' 'CBNewPass')('Event' 1001 'CBNewPass')
+ (sf,'.NYT2')'Gentag nyt'LabelBefore'Edit' ''('Size'(23 100))('Password' '*')('Event' 'KeyPress' 'CBNewPass')('Event' 1001 'CBNewPass')
+
+ (sf,'.CHANGE')eWC'Button' 'Skift passord'('Event' 'Select' 'CBNewPass')('Active' 0)

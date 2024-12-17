@@ -1,0 +1,11 @@
+ MakeDokGrid sf;props;t;m
+ t←DOCS.(⍉↑Year Date File)
+
+ (,⊂'DEL' 'Slet')addFilter sf
+ props←'Grid't('CellWidths'(50 150 300))('ColTitles'('År' 'Dato' 'Beskrivelse'))('TitleWidth' 0)('Size'(500 600))
+ (sf,'.G')eWC props
+
+ (sf,'.ULD')eWC'Upload' ⍝ Document
+ (sf,'.BTND')eWC'Button' 'Upload Dokument'('Size'(20 200))('Event' 'Select' 'CBUpload')
+ (sf,'.ULDOKL')eWC'Label' 'Indtast dokumentbeskrivelse:'
+ (sf,'.ULDOKNAME')eWC'Edit' ''('Size'(20 400))

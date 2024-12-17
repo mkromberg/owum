@@ -1,0 +1,32 @@
+Run mode;root;z
+
+:If 0=≢mode
+    mode←'Multi'
+:EndIf
+
+⍝ Load dependencies
+:If 0=≢root←{⊃⎕NPARTS ¯1↓⍵}⍣2⊢⊃⎕NPARTS 4⊃5179⌶⊃⎕SI
+:AndIf 0=≢root←{¯1↓⊃⎕NPARTS ¯1↓⍵}⎕SE.Link.LaunchDir
+    ⎕←'Unable to determine root folder' ⎕SIGNAL 11
+:EndIf
+
+:If 0=⎕NC 'DRC'
+    'DRC' ⎕CY 'conga'
+    z←DRC.Init ''
+:EndIf
+
+:If 0=⎕NC 'EWC' ⍝ We need EWC and expect it to be a sibling folder
+   ⎕SE.Link.Create 'EWC' (root,'ewc/EWC')
+:EndIf
+
+:If 0=⎕NC 'passwords' ⍝ We need EWC and expect it to be a sibling folder
+   ⎕SE.Link.Create 'passwords' (root,'passwords/APLSource')
+   passwords.Init
+:EndIf
+
+
+:If 0=⎕NC 'XL2APL'
+   ⎕SE.Link.Create 'XL2APL' (root,'XL2APL/APLSource')
+:EndIf
+
+ app.Run mode

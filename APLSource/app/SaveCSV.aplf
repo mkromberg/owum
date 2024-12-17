@@ -1,0 +1,5 @@
+ {ns}←ns SaveCSV file;names;values;txt;data;cols
+ cols←2⊃⎕CSV⍠('Invert' 2)('Separator' CSVSeparator)('Decimal' CSVDecimal)⊢file ⍬ ⍬ 1 ⍝ We want to preserve column order
+ data←ns VGET ¯2
+ data←⌽↓⍉↑data[(⊃¨data)⍳cols]
+ data ⎕CSV⍠('Invert' 2)('Separator'CSVSeparator)('Decimal'CSVDecimal)('IfExists' 'Replace')⊢file 'UTF-8-BOM'

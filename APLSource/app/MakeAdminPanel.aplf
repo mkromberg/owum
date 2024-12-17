@@ -1,0 +1,8 @@
+ MakeAdminPanel sf;props;t;m
+ →(0=≢sf)⍴0 ⍝ Not wanted
+
+ sf,←'.'
+
+ (sf,'DLUSERS')eWC'Link' 'Data/Medlemsliste.xlsx' 'Hent Medlemsliste'('Download' 1)
+ (sf,'ULU')eWC'Upload' ⍝ Users
+ (sf,'BTNU')eWC'Button' 'Upload ny Medlemsliste'('Size'(20 200))('Event' 'Select' 'CBUpload')

@@ -1,0 +1,5 @@
+ Initialise dummy
+ MakeLogin
+ :If EWC.MODE=2 ⍝ Multi Mode
+     eDQ&'F1'
+ :EndIf

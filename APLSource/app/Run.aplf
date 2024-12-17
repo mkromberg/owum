@@ -1,0 +1,24 @@
+ Run mode;root;resources;data
+ :If 1≠2⊃2250⌶0
+    '.NET is required' ⎕SIGNAL 11
+ :EndIf
+ ⎕USING←''
+
+ (CSVSeparator CSVDecimal)←';,' ⍝ See ReadCSV SaveCSV
+
+ EWC←##.EWC
+ EWC.PORT←8080
+
+ :If 0=≢root←¯1↓{⊃⎕NPARTS ¯1↓⍵}⍣2⊃⎕NPARTS 4⊃5179⌶⊃⎕SI
+ :AndIf 0=≢root←⎕SE.Link.LaunchDir
+     ⎕←'Unable to locate root directory'
+     ∘∘∘
+ :EndIf
+
+ ReadTables ROOT←root
+
+ resources←root,'/Resources'
+ EWC.RESOURCES←1 2⍴'resources' resources
+ 'e'EWC.Init mode
+
+  ⎕←'Running in ',mode,' mode on port ',(⍕EWC.PORT)

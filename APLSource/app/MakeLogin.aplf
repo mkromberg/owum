@@ -1,0 +1,33 @@
+ MakeLogin;formsize;rows;bcol;size;image;aspect;user
+ size←'.'eWG'DevCaps'
+ aspect←(1+>/⊃size)⊃'wide' 'tall'
+ image←'/resources/images/ae-',aspect,'-frame.jpg'
+ bcol←219 252 252 ⍝ Pale blue
+ formsize←350 300
+
+ 'AE'eWC'BitMap'('File'image)
+ USERID←'' ⍝ Global state
+
+ rows←'flex-direction: row, flex-wrap: wrap, justify-content: space-between, gap: 5px, align-items: flex-start'
+
+ 'F1'eWC'Form' 'Please Login'(50 50)('Coord' 'Pixel')('Flex' 'fill')('BCol'bcol)('Picture' 'AE' 2)('CSS'rows)
+ 2 eNQ 'F1' 'SetTitle' 'OWUM Medlem'
+
+ 'F1.INPUT'eWC'SubForm'('Size'(100,1↓formsize))('Flex' 'row')
+
+ 'F1.INPUT.CREDS'eWC'SubForm'('Flex' 'row')('CSS'rows)('BCol'bcol)
+ :Trap 0
+     user←1 2⊃2 eNQ 'F1' 'GetCookie' 'OWUMUSER'
+ :Else
+     ⎕←'No cookies :('
+     user←''
+ :EndTrap
+ 'F1.INPUT.CREDS.USERID' 'User ID'LabelAbove'Edit' user('Size'(23 150))
+ 'F1.INPUT.CREDS.PWD' 'Password'LabelAbove'Edit' ''('Size'(23 100))('Password' '*')
+
+ 'F1.INPUT.CREDS.BTNS'eWC'SubForm'('Flex' 'column')
+ 'F1.INPUT.CREDS.BTNS.LOGIN'eWC'Button' 'Login'('Size'(23 80))('Default' 1)('Event' 'Select' 'CBLogin')
+
+ 'F1.INPUT.FILL'eWC'SubForm'('Size'(400 400))
+
+ eNQ'F1.INPUT.CREDS.USERID' 'GotFocus'

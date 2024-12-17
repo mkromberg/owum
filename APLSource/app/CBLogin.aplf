@@ -1,0 +1,37 @@
+ CBLogin args;MSG;msgmode;ctl;t;user;pwd;error;i;SALT;HASH;z
+ MSG←''
+ msgmode←'Error'
+
+ ctl←'.'(≠⊆⊢)⊃args
+
+ t←{'F1.INPUT.CREDS.',⍵,'.C'}¨'USERID' 'PWD'
+ (user pwd)←t eWG¨⊂'Text'
+ error←'Forkert bruger eller passord'
+ i←USERS.(⎕C UserId)⍳⊂user
+ :Hold 'USERS.Login'
+     →(i>≢USERS.UserId)⍴ERROR
+     (USERID NAME ADMIN)←i⊃¨USERS.(UserId Name Admin)
+ :EndHold
+
+ ADMIN←∨/'1yY'∊ADMIN
+ →(0≠≢error←ValidatePassword i pwd)⍴ERROR
+
+ ⍝ Only Admins should be able to link to sensitive documents
+ #.EWC.WSS.Aliases←(1 1,ADMIN)⌿{⍵ (ROOT,'/',⍵)}¨'Resources' 'Documents' 'Data'
+ :If ~0=⊃z←#.EWC.WSS.CheckAliases
+    ⎕←z ⋄ ...
+ :EndIf
+
+ 2 eNQ 'F1' 'SetCookie' ('OWUMUSER=',USERID)
+
+L1:
+ :Select ⊃⌽ctl
+ :Case 'LOGIN'
+     MakeMain
+ :Else
+     →ERROR⊣error←'Internal error - Login not possible'
+ :EndSelect
+ →0
+
+ERROR:
+ DisplayPopup 'OWUM Login' error msgmode 'OK'

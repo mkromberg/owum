@@ -1,0 +1,8 @@
+ r←ns QVGET rarg;names
+⍝ NB not a complete implementation :D
+ :If rarg≡¯2
+     names←ns.⎕NL ¯2
+     r←↓names,⍪(⍎'ns.(',(⍕names),')')
+ :Else
+     r←⍎'ns.(',(⍕rarg),')'
+ :EndIf

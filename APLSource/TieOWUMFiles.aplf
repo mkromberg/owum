@@ -1,5 +1,0 @@
-TieOWUMFiles
-⎕NUNTIE ⎕NNUMS ⋄ ⎕FUNTIE ⎕FNUMS
-FilePath←⎕SE.Link.LaunchDir,'\'
-TNEvents←(FilePath,'Data\Events')⎕FSTIE 0
-TNWork←(FilePath,'Data\Worklists')⎕FSTIE 0

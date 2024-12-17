@@ -1,0 +1,5 @@
+MakeTop sf
+(sf,'.TOP') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
+(sf,'.TOP.HEJ') eWC 'Label' ('Velkommen, ',name,(ADMIN)/' [Administrator]')
+(sf,'.TOP.LOGOUT') eWC 'Button' 'Log Ud' ('Event' 'Select' 'CBTop')
+(sf,'.TOP.NEWPWD') eWC 'Button' 'Skift Passord' ('Event' 'Select' 'CBTop')

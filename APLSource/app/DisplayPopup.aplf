@@ -1,0 +1,5 @@
+ {R}←DisplayPopup(caption msgtxt mode btns);R
+ 'MB1'eWC'MsgBox'caption msgtxt mode btns('Event'('MsgBtn1' 'MsgBtn2' 'MsgBtn3')1)
+ R←eDQ'MB1'
+ R←'123'⍳⊃⌽2⊃R
+ eEX'MB1'

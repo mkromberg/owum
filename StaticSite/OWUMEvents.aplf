@@ -1,0 +1,42 @@
+ (arbejde sejladser)←OWUMEvents;TN;antal;a;A;n;i;j;p;min;q;qq;m;ryttere;last;ix;Events;t;today;d;hdrs;tilmeld;g
+ ⍝ Return individual results
+
+ TN←'Aktivitetskalender Anna Elise'NewPage'Website\Aktiviteter.htm'
+
+ Events←⎕FREAD TNEvents 2
+ today←1 ⎕DT ⊂3↑⎕TS
+ t←(m←((-≢Events)↑1)∨Events[;1]≥today)⌿Events ⍝ Today or later
+ t←t[g←⍋t[;1];]
+ d←(≠/t[;1 2])/¨' +'∘,¨⍕¨-/t[;2 1]
+ t[;1]←('__da__dddd D. mmmm'(1200⌶)t[;1]),¨d
+ t←t[;1 3 4 5] ⍝ Drop "to" date
+ p←⎕FREAD TNEvents (10+(⍸m)[g]) ⍝ Read participant lists
+ d←2↓¨∊¨', '∘,¨¨{⍵[;1],¨(0≠≢¨t)/¨' ('∘,¨(t←⍵[;2]),¨')'}¨p             ⍝ Participant names
+ d←d,¨(0=≢¨d)/¨⊂'(ingen tilmeldte)'
+ d←'<span title="'∘,¨d,¨⊂'">'
+ t,←d,¨(⍕∘≢¨p),¨⊂'</span>'
+
+ hdrs←'Dato' 'Beskrivelse' 'Tilmeldte' ''
+
+ tilmeld←{'<a href="mailto:admin@owum.dk?subject=Tilmelding til ',⍺,⍵,'&body=Jeg melder mig hermed til ',⍺,⍵,'"><button>Tilmeld</button></a>'}
+
+ wr bhome,barb,bdok
+
+ :If 0≠≢sejladser←(t[;3]=2)⌿t[;1 2 5 4] ⍝ Sejladser
+     sejladser[;2]←sejladser[;2],¨(0≠≢¨sejladser[;4])/¨' - Skipper '∘,¨sejladser[;4],¨' '
+     sejladser[;4]←'sejladsen '∘tilmeld¨ sejladser[;1]
+     wr'<h2>Sejladser</h2>'
+     wr'<p>'
+     wr'LEFT' HTMLTable '' hdrs sejladser (20 40 10 10)
+     wr'</p>'
+ :End
+
+ :If 0≠≢arbejde←(t[;3]=1)⌿t[;1 2 5] ⍝ Arbejdsdage
+     arbejde,←'arbejdsdagen '∘tilmeld¨ arbejde[;1]
+     wr'<h2>Arbejdsdage</h2>'
+     wr'<p>'
+     wr'LEFT'HTMLTable'' hdrs arbejde (20 40 10 10)
+     wr'</p>'
+ :End
+
+ ⎕NUNTIE TN

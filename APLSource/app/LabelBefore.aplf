@@ -1,0 +1,5 @@
+ left LabelBefore props;parts;label;sf
+ (sf label)←left
+ sf eWC'SubForm'('Flex' 'row')('CSS' 'place-content: start')
+ (sf,'.L')eWC'Label'label
+ (sf,'.C')eWC props

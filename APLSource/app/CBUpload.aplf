@@ -1,0 +1,60 @@
+ CBUpload args;p;parent;obj;leaf;src;b64;bytes;type;name;t;tn;tempfile;z;msg;data;backup;filename;cols;mode;ext;date;i;exists
+ p←'.'⍳⍨⌽obj←1⊃args
+ parent←(-p)↓obj ⋄ leaf←(1-p)↑obj
+ src←parent,'.ULU' '.ULD'⊃⍨'UD'⍳mode←⊃⌽leaf
+
+ (t #.EWC.LOGMODES)←#.EWC.LOGMODES'' ⍝ Don't dump data to session
+ :Trap 6
+     (b64 name type)←src eWG'FileBytes' 'FileName' 'FileType'
+ :Else
+     (b64 name type)←'' '' ''
+ :EndTrap
+ #.EWC.LOGMODES←t
+ :If 0∊≢¨b64 name type
+     →0⊣DisplayPopup'OWUM Upload' 'Fik ikke hentet filen - prøv at vælge den igen' 'Error' 'OK'
+ :EndIf
+
+ bytes←EWC.Base64.Decode b64
+ ext←(-'.'⍳⍨⌽name)↑name
+ 1 ⎕NDELETE tempfile←ROOT,'/Data/temp',ext
+ tn←tempfile ⎕NCREATE 0
+ bytes ⎕NAPPEND tn 80
+ ⎕NUNTIE tn
+
+ :Select mode
+ :Case 'U' ⍝ Users
+
+     z←#.XL2APL.Main.GetEntireWorkbook tempfile
+     :If 0≠≢⊃(msg cols data)←ValidateMedlemsliste z
+         →0⊣DisplayPopup'OWUM Upload'('Listen er ikke opdateret: ',msg)'Error' 'OK'
+     :Else
+         MEDLEMMER VSET(↑cols)data
+         backup←(ROOT,'/Data/Archive/Medlemsliste_',⊃'YYYY-MM-DD'(1200⌶)1 ⎕DT'J'),'.xlsx'
+         1 ⎕NDELETE backup
+         backup ⎕NMOVE filename←ROOT,'/Data/Medlemsliste.xlsx'
+         filename ⎕NMOVE tempfile
+         MEDLEMMER SaveCSV ROOT,'/Data/Medlemsliste.csv'
+         DisplayPopup'OWUM Upload' 'Medlemslisten er opdateret' 'Info' 'OK'
+     :EndIf
+
+ :Case 'D' ⍝ New Document
+     t←(parent,'.ULDOKNAME')eWG 'Text'
+     :If 20>≢t
+         →0 ⊣ DisplayPopup 'OWUM Upload'('Dokumentbeskrivelsen skal være mindst 20 tegn og et gyldigt filnavn')'Error' 'OK'
+     :EndIf
+     date←{(∧/⍵[1 2 3 4 6 7 9 10]∊⎕D)∧⍵[5 8 11]≡'-- '}11↑t
+     name←((~date)/⊃'YYYY-MM-DD '(1200⌶)1 ⎕DT 'J'),t,ext ⍝ Add date and extension
+
+     :If exists←⎕NEXISTS filename←ROOT,'/Documents/',name
+        t←DisplayPopup'OWUM Dokument Upload' ('Filen "',name,'" findes allerede. Skal den opdateres?') 'Warn' ('OK' 'Cancel')
+     :AndIf 2=t
+        →0 ⊣ DisplayPopup'OWUM Upload' 'Upload afbrudt' 'Info' 'OK'
+     :EndIf
+
+     1 ⎕NDELETE filename
+     filename ⎕NMOVE tempfile
+     DOCS←ReadDocs ROOT,'/Documents/'
+     MakeDokGrid parent
+     t←(1+exists)⊃'tilføjet' 'opdateret'
+     DisplayPopup 'OWUM Upload' ('Filen "',name,'" er ',t,'.') 'Info' 'OK'
+ :EndSelect

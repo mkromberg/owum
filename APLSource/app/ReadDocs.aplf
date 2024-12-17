@@ -1,0 +1,12 @@
+ns←ReadDocs dir;files;dates;m;p;names;dts;i
+⍝ Turn contents of Documents folder into
+
+ ns←⎕NS ''
+ ns.⎕DF '[Document folder contents]'
+ files←(≢dir)↓¨⊃0(⎕NINFO⍠1)dir,'*.*'
+ dates←(m←p=11)/¨(¯1+p←files⍳¨' ')↑¨files ⍝ 11='yyyy-mm-dd '
+ names←(11×p=11)↓¨files
+ names←('<a href="documents/')∘,¨files,¨(⊂'" target="_blank">'),¨names,¨⊂'</a>'
+ dts←dates
+ dates[i]←'__da__dddd D. mmmm'(1200⌶)1 ⎕DT 2⊃¨'- '∘⎕VFI¨dates[i←⍸m]
+ ns.(Year Date File Link)←↓⍉((4↑¨dts),dates,files,⍪names)[⍒dts;]

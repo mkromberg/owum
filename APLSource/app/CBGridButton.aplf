@@ -1,0 +1,21 @@
+ grid CBGridButton args;val;cc;parent;leaf;cols;i;desc;obj;p;which;sf
+ leaf←2⊃pluck⊃args
+ (cc val cols)←grid eWG'CurCell' 'Values' 'ColTitles'
+ :If (≢cols)<i←cols⍳⊂'Beskrivelse'
+     →0⊣DisplayPopup'OWUM' 'Beskrivelse mangler' 'Error' 'OK'
+ :EndIf
+ desc←⊃val[cc[1];i]
+
+ :Select leaf
+ :Case 'DEL'
+     which←2⊃pluck sf←1⊃pluck grid
+     :Select which
+     :Case 'Dok'
+         :If 1=DisplayPopup'OWUM - Bekræft sletning'('Vil du slette filen "',desc,'" ?')'Warn'('OK' 'Cancel')
+             1 ⎕NDELETE ROOT,'/Documents/',desc
+             DOCS←ReadDocs ROOT,'/Documents/'
+             MakeDokGrid sf
+             DisplayPopup'OWUM'('Filen "',desc,'" er slettet.')'Info' 'OK'
+         :EndIf
+     :EndSelect
+ :EndSelect

@@ -1,0 +1,13 @@
+NewEvent args;type;dates;desc;skip;new;t;dt
+⍝ NewEvent 'Sejlads' ((2023 5 26)(2023 5 28)) 'Testsejlads' 'Ole'
+
+TieOWUMFiles
+(type dates desc skip)←4↑args,(≢args)↓'Sejlads' (2/⊂3↑⎕TS) '' ''
+'Sejlads eller Arbejdsdag' ⎕SIGNAL (3=t←'Arbejdsdag' 'Sejlads'⍳⊂type)/11
+dt←2⍴1 ⎕DT ⊆dates
+
+⎕←new←(⎕FREAD TNEvents 2)⍪dt,desc t skip
+:If (10+≢new)≠2⊃⎕FSIZE TNEvents ⋄ ∘∘∘ ⋄ :EndIf ⍝ Paranoia
+⍞
+new ⎕FREPLACE TNEvents 2
+(0 2⍴0) ⎕FAPPEND TNEvents

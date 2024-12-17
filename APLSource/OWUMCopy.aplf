@@ -1,5 +1,0 @@
- OWUMCopy recursive;FilePath
-⍝ Copy content of FilePath into Frontpage files in WebPath
-
- FilePath←⎕SE.Link.LaunchDir,'\'
- recursive FTPUpload(FilePath,'Website\')''

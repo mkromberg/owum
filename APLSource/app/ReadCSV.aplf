@@ -1,0 +1,4 @@
+ns←ReadCSV file;names;values
+(values names)←⎕CSV⍠('Invert' 2)('Separator' CSVSeparator)('Decimal' CSVDecimal)⊢file ⍬ ⍬ 1
+ns←(⎕NS '')VSET ((↑names)values)
+ns.⎕DF ⍕⍪('[Contents of ',file,']')((⍕≢ns VGET ⊃names), ' records, Columns: ',,⍕names)

@@ -1,0 +1,2 @@
+CBActivateSF args
+⎕←'CBActivateSF' args

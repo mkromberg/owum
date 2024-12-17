@@ -1,0 +1,2 @@
+doFilterGrid sf
+⎕←'doFilterGrid' sf

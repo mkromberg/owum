@@ -1,5 +1,0 @@
- TN←title NewPage name;filename
-
- 1 ⎕NDELETE filename←FilePath,name
- TN←filename ⎕NCREATE 0
- ('<title>',title,'</title>',CR)⎕NAPPEND TN
