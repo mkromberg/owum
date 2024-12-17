@@ -1,7 +1,6 @@
-MakeMain;formsize;bcol;rows;name;error;tb;sf;sfs
+MakeMain;formsize;bcol;rows;name;error;tb;sf;sfs;R
  bcol←219 252 252 ⍝ Pale blue
-
- :If 0=≢name←(MEDLEMMER.Navn,⊂'')[MEDLEMMER.Mail⍳⊂USERID]
+ :If 0=≢name←⊃(MEDLEMMER.Navn,⊂'')[MEDLEMMER.Mail⍳⊂USERID]
      →ERROR ⊣ error←'Kunne ikke finde din oplysninger.'
  :EndIf
 
@@ -10,22 +9,22 @@ MakeMain;formsize;bcol;rows;name;error;tb;sf;sfs
  'F1'eWC'Form' 'Anne Elise''s Medlemsside'(50 50) ('Coord' 'Pixel')('Flex' 'fill')('BCol' bcol)⍝('CSS' rows)
 
  'F1.INTRO' eWC 'SubForm' ('Flex' 'column')('CSS' 'align-items: flex-start')
- 'F1.INTRO.HEJ' eWC 'Label' ('Velkommen, ',name,(ADMIN)/' [Administrator]') ('Size' (23 500))
 
- ⍝ 'F1.INTRO.MSG' eWC 'Label' MSG ('Size' (23 150))
- sfs←MakeSFs 'F1' (('Dash' 'Oversigt')('Work' 'Arbejde')('Sail' 'Sejlplan')('Event' 'Møder/Arbejde') ('Dok' 'Dokumenter'),ADMIN/⊂'Admin' 'Admin')
+ MakeTop 'F1.INTRO'
 
+ sfs←MakeSFs 'F1' (('Dash' 'Oversigt')('Work' 'Arbejde')('Sail' 'Sejlplan')('Event' 'Møder/Arbejde') ('Dok' 'Dokumenter') ('Div' 'Diverse'),ADMIN/⊂'Admin' 'Admin')
  MakeDashboard sfs.Dash
  MakeWorkGrid sfs.Work
  MakeEventGrid sfs.Event
  MakeSailGrid sfs.Sail
  MakeDokGrid sfs.Dok
+ MakeDiverse sfs.Div
  MakeAdminPanel ADMIN/sfs.Admin
  →0
 
  ERROR:
  'MB1'eWC'MsgBox' 'OWUM Login'error 'Error' 'OK'('Event'('MsgBtn1' 'MsgBtn2' 'MsgBtn3')1)
  R←eDQ'MB1'
- eEX'MB1'
+ eEX'MB1' 'F1'
 
  EWC.closeConnection _EWC.conn

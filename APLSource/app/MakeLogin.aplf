@@ -24,11 +24,9 @@
  :EndTrap
  'F1.INPUT.CREDS.USERID' 'User ID'LabelAbove'Edit' user('Size'(23 150))
  'F1.INPUT.CREDS.PWD' 'Password'LabelAbove'Edit' ''('Size'(23 100))('Password' '*')
- 'F1.INPUT.CREDS.PIN' 'Pin kode'LabelAbove'Edit' ''('Size'(23 50))('Password' '*')
 
  'F1.INPUT.CREDS.BTNS'eWC'SubForm'('Flex' 'column')
- 'F1.INPUT.CREDS.BTNS.LOGIN'eWC'Button' 'Login'('Size'(23 80))('Event' 'Select' 'CBLogin')
- 'F1.INPUT.CREDS.BTNS.SENDPIN'eWC'Button' 'Send Pin'('Size'(23 80))('Event' 'Select' 'CBLogin')
+ 'F1.INPUT.CREDS.BTNS.LOGIN'eWC'Button' 'Login'('Size'(23 80))('Default' 1)('Event' 'Select' 'CBLogin')
 
  'F1.INPUT.FILL'eWC'SubForm'('Size'(400 400))
 

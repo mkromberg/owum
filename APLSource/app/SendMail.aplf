@@ -2,7 +2,7 @@ SendMail (mailserver port sender password recipient subject body attachment);smt
 ⍝ Send message using .NET Core
 
 ⍝ mailserver←'mail.dyalog.com'
-⍝ sender←'mkrom@dyalog.com'
+⍝ sender←'mkrom@dyalog.com' 'Morten Kromberg'
 ⍝ recipient←'mkrom@dyalog.com'
 ⍝ password←'…'
 ⍝ subject←'Hello from Morten'

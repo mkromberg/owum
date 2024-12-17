@@ -1,4 +1,6 @@
- CBLogin args;MSG;msgmode;ctl;t;user;pwd;error;i;SALT;HASH;z
+ CBTop args
+ ⍝ Log Out or Change Password
+ ...
  MSG←''
  msgmode←'Error'
 
@@ -8,21 +10,20 @@
  (user pwd)←t eWG¨⊂'Text'
  error←'Forkert bruger eller passord'
  i←USERS.(⎕C UserId)⍳⊂user
- :Hold 'USERS.Login'
-     →(i>≢USERS.UserId)⍴ERROR
-     (USERID NAME ADMIN)←i⊃¨USERS.(UserId Name Admin)
- :EndHold
+ →(i>≢USERS.UserId)⍴ERROR
 
+ (USERID NAME ADMIN SALT HASH)←i⊃¨USERS.(UserId Name Admin Salt Hash)
+ (SALT HASH)←Base64.Decode¨SALT HASH
  ADMIN←∨/'1yY'∊ADMIN
- →(0≠≢error←ValidatePassword i pwd)⍴ERROR
+ →(HASH≢#.passwords.Hash SALT pwd)⍴ERROR
 
  ⍝ Only Admins should be able to link to sensitive documents
- #.EWC.WSS.Aliases←(1 1,ADMIN)⌿{⍵ (ROOT,'/',⍵)}¨'Resources' 'Documents' 'Data'
+ #.EWC.WSS.Aliases←(1 1,ADMIN)⌿{⍵(ROOT,'/',⍵)}¨'Resources' 'Documents' 'Data'
  :If ~0=⊃z←#.EWC.WSS.CheckAliases
-    ⎕←z ⋄ ...
+     ⎕←z ⋄...
  :EndIf
 
- 2 eNQ 'F1' 'SetCookie' ('OWUMUSER=',USERID)
+ 2 eNQ'F1' 'SetCookie'('OWUMUSER=',USERID)
 
 L1:
  :Select ⊃⌽ctl
@@ -34,4 +35,4 @@ L1:
  →0
 
 ERROR:
- DisplayPopup 'OWUM Login' error msgmode 'OK'
+ DisplayPopup'OWUM Login'error msgmode'OK'

@@ -38,7 +38,6 @@
      :EndIf
 
  :Case 'D' ⍝ New Document
-     ...
      t←(parent,'.ULDOKNAME')eWG 'Text'
      :If 20>≢t
          →0 ⊣ DisplayPopup 'OWUM Upload'('Dokumentbeskrivelsen skal være mindst 20 tegn og et gyldigt filnavn')'Error' 'OK'
