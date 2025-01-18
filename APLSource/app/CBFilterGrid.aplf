@@ -1,16 +1,23 @@
-CBFilterGrid args;event;obj;filter;grid;data;m
+CBFilterGrid args;event;obj;filter;grid;data;m;cc
 
 (obj event)←2↑args
 :Select event←2⊃args
 :Case 'KeyPress'
     →0 ⊣ eNQ (1001@2)args ⍝ Enqueue after the event
 :Case 1001
-    filter←⎕C obj eWG 'Value'
+    filter←obj eWG 'Value'
     grid←'.GRID',⍨obj↑⍨¯1+3⍳⍨+\'.'='SubForm'findParent obj ⍝ First 3 segments, i.e. F1.TC.Work
-    data←grid eWG 'Data'
-
-    :If ~m←filter∧.=' '
-        m←∨/filter⍷⎕C ⍕data
+    (data cc)←grid eWG 'Data' 'CurCell'
+    :If m←filter∧.=' '
+        m←(≢data)⍴1
+    :Else
+        m←∨/filter⍷⍥⎕C ⍕data
     :EndIf
+
     grid eWS 'Values' (m⌿data)
+    :If 0 ⍝ Too hard for now
+        cc[1]←1⌈(+\m)[cc[1]] ⍝ Map CurCell to kept rows
+        grid eWS 'CurCell' cc
+    :EndIf
+
 :EndSelect
