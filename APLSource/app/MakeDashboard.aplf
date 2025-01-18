@@ -1,10 +1,21 @@
- MakeDashboard sf;props;t;m;z
+ MakeDashboard sf;props;t;m;z;bold;indent
  sf,←'.'
- z←'Næste møde / arbejdsdag: ',,⍕(EVENTS.Type⍳⊂'Arbejdsdag')⊃¨EVENTS.(Beskrivelse Fra)
- (sf,'L1') z LabelBefore 'Button' 'Alle Arbejdsdage' ('Event' 'Select' 'CBGOTO' 'Work')
+ bold←'CSS' 'font-weight: bold, font-size: 20'
+ indent←'CSS' 'text-indent: 20px'
 
- z←'Næste sejlads :',⍕(EVENTS.Type⍳⊂'Sejlads')⊃¨EVENTS.(Beskrivelse Fra Skipper)
- (sf,'L2') z LabelBefore 'Button' 'Alle Sejladser' ('Event' 'Select' 'CBGOTO' 'Sail')
- (sf,'L3') 'Seneste dokument' LabelBefore 'Link' 'Documents/Test.pdf' '2024-01-17 Referat af medlemsmode.pdf'('Download' 1)
+ (sf,'L0') eWC 'Label' ''
+ (sf,'L1') eWC 'Label' 'Husk!' bold
 
- (sf,'BTNS')eWC'Button'('Send Medlemsliste')('Size'(23 200))('Event' 'Select' 'CBSendMedlemmer')
+ z←,⍕(EVENTS.Type⍳⊂'Arbejdsdag')⊃¨EVENTS.(Beskrivelse Fra)
+ (sf,'L2') eWC 'Label' z ⍝ indent
+
+ z←⍕(EVENTS.Type⍳⊂'Sejlads')⊃¨EVENTS.(Beskrivelse Fra Skipper)
+ (sf,'L3') eWC 'Label' z ⍝ indent
+
+ (sf,'L4') eWC 'Label' 'Læs!' bold
+
+ (sf,'L5') eWC 'Link' 'Documents/Test.pdf' '2024-01-17 Referat af medlemsmode.pdf'('Download' 1)
+
+ (sf,'L6') eWC 'Label' 'Hurtige aktioner' bold
+
+ (sf,'BTNS')eWC'Button'('Send Medlemsliste til ',USERID)('Size'(23 300))('Event' 'Select' 'CBSendMedlemmer')
