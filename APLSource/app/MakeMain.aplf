@@ -18,7 +18,9 @@ MakeMain;formsize;bcol;name;error;tb;sf;sfs;R
  MakeSailGrid sfs.Sail
  MakeDokGrid sfs.Dok
  MakeDiverse sfs.Div
- MakeAdminPanel ADMIN/sfs.Admin
+ :If ADMIN
+     MakeAdminPanel sfs.Admin
+ :EndIf
  'Dash' CBGOTO ''
  →0
 
