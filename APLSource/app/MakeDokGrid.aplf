@@ -1,7 +1,7 @@
  MakeDokGrid sf;props;t;m
  t←DOCS.(⍉↑Year Date File)
 
- (,⊂'DEL' 'Slet')addFilter sf
+ (,⊂'DEL' 'Slet')addGridHeader sf
  props←'Grid't('CellWidths'(50 150 300))('ColTitles'('År' 'Dato' 'Beskrivelse'))('TitleWidth' 0)('Size'(500 600))
  (sf,'.G')eWC props
 
