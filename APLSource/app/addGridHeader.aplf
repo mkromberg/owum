@@ -1,10 +1,9 @@
- {btns}addGridHeader sf;cap;btn;grid
- grid←sf,'.G'
- (sf←sf,'.F')eWC'SubForm'('Flex' 'row')('CSS' 'place-content: start')
+ addGridHeader (name class);cap;btn;grid;sfc;sf
+ grid←name,'.GRID'
+ (sf←name,'.FILTER')eWC'SubForm'('Flex' 'row')('CSS' 'place-content: start')
  (sf,'.F')'Søg:'LabelBefore'Edit'('Size'(23 200))('Event' 'KeyPress' 'CBFilterGrid')
 
- :If 2=⎕NC'btns'
-     :For (btn cap) :In btns
-         (sf,'.',btn)eWC'Button'cap('Size'(23 60))('Event' 'Select' 'CBGridButton' grid)
-     :EndFor
+ :If 3=⎕NC class,'_Make' ⍝ Does the class have a "constructor"
+     (sfc←name,'.CLASS')eWC'SubForm'('Flex' 'column')
+     (⍎class,'_Make') sfc
  :EndIf

@@ -1,0 +1,13 @@
+ Dok_Make sf;btns
+ (sf,'.T')eWC'Label' 'Vælg noget'
+ (sf,'.DESC') 'Beskrivelse:' LabelBefore 'Edit' ''('Size'(20 400))
+
+ btns←(sf,'.BTNS') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
+ (btns,'.ULD')eWC'Upload' ⍝ Document
+ (btns,'.BTND')eWC'Button' 'Upload Nyt Dokument'('Size'(20 200))('Event' 'Select' 'CBUpload')
+
+ btns←(sf,'.ADMIN') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
+ :If ADMIN
+    (btns,'.OPD')eWC 'Button' 'Opdater' ('Size' (23 100))('Event' 'Select' 'Dok_Actions')
+    (btns,'.DEL')eWC 'Button' 'Slet' ('Size' (23 100))('Event' 'Select' 'Dok_Actions')
+ :EndIf

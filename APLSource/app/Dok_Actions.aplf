@@ -1,0 +1,22 @@
+Dok_Actions args;ctl;sf;obj;file;name;z;mask
+
+ctl←{(1-'.'⍳⍨⌽⍵)↑⍵}obj←⊃args ⍝ Leaf
+sf←⍎(4+1⍳⍨'CLASS'⍷obj)↑obj
+
+:Select ctl ⍝ See Dok_Make
+:Case 'DEL' ⍝ Delete a document
+   file←sf.T.Href
+   name←(1-'/'⍳⍨⌽file)↑file
+   :If 1=DisplayPopup 'Bekræft sletning af dokument' ('Vil du slette "',name,'"?') 'Query' ('YES' 'NO')
+       ...
+       1 ⎕NDELETE ROOT,'/',file
+       mask←~DOCS.File∊⊂name
+       mask CompressTable 'DOCS'
+   :EndIf
+   z←DisplayPopup 'Dokument slettet' ('"',name,'" er slettet.') 'Info' 'OK'
+   doFilterGrid sf.##
+:Case 'OPD' ⍝ Update name
+   ...
+:Else
+   ...
+:EndSelect

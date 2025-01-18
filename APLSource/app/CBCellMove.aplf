@@ -1,2 +1,5 @@
-CBCellMove args
-⎕←'CBCellMove' args
+{class} CBCellMove args
+:If 2=⎕NC 'class'
+:AndIf 3=⎕NC class,'_Move'
+    (⍎class,'_Move') args
+:EndIf

@@ -1,0 +1,8 @@
+ Dok_Move args;grid;row;col;sf;data;z
+ (grid row col)←args[1 3 4]
+ data←(grid eWG'Values')[row;]
+ sf←((-'.'⍳⍨⌽grid)↓grid),'.CLASS' ⍝ This is where we may write
+
+ z←3⊃data
+ (sf,'.T') eWC 'Link' ('Documents/',z) z('Download' 1)
+ (sf,'.DESC.C') eWS 'Text' z

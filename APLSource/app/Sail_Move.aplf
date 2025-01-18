@@ -1,0 +1,5 @@
+ Sail_Move args;grid;row;col;sf;data
+ (grid row col)←args[1 3 4]
+ data←(grid eWG'Values')[row;]
+ sf←⍎((-'.'⍳⍨⌽grid)↓grid),'.CLASS' ⍝ This is where we may write
+ sf.T.Caption←'Valgt: ','#',(1⊃data),': ',⍕1↓data

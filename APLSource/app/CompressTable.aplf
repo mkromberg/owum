@@ -1,0 +1,4 @@
+mask CompressTable name;vars
+vars←name ⎕VGET ¯2
+(2⊃¨vars)←mask∘/¨2⊃¨vars
+name ⎕VSET vars

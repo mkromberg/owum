@@ -1,10 +1,11 @@
- MakeSailGrid sf;sf;props;t;m
+ MakeSailGrid sf;sf;props;t;m;class
  t←EVENTS.(⍉↑(Type∊⊂'Sejlads')∘/¨Fra Til Beskrivelse Deltagere Skipper)
  t[;1]←t[;1],¨(≢/t[;1 2])/¨' - '∘,¨t[;2]
  t[;4]←{{0=⍵:'' ⋄ ⍕⍵}0.5×≢⎕JSON ⍵}¨t[;4]  ⍝ Antal tilmeldinger
  t←1 0 1 1 1/t
 
- addGridHeader sf
+ class←'Sail'
+ addGridHeader sf class
 
  props←'Grid't('CellWidths'(150 200 50 80))('ColTitles'('Datoer' 'Beskrivelse' '#Tilm.' 'Skipper'))('TitleWidth' 0)('Size'(500 500))
- (sf,'.G')eWC props
+ addGrid sf class props
