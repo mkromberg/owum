@@ -18,4 +18,4 @@
 
  (sf,'L6') eWC 'Label' 'Hurtige aktioner' bold
 
- (sf,'BTNS')eWC'Button'('Send Medlemsliste til ',USERID)('Size'(23 300))('Event' 'Select' 'CBSendMedlemmer')
+ (sf,'BTNS')eWC'Button'('Send medlemsliste til ',USERID)('Size'(23 300))('Event' 'Select' 'CBSendMedlemmer')

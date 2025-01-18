@@ -6,5 +6,5 @@
 
  addFilter sf
 
- props←'Grid't('CellWidths'(150 200 30 50))('ColTitles'('Datoer' 'Beskrivelse' '#Tilm.' 'Skipper'))('TitleWidth' 0)('Size'(500 450))
+ props←'Grid't('CellWidths'(150 200 50 80))('ColTitles'('Datoer' 'Beskrivelse' '#Tilm.' 'Skipper'))('TitleWidth' 0)('Size'(500 500))
  (sf,'.G')eWC props
