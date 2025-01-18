@@ -1,0 +1,4 @@
+r←ShowTable table
+r←WORK.⎕VGET ¯2
+r←(⊃¨r)⍪⊃,/⍪¨2⊃¨r
+r←r[;⍋(¯1×r[1;]∊⊂'ID')+r[1;]∊⊂'Beskrivelse'] ⍝ ID first, Beskrivelse last

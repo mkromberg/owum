@@ -1,0 +1,30 @@
+ Work_Actions args;ctl;sf;obj;file;name;z;mask;cap;desc;id;grp
+
+ ctl←{(1-'.'⍳⍨⌽⍵)↑⍵}obj←⊃args ⍝ Leaf
+ sf←⍎(4+1⍳⍨'CLASS'⍷obj)↑obj
+ cap←obj eWG 'Caption'
+ desc←sf.DESC.C.Text
+
+ :Select ctl ⍝ See Work_Make
+ :Case 'TIL' ⍝ Til- eller frameld
+     ...
+ :Case 'STA' ⍝ Change status
+     ...
+ :Case 'NEW' ⍝ Create new
+     ...
+     cap←'Opret ny arbejdsopgave'
+     :If (⊂desc)∊WORK.Beskrivelse
+         →0 ⊣ DisplayPopup cap 'Opgavebeskrivelsen findes allerede.' 'Error' 'OK'
+     :EndIf
+     grp←⍕sf.##.GRUPPE.SelItems⍳1
+     id←⍕1+⌈/0,2⊃⎕VFI ⍕(WORK.Gruppe∊⊂⍕grp)/WORK.ID
+     →0/⍨1≠DisplayPopup cap ('Bekræft oprettelse af opgave "',desc,'"') 'Query' ('YES' 'NO')
+     WORK.(ID Gruppe Hvem Status Beskrivelse)←WORK.(ID Gruppe Hvem Status Beskrivelse)⍪¨⊂¨id grp '' '' desc
+     WriteTable 'WORK'
+ :Case 'OPD' ⍝ Update description
+     ...
+ :Case 'DEL' ⍝ Delete
+     ...
+ :Else
+     ...
+ :EndSelect

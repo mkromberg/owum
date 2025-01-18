@@ -15,6 +15,7 @@
      (USERID NAME ADMIN)←i⊃¨USERS.(UserId Name Admin)
  :EndHold
 
+ ID←(MEDLEMMER.Mail⍳⍥⎕C⊂USERID)⊃MEDLEMMER.ID,⊂''
 
  :Select ctl
  :Case 'LOGIN'

@@ -1,5 +1,34 @@
- Sail_Move args;grid;row;col;sf;data
+ Sail_Move args;grid;row;col;sf;data;id;desc;skip;fra;til;hvem
  (grid row col)←args[1 3 4]
- data←(grid eWG'Values')[row;]
+ (id desc skip)←(grid eWG'Values')[row;1 3 5]
+ (fra til hvem)←(EVENTS.ID⍳⊂id)⊃¨EVENTS.(Fra Til Deltagere)
+ hvem←GetNames hvem
+
  sf←⍎((-'.'⍳⍨⌽grid)↓grid),'.CLASS' ⍝ This is where we may write
- sf.T.Caption←'Valgt: ','#',(1⊃data),': ',⍕1↓data
+ sf.T.Caption←'Sejlads: ','#',id,': ',desc
+ :If 0=≢hvem
+    sf.HVEM.Caption←'(ingen tilmeldinger)'
+ :Else
+    sf.HVEM.Caption←'Tilmeldt: ',2↓⍕', '∘,¨hvem[;1],¨{(0≠≢⍵)/' (',⍵,')'}¨hvem[;2]
+ :EndIf
+ →0
+
+ (sf,'.HVEM')eWC'Label' 'Tilmeldt'
+
+ tilm←(sf,'.TILM') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
+ (tilm,'.KOM') 'Kommentar:' LabelBefore 'Edit' '' ('Size' (23 200))
+ (tilm,'.TIL')eWC 'Button' 'Til/Fra' ('Size' (23 100))('Event' 'Select' 'Sail_Actions')
+ (tilm,'.OPDKOM')eWC 'Button' 'Opdater' ('Size' (23 100))('Event' 'Select' 'Sail_Actions')
+
+ :If ADMIN
+    edit←(sf,'.EDIT') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
+    (edit,'.FRA') 'Fra:' LabelBefore 'Edit' '' ('Size' (23 100))('FieldType' 'Date')
+    (edit,'.TIL') 'Fra:' LabelBefore 'Edit' '' ('Size' (23 100))('FieldType' 'Date')
+    (edit,'.SKIP') 'Skipper:' LabelBefore 'Edit' ''('Size'(20 50))
+    (edit,'.DESC') 'Beskrivelse:' LabelBefore 'Edit' ''('Size'(20 200))
+
+    btns←(sf,'.BTNS') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
+    (btns,'.NEW')eWC 'Button' 'Opret' ('Size' (23 100))('Event' 'Select' 'Sail_Actions')
+    (btns,'.OPD')eWC 'Button' 'Opdater' ('Size' (23 100))('Event' 'Select' 'Sail_Actions')
+    (btns,'.DEL')eWC 'Button' 'Slet' ('Size' (23 100))('Event' 'Select' 'Sail_Actions')
+ :EndIf

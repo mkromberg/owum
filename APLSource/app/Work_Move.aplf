@@ -1,7 +1,16 @@
- Work_Move args;grid;row;col;sf;data
+ Work_Move args;grid;row;col;sf;data;hvem;status;desc;id;z;med
  (grid row col)←args[1 3 4]
- :If row≤≢values←grid eWG'Values'
-     data←values[row;]
-     sf←⍎((-'.'⍳⍨⌽grid)↓grid),'.CLASS' ⍝ This is where we may write
-     sf.T.Caption←'Valgt: ','#',(1⊃data),': ',⍕1↓data
- :EndIf
+ →(row>≢values←grid eWG'Values')⍴0
+
+ (id desc status hvem)←4↑values[row;]
+ sf←⍎((-'.'⍳⍨⌽grid)↓grid),'.CLASS' ⍝ This is where we may write
+ z←('Valgt #',⍕id),': ',(status∨.≠' ')/' (',status,')'
+ hvem←GetNames hvem
+ z,←(0≠≢hvem)/' Ansvarlig: ',2↓∊', '∘,¨hvem[;1]
+ med←(⊂ID)∊hvem ⍝ Tilmeldt
+
+ sf.T.Caption←z
+ sf.DESC.C.Text←desc
+
+ sf.BTNS.TIL.Caption←(1+(⊂ID)∊hvem[;1])⊃'Tilmeld' 'Frameld'
+ sf.BTNS.STA.Caption←('Startet' 'Færdig'⍳⊂status)⊃'Afslut' 'Genåbn' 'Start'

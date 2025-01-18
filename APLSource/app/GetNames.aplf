@@ -1,0 +1,6 @@
+r←GetNames json
+:If json∧.=' '
+   r←0 2⍴⊂''
+:Else
+   r←{((⌈0.5×≢⍵),2)⍴⍵}0 ⎕JSON json
+:EndIf

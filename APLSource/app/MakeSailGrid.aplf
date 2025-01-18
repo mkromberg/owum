@@ -1,11 +1,11 @@
  MakeSailGrid sf;sf;props;t;m;class
- t←EVENTS.(⍉↑(Type∊⊂'Sejlads')∘/¨Fra Til Beskrivelse Deltagere Skipper)
- t[;1]←t[;1],¨(≢/t[;1 2])/¨' - '∘,¨t[;2]
- t[;4]←{{0=⍵:'' ⋄ ⍕⍵}0.5×≢⎕JSON ⍵}¨t[;4]  ⍝ Antal tilmeldinger
- t←1 0 1 1 1/t
+ t←EVENTS.(⍉↑(Type∊⊂'Sejlads')∘/¨ID Fra Til Beskrivelse Deltagere Skipper)
+ t[;2]←t[;2],¨(≢/t[;2 3])/¨' - '∘,¨t[;3]
+ t[;5]←{{0=⍵:'' ⋄ ⍕⍵}0.5×≢⎕JSON ⍵}¨t[;5]  ⍝ Antal tilmeldinger
+ t←1 1 0 1 1 1/t
 
  class←'Sail'
  addGridHeader sf class
 
- props←'Grid't('Data' t)('CellWidths'(150 200 50 80))('ColTitles'('Datoer' 'Beskrivelse' '#Tilm.' 'Skipper'))('TitleWidth' 0)('Size'(500 500))
+ props←'Grid't('Data' t)('CellWidths'(20 150 200 50 80))('ColTitles'('ID' 'Datoer' 'Beskrivelse' '#Tilm.' 'Skipper'))('TitleWidth' 0)('Size'(500 520))
  addGrid sf class props

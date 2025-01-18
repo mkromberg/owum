@@ -1,2 +1,15 @@
-Work_Make sf
-(sf,'.T')eWC'Label' 'Vælg noget'
+Work_Make sf;btns;select
+ (sf,'.T')eWC'Label' 'Vælg noget'
+ (sf,'.DESC') 'Beskrivelse:' LabelBefore 'Edit' ''('Size'(20 400))
+ (sf,'.SPACE')eWC 'Label' '' ⍝ /// Use CSS?
+
+ select←'Event' 'Select' 'Work_Actions'
+ btns←(sf,'.BTNS') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
+ (btns,'.TIL')eWC 'Button' 'Til/Fra' ('Size' (23 100))select
+ (btns,'.STA')eWC 'Button' 'Status' ('Size' (23 100))select
+ (btns,'.NEW')eWC 'Button' 'Opret Ny' ('Size' (23 100))select
+ (btns,'.OPD')eWC 'Button' 'Ret Bekrivelse' ('Size' (23 100))select
+
+ :If ADMIN
+     (btns,'.DEL')eWC 'Button' 'Slet' ('Size' (23 100))select
+ :EndIf
