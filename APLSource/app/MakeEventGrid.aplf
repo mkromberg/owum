@@ -6,5 +6,5 @@ t←1 0 1 1/t
 
 class←'Event'
 addGridHeader sf class
-props←'Grid' t ('CellWidths' (150 200 50))('ColTitles' ('Datoer' 'Beskrivelse' '#Tilm.'))('TitleWidth' 0)('Size' (500 400))
+props←'Grid' t ('Data' t) ('CellWidths' (150 200 50))('ColTitles' ('Datoer' 'Beskrivelse' '#Tilm.'))('TitleWidth' 0)('Size' (500 400))
 addGrid sf class props

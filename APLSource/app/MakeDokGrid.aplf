@@ -3,5 +3,5 @@
  class←'Dok'
 
  addGridHeader sf class
- props←'Grid't('CellWidths'(50 150 300))('ColTitles'('År' 'Dato' 'Beskrivelse'))('TitleWidth' 0)('Size'(500 600))
+ props←'Grid't('Data' t)('CellWidths'(50 150 300))('ColTitles'('År' 'Dato' 'Beskrivelse'))('TitleWidth' 0)('Size'(500 600))
  addGrid sf class props

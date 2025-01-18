@@ -1,2 +1,16 @@
-CBFilterGrid args
-⎕←'CBFilterGrid' args
+CBFilterGrid args;event;obj;filter;grid;data;m
+
+(obj event)←2↑args
+:Select event←2⊃args
+:Case 'KeyPress'
+    →0 ⊣ eNQ (1001@2)args ⍝ Enqueue after the event
+:Case 1001
+    filter←⎕C obj eWG 'Value'
+    grid←'.GRID',⍨obj↑⍨¯1+3⍳⍨+\'.'='SubForm'findParent obj ⍝ First 3 segments, i.e. F1.TC.Work
+    data←grid eWG 'Data'
+
+    :If ~m←filter∧.=' '
+        m←∨/filter⍷⎕C ⍕data
+    :EndIf
+    grid eWS 'Values' (m⌿data)
+:EndSelect

@@ -7,5 +7,5 @@
  class←'Sail'
  addGridHeader sf class
 
- props←'Grid't('CellWidths'(150 200 50 80))('ColTitles'('Datoer' 'Beskrivelse' '#Tilm.' 'Skipper'))('TitleWidth' 0)('Size'(500 500))
+ props←'Grid't('Data' t)('CellWidths'(150 200 50 80))('ColTitles'('Datoer' 'Beskrivelse' '#Tilm.' 'Skipper'))('TitleWidth' 0)('Size'(500 500))
  addGrid sf class props
