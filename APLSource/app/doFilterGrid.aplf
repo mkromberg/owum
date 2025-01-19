@@ -1,7 +1,8 @@
- doFilterGrid sf;grid;filter;data;cc;m
+ {row} doFilterGrid sf;grid;filter;data;cc;m;class;ed
  sf←⍕sf
  grid←sf,'.GRID'
  filter←(sf,'.FILTER.F.C')eWG'Text'
+ class←(1-'.'⍳⍨⌽sf)↑sf
  :If filter∧.='2'
      ⎕←'*** filter.Text is "2" ***'
      filter←''
@@ -14,6 +15,9 @@
     ⎕←'*** NO CurCell ***'
  :EndTrap
  cc[1]←1⌈(≢data)⌊cc[1]
+ :If 2=⎕NC 'row'
+     cc[1]←row
+ :EndIf
  :If m←filter∧.=' '
      m←(≢data)⍴1
  :Else
@@ -21,5 +25,8 @@
  :EndIf
  data←m⌿data
  grid eWS'Values' data
- (sf,'.CLASS.DESC.C')eWS 'Text' (cc[1]⊃(data[;2],⊂''))
+ ed←0≠⎕NC sf,'.CLASS.EDIT'
+ (sf,'.CLASS.',(ed/'EDIT.'),'DESC.C')eWS 'Text' (cc[1]⊃(data[;3],⊂''))
+
  grid eWS'CurCell'cc
+ class CBCellMove (⍕grid) 'CellMove', cc

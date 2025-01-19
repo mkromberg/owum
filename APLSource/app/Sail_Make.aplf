@@ -4,13 +4,13 @@
 
  tilm←(sf,'.TILM') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
  (tilm,'.KOM') 'Kommentar:' LabelBefore 'Edit' '' ('Size' (23 200))
+ (tilm,'.OPDKOM')eWC 'Button' 'Opdater kommentar' ('Size' (23 150))('Event' 'Select' 'Sail_Actions')
  (tilm,'.TIL')eWC 'Button' 'Til/Fra' ('Size' (23 100))('Event' 'Select' 'Sail_Actions')
- (tilm,'.OPDKOM')eWC 'Button' 'Opdater' ('Size' (23 100))('Event' 'Select' 'Sail_Actions')
 
  :If ADMIN
     edit←(sf,'.EDIT') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
     (edit,'.FRA') 'Fra:' LabelBefore 'Edit' '' ('Size' (23 100))('FieldType' 'Date')
-    (edit,'.TIL') 'Fra:' LabelBefore 'Edit' '' ('Size' (23 100))('FieldType' 'Date')
+    (edit,'.TIL') 'Til:' LabelBefore 'Edit' '' ('Size' (23 100))('FieldType' 'Date')
     (edit,'.SKIP') 'Skipper:' LabelBefore 'Edit' ''('Size'(20 50))
     (edit,'.DESC') 'Beskrivelse:' LabelBefore 'Edit' ''('Size'(20 200))
 
