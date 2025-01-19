@@ -1,0 +1,72 @@
+ Event_Actions args;sf;tilm;edit;grid;cap;obj;cc;values;data;id;index;fra;til;skip;desc;kom;ctl;i;hvem;new;fratil
+
+ ctl←{(1-'.'⍳⍨⌽⍵)↑⍵}obj←⊃args ⍝ Leaf
+ sf←(⍎(4+1⍳⍨'CLASS'⍷obj)↑obj).##
+ (tilm edit)←sf.CLASS.(TILM EDIT)
+ grid←sf.GRID
+ cap←obj eWG'Caption'
+ new←0
+
+ cc←grid.CurCell
+ (values data)←grid.(Values Data)
+ id←⊃values[cc[1];1]
+ index←⍸EVENTS.ID∊⊂id
+ hvem←GetNames index⊃EVENTS.Deltagere
+
+ (fra til desc)←edit.(FRA TIL DESC).C.Value
+ (fra til)←{2=+/⍵='-':1 ⎕DT⊂⌽2⊃'-'⎕VFI ⍵ ⋄ ⍵}¨fra til ⍝ /// work around bug in date controls
+
+ :If (ctl≢'NEW')∧1≠≢index
+     →0⊣DisplayPopup cap('Intern fejl - finder ikke opgaven!')'Error' 'OK'
+ :EndIf
+
+ :Select ctl ⍝ See Sail_Make
+ :Case 'TIL' ⍝ Til- eller frameld
+     :Select cap
+     :Case 'Tilmeld'
+         hvem⍪←ID''
+     :Case 'Frameld'
+         hvem←(~hvem[;1]∊⊂ID)⌿hvem
+     :EndSelect
+     obj eWS'Caption'(⊃'Tilmeld' 'Frameld'~⊂cap) ⍝ Reverse the caption
+     data[data[;1]⍳⊂id;4]←⊂{(0≠⍵)/⍕⍵}≢hvem
+     (index⊃EVENTS.Deltagere)←(0≠≢hvem)/⎕JSON,hvem
+
+ :CaseList 'NEW' 'OPD' ⍝ Create or Update
+     new←ctl≡'NEW'
+     cap←(new+1)⊃'Opdater Møde/Arbejdsdag' 'Opret Møde/Arbejdsdag'
+     :If fra>til
+         →0⊣DisplayPopup cap'Til-dato må ikke være før Fra-dato' 'Error' 'OK'
+     :EndIf
+     :If 7<til-fra
+         →0/⍨1≠DisplayPopup cap('Kan du bekræfte at mødet/arbejdsdagen varer i ',(⍕1+til-fra),' dage?')'Query'('YES' 'NO')
+     :EndIf
+
+     (fra til)←'DD-MM-YYYY'(1200⌶)fra til
+     fratil←(fra,(fra≢til)/' - ',til)
+     :If new
+         id←⍕1+⌈/0,2⊃⎕VFI⍕EVENTS.ID
+         →0/⍨1≠DisplayPopup cap('Bekræft oprettelse af event "',desc,'"')'Query'('YES' 'NO')
+         EVENTS.(ID Fra Til Deltagere Beskrivelse Skipper Type)←EVENTS.(ID Fra Til Deltagere Beskrivelse Skipper Type)⍪¨⊂¨id fra til''desc'' 'Arbejdsdag'
+         data⍪←id fratil desc''
+         cc[1]←≢data
+     :Else
+         EVENTS.Beskrivelse[index]←⊂desc
+         EVENTS.Fra[index]←⊂fra
+         EVENTS.Til[index]←⊂til
+         data[data[;1]⍳⊂id;2 3]←fratil desc
+     :EndIf
+
+ :Case 'DEL' ⍝ Delete
+     desc←⊃values[cc[1];3]
+     →0/⍨1≠DisplayPopup cap('Bekræft slætning af event "',desc,'"')'Query'('YES' 'NO')
+     (index≠⍳≢EVENTS.ID)CompressTable'EVENTS'
+     data←(~data[;1]∊⊂id)⌿data
+     cc[1]←1⌈cc[1]-1
+ :Else
+     ...
+ :EndSelect
+
+ grid.Data←data
+ WriteTable'EVENTS'
+ cc[1]doFilterGrid sf

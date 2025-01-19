@@ -1,10 +1,10 @@
 MakeEventGrid sf;props;t;m;class
-t←EVENTS.(⍉↑(Type∊'Arbejdsdag' 'Møde')∘/¨Fra Til Beskrivelse Deltagere)
-t[;1]←t[;1],¨(≢/t[;1 2])/¨' - '∘,¨t[;2]
-t[;4]←{{0=⍵:'' ⋄ ⍕⍵}0.5×≢⎕JSON ⍵}¨t[;4]  ⍝ Antal tilmeldinger
-t←1 0 1 1/t
+t←EVENTS.(⍉↑(Type∊'Arbejdsdag' 'Møde')∘/¨ID Fra Til Beskrivelse Deltagere)
+t[;2]←t[;2],¨(≢/t[;2 3])/¨' - '∘,¨t[;3]
+t[;5]←{{0=⍵:'' ⋄ ⍕⍵}0.5×≢⎕JSON ⍵}¨t[;5]  ⍝ Antal tilmeldinger
+t←1 1 0 1 1/t
 
 class←'Event'
 addGridHeader sf class
-props←'Grid' t ('Data' t) ('CellWidths' (150 200 50))('ColTitles' ('Datoer' 'Beskrivelse' '#Tilm.'))('TitleWidth' 0)('Size' (500 400))
+props←'Grid' t ('Data' t) ('CellWidths' (25 150 200 50))('ColTitles' ('ID' 'Datoer' 'Beskrivelse' '#Tilm.'))('TitleWidth' 0)('Size' (500 425))
 addGrid sf class props

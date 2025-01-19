@@ -1,2 +1,18 @@
- Event_Make sf
+ Event_Make sf;btns;edit;tilm
  (sf,'.T')eWC'Label' 'Vælg noget'
+ (sf,'.HVEM')eWC'Label' 'Tilmeldt'
+
+ tilm←(sf,'.TILM') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
+ (tilm,'.TIL')eWC 'Button' 'Til/Fra' ('Size' (23 100))('Event' 'Select' 'Event_Actions')
+
+ :If ADMIN
+    edit←(sf,'.EDIT') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
+    (edit,'.FRA') 'Fra:' LabelBefore 'Edit' '' ('Size' (23 100))('FieldType' 'Date')
+    (edit,'.TIL') 'Til:' LabelBefore 'Edit' '' ('Size' (23 100))('FieldType' 'Date')
+    (edit,'.DESC') 'Beskrivelse:' LabelBefore 'Edit' ''('Size'(20 200))
+
+    btns←(sf,'.BTNS') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
+    (btns,'.NEW')eWC 'Button' 'Opret' ('Size' (23 100))('Event' 'Select' 'Event_Actions')
+    (btns,'.OPD')eWC 'Button' 'Opdater' ('Size' (23 100))('Event' 'Select' 'Event_Actions')
+    (btns,'.DEL')eWC 'Button' 'Slet' ('Size' (23 100))('Event' 'Select' 'Event_Actions')
+ :EndIf
