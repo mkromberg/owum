@@ -4,13 +4,13 @@
 
  (id desc status hvem)←4↑values[row;]
  sf←⍎((-'.'⍳⍨⌽grid)↓grid),'.CLASS' ⍝ This is where we may write
- z←('Valgt #',⍕id),': ',(status∨.≠' ')/' (',status,')'
- hvem←GetNames hvem
- z,←(0≠≢hvem)/' Ansvarlig: ',2↓∊', '∘,¨hvem[;1]
- med←(⊂ID)∊hvem ⍝ Tilmeldt
+ z←('Valgt #',⍕id),':',(status∨.≠' ')/' (',status,')'
+ z,←(0≠≢hvem)/' Ansvarlig: ',hvem
+
+ med←(⊂ID)∊1↓¨',' (=⊂⊢) ',',hvem ⍝ Tilmeldt
 
  sf.T.Caption←z
  sf.DESC.C.Text←desc
 
- sf.BTNS.TIL.Caption←(1+(⊂ID)∊hvem[;1])⊃'Tilmeld' 'Frameld'
- sf.BTNS.STA.Caption←('Startet' 'Færdig'⍳⊂status)⊃'Afslut' 'Genåbn' 'Start'
+ sf.BTNS.TIL.Caption←(1+med)⊃'Tilmeld' 'Frameld'
+ sf.BTNS.STA.Caption←('Startet' 'Afsluttet'⍳⊂status)⊃'Afslut' 'Nulstil' 'Start'

@@ -4,7 +4,7 @@
 
  class←'Work'
  addGridHeader sf class
- props←'Grid'(0 4⍴⊂'')('CellWidths'(25 200 100 200))('ColTitles'('ID' 'Beskrivelse' 'Status' 'Hvem'))('TitleWidth' 0)('Size'(500 550))
+ props←'Grid'(0 4⍴⊂'')('CellWidths'(25 400 60 60))('ColTitles'('ID' 'Beskrivelse' 'Status' 'Hvem'))('TitleWidth' 0)('Size'(500 570))
  addGrid sf class props
 
  eNQ(sf,'.GRUPPE')'Select'

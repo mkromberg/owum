@@ -1,6 +1,6 @@
 Work_Make sf;btns;select
  (sf,'.T')eWC'Label' 'Vælg noget'
- (sf,'.DESC') 'Beskrivelse:' LabelBefore 'Edit' ''('Size'(20 400))
+ (sf,'.DESC') 'Beskrivelse:' LabelBefore 'Edit' ''('Size'(20 490))
  (sf,'.SPACE')eWC 'Label' '' ⍝ /// Use CSS?
 
  select←'Event' 'Select' 'Work_Actions'

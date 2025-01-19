@@ -1,31 +1,64 @@
- Work_Actions args;ctl;sf;obj;file;name;z;mask;cap;desc;id;grp
+ Work_Actions args;ctl;sf;obj;file;name;z;mask;cap;desc;id;grp;grid;cc;m;i;index;values;hvem;states;caps
 
  ctl←{(1-'.'⍳⍨⌽⍵)↑⍵}obj←⊃args ⍝ Leaf
  sf←⍎(4+1⍳⍨'CLASS'⍷obj)↑obj
- cap←obj eWG 'Caption'
+ cap←obj eWG'Caption'
  desc←sf.DESC.C.Text
+ grp←⍕sf.##.GRUPPE.SelItems⍳1
+ grid←sf.##.GRID
+ cc←grid.CurCell
+ (values data)←grid.(Values Data)
+ id←⊃values[cc[1];1]
+ index←⍸(WORK.ID∊⊂id)∧WORK.Gruppe∊⊂grp
+
+ :If (ctl≢'NEW')∧1≠≢index
+     →0⊣DisplayPopup cap('Intern fejl - finder ikke opgaven!')'Error' 'OK'
+ :EndIf
 
  :Select ctl ⍝ See Work_Make
  :Case 'TIL' ⍝ Til- eller frameld
-     ...
+     hvem←GetNames index⊃WORK.Hvem
+     :Select cap
+     :Case 'Tilmeld'
+         hvem⍪←ID''
+     :Case 'Frameld'
+         hvem←(~hvem[;1]∊⊂ID)⌿hvem
+     :EndSelect
+     obj eWS 'Caption' (⊃'Tilmeld' 'Frameld'~⊂cap) ⍝ Reverse the caption
+     data[data[;1]⍳⊂id;4]←⊂1↓∊',',¨hvem[;1]
+     (index⊃WORK.Hvem)←(0≠≢hvem)/⎕JSON ,hvem
+
  :Case 'STA' ⍝ Change status
-     ...
+     caps←'Start' 'Afslut' 'Nulstil'
+     states←'Startet' 'Afsluttet' ''
+     i←3⌊caps⍳⊂cap
+     (index⊃WORK.Status)←i⊃states
+     data[data[;1]⍳⊂id;3]←⊂i⊃states
+     obj eWS 'Caption' (i⊃1⌽caps)
+
  :Case 'NEW' ⍝ Create new
      cap←'Opret ny arbejdsopgave'
      :If (⊂desc)∊WORK.Beskrivelse
-         →0 ⊣ DisplayPopup cap 'Opgavebeskrivelsen findes allerede.' 'Error' 'OK'
+         →0⊣DisplayPopup cap'Opgavebeskrivelsen findes allerede.' 'Error' 'OK'
      :EndIf
-     grp←⍕sf.##.GRUPPE.SelItems⍳1
-     id←⍕1+⌈/0,2⊃⎕VFI ⍕(WORK.Gruppe∊⊂⍕grp)/WORK.ID
-     →0/⍨1≠DisplayPopup cap ('Bekræft oprettelse af opgave "',desc,'"') 'Query' ('YES' 'NO')
-     WORK.(ID Gruppe Hvem Status Beskrivelse)←WORK.(ID Gruppe Hvem Status Beskrivelse)⍪¨⊂¨id grp '' '' desc
-     sf.##.GRID.Data←sf.##.GRID.Data,[1]id desc '' ''
-     WriteTable 'WORK'
-     doFilterGrid sf.##
+     id←⍕1+⌈/0,2⊃⎕VFI⍕(WORK.Gruppe∊⊂⍕grp)/WORK.ID
+     →0/⍨1≠DisplayPopup cap('Bekræft oprettelse af opgave "',desc,'"')'Query'('YES' 'NO')
+     WORK.(ID Gruppe Hvem Status Beskrivelse)←WORK.(ID Gruppe Hvem Status Beskrivelse)⍪¨⊂¨id grp'' ''desc
+     data⍪←id desc'' ''
+
  :Case 'OPD' ⍝ Update description
-     ...
+     WORK.Beskrivelse[index]←⊂desc
+     data[data[;1]⍳⊂id;2]←⊂desc
+
  :Case 'DEL' ⍝ Delete
-     ...
+     →0/⍨1≠DisplayPopup cap('Bekræft slætning af opgave "',desc,'"')'Query'('YES' 'NO')
+     (index≠⍳≢WORK.ID)CompressTable'WORK'
+     data←(~data[;1]∊⊂id)⌿data
+
  :Else
      ...
  :EndSelect
+
+ grid.Data←data
+ WriteTable'WORK'
+ doFilterGrid sf.##

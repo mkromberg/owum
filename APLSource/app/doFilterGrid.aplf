@@ -10,17 +10,16 @@
  :Trap 6
     cc←grid eWG 'CurCell'
  :Else
+    cc←1 1
     ⎕←'*** NO CurCell ***'
  :EndTrap
-
+ cc[1]←1⌈(≢data)⌊cc[1]
  :If m←filter∧.=' '
      m←(≢data)⍴1
  :Else
      m←∨/filter⍷⍥⎕C⍕data
  :EndIf
-
- grid eWS'Values'(m⌿data)
- :If 0 ⍝ Too hard for now
-     cc[1]←1⌈(+\m)[cc[1]] ⍝ Map CurCell to kept rows
-     grid eWS'CurCell'cc
- :EndIf
+ data←m⌿data
+ grid eWS'Values' data
+ (sf,'.CLASS.DESC.C')eWS 'Text' (cc[1]⊃(data[;2],⊂''))
+ grid eWS'CurCell'cc

@@ -2,4 +2,10 @@
  cols←2⊃⎕CSV⍠('Invert' 2)('Separator' CSVSeparator)('Decimal' CSVDecimal)⊢file ⍬ ⍬ 1 ⍝ We want to preserve column order
  data←ns VGET ¯2
  data←⌽↓⍉↑data[(⊃¨data)⍳cols]
- data ⎕CSV⍠('Invert' 2)('Separator'CSVSeparator)('Decimal'CSVDecimal)('IfExists' 'Replace')⊢file 'UTF-8-BOM'
+
+ AGAIN:
+ :Trap 19
+    data ⎕CSV⍠('Invert' 2)('Separator'CSVSeparator)('Decimal'CSVDecimal)('IfExists' 'Replace')⊢file 'UTF-8-BOM'
+ :Else
+    →AGAIN ⊣ DisplayPopup 'File Access Error'  ('Unable to write to "',file,'" - check whether it is open in Excel?') 'Error' 'OK'
+ :EndTrap
