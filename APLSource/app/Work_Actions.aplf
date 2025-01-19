@@ -11,7 +11,6 @@
  :Case 'STA' ⍝ Change status
      ...
  :Case 'NEW' ⍝ Create new
-     ...
      cap←'Opret ny arbejdsopgave'
      :If (⊂desc)∊WORK.Beskrivelse
          →0 ⊣ DisplayPopup cap 'Opgavebeskrivelsen findes allerede.' 'Error' 'OK'
@@ -20,7 +19,9 @@
      id←⍕1+⌈/0,2⊃⎕VFI ⍕(WORK.Gruppe∊⊂⍕grp)/WORK.ID
      →0/⍨1≠DisplayPopup cap ('Bekræft oprettelse af opgave "',desc,'"') 'Query' ('YES' 'NO')
      WORK.(ID Gruppe Hvem Status Beskrivelse)←WORK.(ID Gruppe Hvem Status Beskrivelse)⍪¨⊂¨id grp '' '' desc
+     sf.##.GRID.Data←sf.##.GRID.Data,[1]id desc '' ''
      WriteTable 'WORK'
+     doFilterGrid sf.##
  :Case 'OPD' ⍝ Update description
      ...
  :Case 'DEL' ⍝ Delete

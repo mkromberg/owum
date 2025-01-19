@@ -1,3 +1,3 @@
 WriteTable name;file
-file←ROOT,'/Data/',(1↑name),(⎕C 1↓name),'.csv'
-(⍎name) SaveCSV file
+file←ROOT,'/Data/',⊃TABLES[TABLES[;1]⍳⊂name;2]
+(VGET name) SaveCSV file

@@ -1,2 +1,26 @@
-doFilterGrid sf
-⎕←'doFilterGrid' sf
+ doFilterGrid sf;grid;filter;data;cc;m
+ sf←⍕sf
+ grid←sf,'.GRID'
+ filter←(sf,'.FILTER.F.C')eWG'Text'
+ :If filter∧.='2'
+     ⎕←'*** filter.Text is "2" ***'
+     filter←''
+ :EndIf
+ data←grid eWG'Data'
+ :Trap 6
+    cc←grid eWG 'CurCell'
+ :Else
+    ⎕←'*** NO CurCell ***'
+ :EndTrap
+
+ :If m←filter∧.=' '
+     m←(≢data)⍴1
+ :Else
+     m←∨/filter⍷⍥⎕C⍕data
+ :EndIf
+
+ grid eWS'Values'(m⌿data)
+ :If 0 ⍝ Too hard for now
+     cc[1]←1⌈(+\m)[cc[1]] ⍝ Map CurCell to kept rows
+     grid eWS'CurCell'cc
+ :EndIf

@@ -7,12 +7,8 @@ ReadTables root;data
 :EndTrap
 
 data←root,'/Data/'
-USERS←ReadCSV data,'Users.csv'
-MEDLEMMER←ReadCSV data,'Medlemsliste.csv'
-
-WORK←ReadCSV data,'Worklists.csv'
-WORKGROUPS←ReadCSV data,'Workgroups.csv'
-STATUSES←ReadCSV data,'Statuses.csv'
-EVENTS←ReadCSV data,'Events.csv'
+:For (table file) :In ↓TABLES
+    VSET ⊂table (ReadCSV data,file)
+:EndFor
 
 DOCS←ReadDocs root,'/Documents/'

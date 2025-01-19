@@ -1,0 +1,8 @@
+[
+ 'USERS'      'Users.csv'
+ 'MEDLEMMER'  'Medlemsliste.csv'
+ 'WORK'       'Worklists.csv'
+ 'WORKGROUPS' 'Workgroups.csv'
+ 'STATUSES'   'Statuses.csv'
+ 'EVENTS'     'Events.csv'
+]
