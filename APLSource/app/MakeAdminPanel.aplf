@@ -5,4 +5,4 @@
 
  (sf,'DLUSERS')eWC'Link' 'Data/Medlemsliste.xlsx' 'Hent Medlemsliste'('Download' 1)
  (sf,'ULU')eWC'Upload' ⍝ Users
- (sf,'BTNU')eWC'Button' 'Upload ny Medlemsliste'('Size'(20 200))('Event' 'Select' 'CBUpload')
+ (sf,'BTNU')eWC'Button' 'Upload ny Medlemsliste'('Size'(20 200))('Event' 'Select' 'CBUpload') buttoncol

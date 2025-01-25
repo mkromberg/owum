@@ -1,0 +1,8 @@
+SendText (subject text);cap
+cap←'OWUM: Send ',subject
+:Trap 0
+   SendMessage USERID subject text ''
+   DisplayPopup cap (subject,' er sendt til ',USERID) 'Info' 'OK'
+:Else
+   DisplayPopup cap ('Kan ikke sende ',subject) 'Error' 'OK'
+:EndTrap

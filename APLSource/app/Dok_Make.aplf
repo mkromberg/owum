@@ -2,12 +2,12 @@
  (sf,'.T')eWC'Label' 'Vælg noget'
  (sf,'.DESC') 'Beskrivelse:' LabelBefore 'Edit' ''('Size'(20 400))
 
- btns←(sf,'.BTNS') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
+ btns←(sf,'.BTNS') eWC 'SubForm' ('Flex' 'row')('CSS' 'justify-content: flex-start')
  (btns,'.ULD')eWC'Upload' ⍝ Document
- (btns,'.BTND')eWC'Button' 'Upload Nyt Dokument'('Size'(20 200))('Event' 'Select' 'CBUpload')
+ (btns,'.BTND')eWC'Button' 'Upload Nyt Dokument'('Size'(20 200))('Event' 'Select' 'CBUpload') buttoncol
 
- btns←(sf,'.ADMIN') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
+ btns←(sf,'.ADMIN') eWC 'SubForm' ('Flex' 'row')('CSS' 'justify-content: flex-start')
  :If ADMIN
-    (btns,'.OPD')eWC 'Button' 'Opdater' ('Size' (23 100))('Event' 'Select' 'Dok_Actions')
-    (btns,'.DEL')eWC 'Button' 'Slet' ('Size' (23 100))('Event' 'Select' 'Dok_Actions')
+    (btns,'.OPD')eWC 'Button' 'Opdater' ('Size' (23 100))('Event' 'Select' 'Dok_Actions') buttoncol
+    (btns,'.DEL')eWC 'Button' 'Slet' ('Size' (23 100))('Event' 'Select' 'Dok_Actions') buttoncol
  :EndIf

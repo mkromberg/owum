@@ -1,4 +1,4 @@
- Work_Actions args;ctl;sf;obj;file;name;z;mask;cap;desc;id;grp;grid;cc;m;i;index;values;hvem;states;caps
+ Work_Actions args;ctl;sf;obj;file;name;z;mask;cap;desc;id;grp;grid;cc;m;i;index;values;hvem;states;caps;html;filter
 
  ctl←{(1-'.'⍳⍨⌽⍵)↑⍵}obj←⊃args ⍝ Leaf
  sf←⍎(4+1⍳⍨'CLASS'⍷obj)↑obj
@@ -54,6 +54,16 @@
      →0/⍨1≠DisplayPopup cap('Bekræft slætning af opgave "',desc,'"')'Query'('YES' 'NO')
      (index≠⍳≢WORK.ID)CompressTable'WORK'
      data←(~data[;1]∊⊂id)⌿data
+
+ :Case 'PRT'
+     cap←'Arbejds liste for gruppen "',sf.##.GRUPPE.Text,'"'
+     html←HtmlTable (values[;1]) (1↓grid.ColTitles) (0 1↓values)
+     html←'<b>',cap,' dateret ',(⊃'__da__DD. mmmm YYYY' (1200⌶)1 ⎕DT'J'),'</b><br /><br />',html
+     filter←sf.##.FILTER.F.C.Text
+     :If filter∨.≠' '
+         html←('Filter: ',filter),'<br \><br \>',html
+     :EndIf
+     SendText cap html
 
  :Else
      ...

@@ -1,7 +1,7 @@
  sfs←MakeSFs(parent info);name;caption;sf;mode;fcol;bcol;titlebcol;bordercol;activebcol;passivebcol;p;tb;container;css
 
  mode←2 ⍝ 1=Stacked SubForms, 2=Tabs
- css←'gap: 10px'
+ css←'gap: 10px, margin: 5px'
 
  sfs←⎕NS''
 

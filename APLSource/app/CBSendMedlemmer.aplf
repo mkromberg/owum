@@ -12,11 +12,4 @@ t←MEDLEMMER.((~Status∊⊂'Støttemedlem')⌿⍉↑ID Navn Tlf Mail By)
 t←t[⍋t;]
 t←HtmlTable (t[;1])('Navn' 'Telefon' 'Mail' 'By')(0 1↓t)
 
-:Trap 0
-   SendMessage USERID subject t ''
-   DisplayPopup cap ('Medlemslisten er sendt til ',USERID) 'Info' 'OK'
-   →0
-:EndTrap
-
-ERROR:
-   DisplayPopup cap 'Kan ikke sende medlemslisten' 'Error' 'OK'
+SendText subject cap t

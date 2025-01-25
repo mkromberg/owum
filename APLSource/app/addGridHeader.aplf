@@ -1,9 +1,11 @@
- addGridHeader (name class);cap;btn;grid;sfc;sf
+ addGridHeader (name class);cap;btn;grid;sfc;sf;bcol
+ bcol←('BCol' (180 220 220))
  grid←name,'.GRID'
- (sf←name,'.FILTER')eWC'SubForm'('Flex' 'row')('CSS' 'place-content: start')
+ (sf←name,'.FILTER')eWC'SubForm'('Flex' 'row')('CSS' 'place-content: start;')
+
  (sf,'.F')'Søg:'LabelBefore'Edit'('Size'(23 200))('Event' 'KeyPress' 'CBFilterGrid')('Event' 1001 'CBFilterGrid')
 
  :If 3=⎕NC class,'_Make' ⍝ Does the class have a "constructor"
-     (sfc←name,'.CLASS')eWC'SubForm'('Flex' 'column')
+     (sfc←name,'.CLASS')eWC'SubForm'('Flex' 'column')bcol('CSS' 'gap: 5px, padding: 10px, margin: 0px')
      (⍎class,'_Make') sfc
  :EndIf

@@ -5,7 +5,7 @@
  bcol←219 252 252 ⍝ Pale blue
  formsize←350 300
 
- 'AE'eWC'BitMap'('File'image)
+ 'AE'eWC'BitMap'('File'image) ⍝ ('CSS' 'width: auto; height: auto; object-fit: contain; max-width: 100%; max-height: 100%')
  USERID←'' ⍝ Global state
 
  rows←'flex-direction: row, flex-wrap: wrap, justify-content: space-between, gap: 5px, align-items: flex-start'

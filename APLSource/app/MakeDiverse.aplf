@@ -1,6 +1,6 @@
  MakeDiverse sf;props;t;m;user;sf1;sf2;rows
 
- rows←'flex-direction: row, flex-wrap: wrap, justify-content: space-between, gap: 5px, align-items: start'
+ rows←'flex-direction: row, flex-wrap: wrap, justify-content: flex-start, gap: 5px'
  user←1 2⊃2 eNQ'F1' 'GetCookie' 'OWUMUSER'
 
  (sf1←sf,'.ROW1') eWC 'SubForm' ('Flex' 'row') ('CSS' rows)

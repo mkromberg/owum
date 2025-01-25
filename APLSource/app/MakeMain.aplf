@@ -2,6 +2,7 @@ MakeMain;formsize;bcol;name;error;tb;sf;sfs;R
 ⍝ Make the main OWUM form
 
  bcol←219 252 252 ⍝ Pale blue
+ buttoncol←'CSS' 'background-color: #86abdc'
  :If 0=≢name←⊃(MEDLEMMER.Navn,⊂'')[MEDLEMMER.Mail⍳⊂USERID]
      →ERROR ⊣ error←'Kunne ikke finde din oplysninger.'
  :EndIf

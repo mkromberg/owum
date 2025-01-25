@@ -1,4 +1,4 @@
- Event_Actions args;sf;tilm;edit;grid;cap;obj;cc;values;data;id;index;fra;til;skip;desc;kom;ctl;i;hvem;new;fratil
+ Event_Actions args;sf;tilm;edit;grid;cap;obj;cc;values;data;id;index;fra;til;skip;desc;kom;ctl;i;hvem;new;fratil;html;filter
 
  ctl←{(1-'.'⍳⍨⌽⍵)↑⍵}obj←⊃args ⍝ Leaf
  sf←(⍎(4+1⍳⍨'CLASS'⍷obj)↑obj).##
@@ -63,6 +63,17 @@
      (index≠⍳≢EVENTS.ID)CompressTable'EVENTS'
      data←(~data[;1]∊⊂id)⌿data
      cc[1]←1⌈cc[1]-1
+
+ :Case 'PRT'
+     cap←'Møder & Arbejdsdage'
+     html←HtmlTable (values[;1]) (1↓grid.ColTitles) (0 1↓values)
+     html←'<b>',cap,' dateret ',(⊃'__da__DD. mmmm YYYY' (1200⌶)1 ⎕DT'J'),'</b><br /><br />',html
+     filter←sf.FILTER.F.C.Text
+     :If filter∨.≠' '
+         html←('Filter: ',filter),'<br \><br \>',html
+     :EndIf
+     SendText cap html
+
  :Else
      ...
  :EndSelect

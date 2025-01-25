@@ -2,20 +2,21 @@
  (sf,'.T')eWC'Label' 'Vælg noget'
  (sf,'.HVEM')eWC'Label' 'Tilmeldt'
 
- tilm←(sf,'.TILM') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
+ tilm←(sf,'.TILM') eWC 'SubForm' ('Flex' 'row')('CSS' 'justify-content: flex-start')
  (tilm,'.KOM') 'Kommentar:' LabelBefore 'Edit' '' ('Size' (23 200))
- (tilm,'.OPDKOM')eWC 'Button' 'Opdater kommentar' ('Size' (23 150))('Event' 'Select' 'Sail_Actions')
- (tilm,'.TIL')eWC 'Button' 'Til/Fra' ('Size' (23 100))('Event' 'Select' 'Sail_Actions')
+ (tilm,'.OPDKOM')eWC 'Button' 'Opdater kommentar' ('Size' (23 150))('Event' 'Select' 'Sail_Actions') buttoncol
+ (tilm,'.TIL')eWC 'Button' 'Til/Fra' ('Size' (23 100))('Event' 'Select' 'Sail_Actions') buttoncol
 
  :If ADMIN
-    edit←(sf,'.EDIT') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
+    edit←(sf,'.EDIT') eWC 'SubForm' ('Flex' 'row')('CSS' 'justify-content: flex-start')
     (edit,'.FRA') 'Fra:' LabelBefore 'Edit' '' ('Size' (23 100))('FieldType' 'Date')
     (edit,'.TIL') 'Til:' LabelBefore 'Edit' '' ('Size' (23 100))('FieldType' 'Date')
     (edit,'.SKIP') 'Skipper:' LabelBefore 'Edit' ''('Size'(20 50))
     (edit,'.DESC') 'Beskrivelse:' LabelBefore 'Edit' ''('Size'(20 200))
 
-    btns←(sf,'.BTNS') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
-    (btns,'.NEW')eWC 'Button' 'Opret' ('Size' (23 100))('Event' 'Select' 'Sail_Actions')
-    (btns,'.OPD')eWC 'Button' 'Opdater' ('Size' (23 100))('Event' 'Select' 'Sail_Actions')
-    (btns,'.DEL')eWC 'Button' 'Slet' ('Size' (23 100))('Event' 'Select' 'Sail_Actions')
+    btns←(sf,'.BTNS') eWC 'SubForm' ('Flex' 'row')('CSS' 'justify-content: flex-start')
+    (btns,'.NEW')eWC 'Button' 'Opret' ('Size' (23 100))('Event' 'Select' 'Sail_Actions') buttoncol
+    (btns,'.OPD')eWC 'Button' 'Opdater' ('Size' (23 100))('Event' 'Select' 'Sail_Actions') buttoncol
+    (btns,'.DEL')eWC 'Button' 'Slet' ('Size' (23 100))('Event' 'Select' 'Sail_Actions') buttoncol
+    (btns,'.PRT')eWC 'Button' 'Send som E-mail' ('Size' (23 110))('Event' 'Select' 'Sail_Actions') buttoncol
  :EndIf
