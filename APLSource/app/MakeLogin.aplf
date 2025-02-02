@@ -13,7 +13,7 @@
  'F1'eWC'Form' 'Please Login'('Coord' 'Pixel')('Flex' 'fill')('BCol'bcol)('CSS' formcss)
  2 eNQ 'F1' 'SetTitle' 'OWUM Medlem'
 
- 'F1.INPUT'eWC'SubForm'('Flex' 'row')⍝('Size' formsize)
+ 'F1.INPUT'eWC'SubForm'('Flex' 'row')('CSS' 'margin-top: calc(30%);')
 
  'F1.INPUT.CREDS'eWC'SubForm'('Flex' 'row')('CSS'rows)('BCol'bcol)
  :Trap 0
