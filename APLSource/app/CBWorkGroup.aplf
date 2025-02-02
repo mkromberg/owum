@@ -27,8 +27,8 @@ ctl←2⊃pluck ⊃args
            WriteTable 'WORK'
            WriteTable 'WORKGROUPS'
            items←m/dropdown eWG 'Items'
-           updateWorkDropDowns items ((≢items)↑1)
            z←DisplayPopup'Slet Gruppe' ('Gruppen "',name,'" er slettet.') 'Info' 'OK'
+           updateWorkDropDowns items ((≢items)↑1)
 
        :Else
            z←DisplayPopup'Slet Gruppe' 'Gruppen kan ikke slettes da den ikke er tom.' 'Error' 'OK'
@@ -40,10 +40,10 @@ ctl←2⊃pluck ⊃args
            z←DisplayPopup'Opret Ny Gruppe' 'Navnet skal ha mindst 6 tegn og ikke allerede eksistere.' 'Error' 'OK'
        :Else
            items←(dropdown eWG 'Items'),⊂name,' (0 opgaver)'
-           updateWorkDropDowns items ((-≢items)↑1)
            WORKGROUPS.Gruppe,←⊂name
            WriteTable 'WORKGROUPS'
            z←DisplayPopup'Opret Ny Gruppe' ('Gruppen "',name,'" er oprettet.') 'Info' 'OK'
+           updateWorkDropDowns items ((-≢items)↑1)
        :EndIf
     :EndSelect
 :Case 'Work'
