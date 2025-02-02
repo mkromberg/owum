@@ -1,8 +1,22 @@
- MakeAdminPanel sf;props;t;m
+ MakeAdminPanel sf;props;t;m;select;grp;w;n;css
  →(0=≢sf)⍴0 ⍝ Not wanted
 
  sf,←'.'
-
  (sf,'DLUSERS')eWC'Link' 'Data/Medlemsliste.xlsx' 'Hent Medlemsliste'('Download' 1)
  (sf,'ULU')eWC'Upload' ⍝ Users
  (sf,'BTNU')eWC'Button' 'Upload ny Medlemsliste'('Size'(20 200))('Event' 'Select' 'CBUpload') buttoncol
+
+ select←('Event' 'Select' 'CBWorkGroup')
+
+ w←WORKGROUPS.Gruppe
+ n←¯1+{≢⍵}⌸(⍳≢w),2⊃⎕VFI⍕WORK.Gruppe
+ w←w,¨' ('∘,¨(⍕¨n),¨⊂' opgaver)'
+ css←'place-content: start; background-color: gold; gap: 5px; padding: 10px; margin: 0px;'
+ (grp←sf,'GRP')eWC'SubForm'('Flex' 'row')('CSS' css)
+ (grp,'.HDR')eWC 'Label' 'Vedligehold af arbejdsopgave-grupper'
+ (grp,'.GRUPPE')eWC'Combo'w(⊃⌽w)('SelItems'((-≢w)↑1))('Size'(23 250))select
+ (grp,'.DEL')eWC 'Button' 'Slet Gruppe' ('Size' (23 100))select buttoncol
+ (grp,'.DESC') 'Ny Gruppe:' LabelBefore 'Edit' ''('Size'(20 490))
+ (grp,'.ADD')eWC 'Button' 'Opret Ny Gruppe' ('Size' (23 120))select buttoncol
+
+ eNQ (grp,'.GRUPPE') 'Select'

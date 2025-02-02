@@ -1,14 +1,55 @@
-R←CBWorkGroup args;t;sf
+R←CBWorkGroup args;t;sf;form;ctl;i;z;groupids;items;name;group;m;dropdown
 ⎕←'CBWorkGroup' args
 R←1
 
-sf←{(-(⌽⍵)⍳'.')↓⍵}⊃args
+sf←⊃pluck∘⊃⍣2⊢args
 t←WORK.(⍉↑Gruppe ID Beskrivelse Status Hvem)
-t←(t[;1]∊⊂⍕1⍳⍨(⊃args)eWG 'SelItems')⌿0 1↓t       ⍝ Selected group
+groupids←2⊃⎕VFI ⍕t[;1]
+t←(groupids=group←1⍳⍨(dropdown←sf,'.GRP.GRUPPE')eWG 'SelItems')⌿0 1↓t    ⍝ Selected group
 :If 0≠≢t
     t[;4]←{0=≢⍵:'' ⋄ {⍕((⍴⍵)⍴1 0)/⍵}⎕JSON ⍵}¨t[;4]    ⍝ Antal "tilmeldinger"
 :EndIf
 
-(sf,'.GRID') eWS ('Values' t)('Data' t)
-'Work' CBCellMove (sf,'.GRID') 'CellMove' 1 1
-doFilterGrid sf
+form←2⊃pluck sf
+ctl←2⊃pluck ⊃args
+:Select form
+:Case 'Admin'
+    :Select ctl
+    :Case 'GRUPPE'
+       i←(⊃args) eWG 'SelItems'
+       (sf,'.GRP.DEL') eWS 'Active' (0=≢t)
+    :Case 'DEL'
+       :If 0=≢t
+           name←group⊃WORKGROUPS.Gruppe
+           i←+\m←group≠⍳≢WORKGROUPS.Gruppe
+           WORK.Gruppe←(⍕¨i)[groupids] ⍝ Rename
+           WORKGROUPS.Gruppe←m/WORKGROUPS.Gruppe
+           WriteTable 'WORK'
+           WriteTable 'WORKGROUPS'
+           items←m/dropdown eWG 'Items'
+           updateWorkDropDowns items ((≢items)↑1)
+           z←DisplayPopup'Slet Gruppe' ('Gruppen "',name,'" er slettet.') 'Info' 'OK'
+
+       :Else
+           z←DisplayPopup'Slet Gruppe' 'Gruppen kan ikke slettes da den ikke er tom.' 'Error' 'OK'
+       :EndIf
+
+    :Case 'ADD'
+       :If 6>≢name←(sf,'.GRP.DESC.C') eWG 'Text'
+       :OrIf (⊂name) ∊⍥⎕C WORKGROUPS.Gruppe
+           z←DisplayPopup'Opret Ny Gruppe' 'Navnet skal ha mindst 6 tegn og ikke allerede eksistere.' 'Error' 'OK'
+       :Else
+           items←(dropdown eWG 'Items'),⊂name,' (0 opgaver)'
+           updateWorkDropDowns items ((-≢items)↑1)
+           WORKGROUPS.Gruppe,←⊂name
+           WriteTable 'WORKGROUPS'
+           z←DisplayPopup'Opret Ny Gruppe' ('Gruppen "',name,'" er oprettet.') 'Info' 'OK'
+       :EndIf
+    :EndSelect
+:Case 'Work'
+   (sf,'.GRID') eWS ('Values' t)('Data' t)
+   'Work' CBCellMove (sf,'.GRID') 'CellMove' 1 1
+   doFilterGrid sf
+:Else
+   ...
+:EndSelect

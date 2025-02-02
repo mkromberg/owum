@@ -1,0 +1,5 @@
+updateWorkDropDowns (items selitems);dropdown
+:For dropdown :In 'F1.TC.Admin' 'F1.TC.Work',¨⊂'.GRP.GRUPPE'
+    dropdown eWS ('Items' items)('SelItems' selitems)
+    eNQ dropdown 'Select'
+:EndFor

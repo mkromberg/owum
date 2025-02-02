@@ -1,11 +1,12 @@
- MakeWorkGrid sf;props;t;m;w;class
+ MakeWorkGrid sf;props;t;m;w;class;select;grp
  w←WORKGROUPS.Gruppe
- (sf,'.GRUPPE')eWC'Combo'w(⊃⌽w)('SelItems'((-≢w)↑1))('Size'(23 200))('Event' 'Select' 'CBWorkGroup')
+ select←('Event' 'Select' 'CBWorkGroup')
+ (grp←sf,'.GRP')eWC'SubForm'('Flex' 'row')('CSS' 'place-content: start;')
+ (grp,'.GRUPPE')eWC'Combo'w(⊃⌽w)('SelItems'((-≢w)↑1))('Size'(23 200))select
 
  class←'Work'
  addGridHeader sf class
  props←'Grid'(0 4⍴⊂'')('CellWidths'(25 400 60 60))('ColTitles'('ID' 'Beskrivelse' 'Status' 'Hvem'))('TitleWidth' 0)('Size'(500 570))
  addGrid sf class props
 
- eNQ(sf,'.GRUPPE')'Select'
- CBWorkGroup (sf,'.GRUPPE') 'Select' ⍝ /// The NQ didn't work last time I looked
+ eNQ(grp,'.GRUPPE')'Select'
