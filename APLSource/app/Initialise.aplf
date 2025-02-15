@@ -1,5 +1,8 @@
- Initialise dummy
+ Initialise dummy;z
  MakeLogin
  :If EWC.MODE=2 ⍝ Multi Mode
-     eDQ&'F1'
+     :Repeat
+         z←eDQ 'F1'
+         ⎕←'eDq ''F1'' returned: ',z
+     :Until 0=⎕NC 'F1'
  :EndIf
