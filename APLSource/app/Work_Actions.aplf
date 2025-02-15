@@ -4,7 +4,7 @@
  sf←⍎(4+1⍳⍨'CLASS'⍷obj)↑obj
  cap←obj eWG'Caption'
  desc←sf.DESC.C.Text
- grp←⍕sf.##.GRUPPE.SelItems⍳1
+ grp←⍕sf.##.GRP.GRUPPE.SelItems⍳1
  grid←sf.##.GRID
  cc←grid.CurCell
  (values data)←grid.(Values Data)
