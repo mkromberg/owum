@@ -1,0 +1,25 @@
+r←{subst} T text;keep;head;tail;m;h;t;body;i
+⍝ Translate and insert parameters into text
+
+subst←⎕VGET ⊂'subst' ⍬
+:If 1<|≡text
+    →0 ⊣ r←subst∘T¨text
+:EndIf
+
+keep←' .:!?-' ⍝ Will retain leading and trailing punctuation
+head←(h←+/∧\m←text∊keep)↑text
+tail←(t←-+/∧\⌽m)↑text
+body←h↓t↓text
+
+:If 1∨1≠LANGUAGEIX
+   body←⊃LANGTXT[Tix ⊂⎕C body;LANGUAGEIX]
+:EndIf
+
+:If 2=⎕NC 'subst'
+:AndIf 0≠≢subst
+   i←⍸body='%'
+   body[i]←(,⊆subst)['123456789'⍳body[i+1]] ⍝ Substitute parameters
+   body←∊(~(⍳≢body)∊i+1)/body
+:EndIf
+
+r←head,body,tail

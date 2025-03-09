@@ -1,4 +1,6 @@
  r←SendMessage(recipient subject body attachment);mailserver;sender;password;port
+ ⍝ /// Needs to become configurable
+
  mailserver←'send.one.com'
  port←587
  sender←'admin@owum.dk' 'OWUM Adminstrator'

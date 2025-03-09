@@ -3,8 +3,8 @@ MakeMain;formsize;bcol;name;error;tb;sf;sfs;R
 
  bcol←219 252 252 ⍝ Pale blue
  buttoncol←'CSS' 'background-color: #86abdc'
- :If 0=≢name←⊃(MEDLEMMER.Navn,⊂'')[MEDLEMMER.Mail⍳⊂USERID]
-     →ERROR ⊣ error←'Kunne ikke finde din oplysninger.'
+ :If 0=≢name←⊃(MEMBERS.Navn,⊂'')[MEMBERS.Mail⍳⊂USERID]
+     →ERROR ⊣ error←T 'Kunne ikke finde dine oplysninger.'
  :EndIf
 
  'F1'eWC'Form' 'Anne Elise''s Medlemsside'(50 50) ('Coord' 'Pixel')('Flex' 'fill')('BCol' bcol)
@@ -26,8 +26,6 @@ MakeMain;formsize;bcol;name;error;tb;sf;sfs;R
  →0
 
  ERROR:
- 'MB1'eWC'MsgBox' 'OWUM Login'error 'Error' 'OK'('Event'('MsgBtn1' 'MsgBtn2' 'MsgBtn3')1)
- R←eDQ'MB1'
- eEX'MB1' 'F1'
+ DisplayPopup 'Login' error 'Error' 'OK'
 
  EWC.closeConnection _EWC.conn

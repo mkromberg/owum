@@ -8,5 +8,5 @@ ns←ReadDocs dir;files;dates;m;p;names;dts;i
  names←(11×p=11)↓¨files
  names←('<a href="documents/')∘,¨files,¨(⊂'" target="_blank">'),¨names,¨⊂'</a>'
  dts←dates
- dates[i]←'__da__dddd D. mmmm'(1200⌶)1 ⎕DT 2⊃¨'- '∘⎕VFI¨dates[i←⍸m]
+ dates[i]←('__',LANGUAGE,'__dddd D. mmmm')(1200⌶)1 ⎕DT 2⊃¨'- '∘⎕VFI¨dates[i←⍸m]
  ns.(Year Date File Link)←↓⍉((4↑¨dts),dates,files,⍪names)[⍒dts;]

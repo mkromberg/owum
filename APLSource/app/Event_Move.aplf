@@ -5,16 +5,16 @@
  hvem←GetNames hvem
 
  sf←⍎((-'.'⍳⍨⌽grid)↓grid),'.CLASS' ⍝ This is where we may write
- sf.T.Caption←'Valgt: ','#',id,': ',desc
+ sf.T.Caption←id desc T 'Valgt: #%1: %2'
  :If 0=≢hvem
-    sf.HVEM.Caption←'(ingen tilmeldinger)'
+    sf.HVEM.Caption←T '(ingen tilmeldinger)'
  :Else
-    sf.HVEM.Caption←'Tilmeldt: ',1↓∊','∘,¨hvem[;1]
+    sf.HVEM.Caption←(1↓∊','∘,¨hvem[;1]) T 'Tilmeldt: %1'
  :EndIf
 
  tilm←sf⍎'TILM'
  med←(⊂ID)∊hvem[;1]
- tilm.TIL.Caption←(1+med)⊃'Tilmeld' 'Frameld'
+ tilm.TIL.Caption←T (1+med)⊃'Tilmeld' 'Frameld'
 
  edit←sf⍎'EDIT'
  edit.(FRA TIL DESC).C.Value←({1 ⎕DT⊂⌽2⊃'-' ⎕VFI ⍵}¨fra til),⊂desc

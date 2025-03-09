@@ -1,14 +1,21 @@
- CBTop args;ctl
+ CBTop args;ctl;lix
  ⍝ Log Out or Change Password
 
  ctl←⊃⌽'.'(≠⊆⊢)⊃args
  :Select ctl
  :Case 'LOGOUT'
-     DisplayPopup'OWUM' 'Tak for denne gang!' 'Info' 'OK'
+     DisplayPopup'' 'Tak for denne gang!' 'Info' 'OK'
      USERID←''
      MakeLogin
 
  :Case 'NEWPWD'
      eNQ 'F1.TC.DivTB' 'Select'
 
+ :Else
+     :If 'FLAG_'≡5↑ctl
+     :AndIf (≢LANGUAGES)≥lix←LANGUAGES⍳⊂¯2↑ctl
+         SelectLanguage lix
+         MakeMain
+         eNQ ACTIVESF 'Select'
+     :EndIf
  :EndSelect

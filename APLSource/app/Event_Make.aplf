@@ -1,9 +1,9 @@
  Event_Make sf;btns;edit;tilm
- (sf,'.T')eWC'Label' 'Vælg noget'
- (sf,'.HVEM')eWC'Label' 'Tilmeldt'
+ (sf,'.T')eWC'Label' (T 'Vælg noget')
+ (sf,'.HVEM')eWC'Label' (T 'Tilmeldt')
 
  tilm←(sf,'.TILM') eWC 'SubForm' ('Flex' 'row')('CSS' 'justify-content: flex-start')
- (tilm,'.TIL')eWC 'Button' 'Til/Fra' ('Size' (23 100))('Event' 'Select' 'Event_Actions') buttoncol
+ (tilm,'.TIL')eWC 'Button' (T 'Til/Fra') ('Size' (23 100))('Event' 'Select' 'Event_Actions') buttoncol
 
  :If ADMIN
     edit←(sf,'.EDIT') eWC 'SubForm' ('Flex' 'row')('CSS' 'justify-content: flex-start')
@@ -12,8 +12,8 @@
     (edit,'.DESC') 'Beskrivelse:' LabelBefore 'Edit' ''('Size'(20 200))
 
     btns←(sf,'.BTNS') eWC 'SubForm' ('Flex' 'row')('CSS' 'justify-content: flex-start')
-    (btns,'.NEW')eWC 'Button' 'Opret' ('Size' (23 100))('Event' 'Select' 'Event_Actions') buttoncol
-    (btns,'.OPD')eWC 'Button' 'Opdater' ('Size' (23 100))('Event' 'Select' 'Event_Actions') buttoncol
-    (btns,'.DEL')eWC 'Button' 'Slet' ('Size' (23 100))('Event' 'Select' 'Event_Actions') buttoncol
-    (btns,'.PRT')eWC 'Button' 'Send som E-mail' ('Size' (23 110))('Event' 'Select' 'Event_Actions') buttoncol
+    (btns,'.NEW')eWC 'Button' (T 'Opret') ('Size' (23 100))('Event' 'Select' 'Event_Actions') buttoncol
+    (btns,'.OPD')eWC 'Button' (T 'Opdater') ('Size' (23 100))('Event' 'Select' 'Event_Actions') buttoncol
+    (btns,'.DEL')eWC 'Button' (T 'Slet') ('Size' (23 100))('Event' 'Select' 'Event_Actions') buttoncol
+    (btns,'.PRT')eWC 'Button' (T 'Send som E-mail') ('Size' (23 110))('Event' 'Select' 'Event_Actions') buttoncol
  :EndIf

@@ -11,23 +11,24 @@
  rows←'flex-direction: row, flex-wrap: wrap, justify-content: space-between, gap: 5px, align-items: flex-start'
 
  'F1'eWC'Form' 'Please Login'('Coord' 'Pixel')('Flex' 'fill')('BCol'bcol)('CSS' formcss)
- 2 eNQ 'F1' 'SetTitle' 'OWUM Medlem'
+ 2 eNQ 'F1' 'SetTitle' APPNAME
 
  'F1.INPUT'eWC'SubForm'('Flex' 'row')('CSS' 'margin-top: calc(30%);')
 
  'F1.INPUT.CREDS'eWC'SubForm'('Flex' 'row')('CSS'rows)('BCol'bcol)
  :Trap 0
      user←1 2⊃2 eNQ 'F1' 'GetCookie' 'OWUMUSER'
+     LANGUAGE←(LANGUAGES⍳1 2⊃2 eNQ 'F1' 'GetCookie' 'OWUMLANGUAGE')⊃(1+≢LANGUAGES)⍴LANGUAGES
  :Else
      ⎕←'No cookies :('
      user←''
  :EndTrap
  'F1.INPUT.CREDS.USERID' 'User ID'LabelAbove'Edit' user('Size'(23 150))
- 'F1.INPUT.CREDS.PWD' 'Password'LabelAbove'Edit' ''('Size'(23 100))('Password' '*')
+ 'F1.INPUT.CREDS.PWD' 'Passord'LabelAbove'Edit' ''('Size'(23 100))('Password' '*')
 
  'F1.INPUT.CREDS.BTNS'eWC'SubForm'('Flex' 'column')
- 'F1.INPUT.CREDS.BTNS.LOGIN'eWC'Button' 'Login'('Size'(23 120))('Default' 1)('Event' 'Select' 'CBLogin')
- 'F1.INPUT.CREDS.BTNS.FORGOT'eWC'Button' 'Glemt passord'('Size'(23 120))('Default' 1)('Event' 'Select' 'CBLogin')
+ 'F1.INPUT.CREDS.BTNS.LOGIN'eWC'Button' (T 'Login')('Size'(23 120))('Default' 1)('Event' 'Select' 'CBLogin')
+ 'F1.INPUT.CREDS.BTNS.FORGOT'eWC'Button' (T 'Glemt passord')('Size'(23 120))('Default' 1)('Event' 'Select' 'CBLogin')
 
  ⍝ 'F1.INPUT.FILL'eWC'SubForm'('Size'(400 400))
 

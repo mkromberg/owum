@@ -8,14 +8,14 @@
 
  t←{'F1.INPUT.CREDS.',⍵,'.C'}¨'USERID' 'PWD'
  (user pwd)←t eWG¨⊂'Text'
- error←'Forkert bruger eller passord'
+ error←T 'Forkert bruger eller passord'
  i←USERS.(⎕C UserId)⍳⊂⎕C user
  :Hold 'USERS.Login'
      →(i>≢USERS.UserId)⍴ERROR
      (USERID NAME ADMIN)←i⊃¨USERS.(UserId Name Admin)
  :EndHold
 
- ID←(MEDLEMMER.Mail⍳⍥⎕C⊂USERID)⊃MEDLEMMER.ID,⊂''
+ ID←(MEMBERS.Mail⍳⍥⎕C⊂USERID)⊃MEMBERS.ID,⊂''
 
  :Select ctl
  :Case 'LOGIN'
@@ -30,21 +30,20 @@
      MakeMain
 
  :Case 'FORGOT'
-     z←'Klik OK for at få sendt et nyt passord til ',user,'.'
-     z←DisplayPopup'OWUM Login'z'Query'('OK' 'Cancel')
+     z←user DisplayPopup'Login' 'Klik OK for at få sendt et nyt passord til %1.' 'Query'('OK' 'Cancel')
      :If 1=z
          z←{⍵[?8⍴≢⍵]}'?!@&',⎕D,⎕A,⎕C ⎕A ⍝ Generate random password
          SetPassword i z
-         z←'Dit nye passord er ',z
+         z←z T 'Dit nye passord er %1.'
          :If 0≠⊃z←SendMessage user'Nyt passord'z ⍬
              →ERROR⊣error←2⊃z
          :EndIf
-         z←DisplayPopup'OWUM Login' 'Check din indbakke og prøv at logge ind igen. Husk at du kan skifte passord når du er logget ind.' 'Info' 'OK'
+         z←DisplayPopup'Login' 'Check din indbakke og prøv at logge ind igen. Husk at du kan skifte passord når du er logget ind.' 'Info' 'OK'
      :EndIf
  :Else
-     →ERROR⊣error←'Internal error - Login not possible'
+     →ERROR⊣error←'Intern fejl - kan ikke logge ind.'
  :EndSelect
  →0
 
 ERROR:
- DisplayPopup'OWUM Login'error msgmode'OK'
+ DisplayPopup'Login'error msgmode'OK'

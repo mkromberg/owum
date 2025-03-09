@@ -1,5 +1,4 @@
 R←CBWorkGroup args;t;sf;form;ctl;i;z;groupids;items;name;group;m;dropdown
-⎕←'CBWorkGroup' args
 R←1
 
 sf←⊃pluck∘⊃⍣2⊢args
@@ -7,7 +6,7 @@ t←WORK.(⍉↑Gruppe ID Beskrivelse Status Hvem)
 groupids←2⊃⎕VFI ⍕t[;1]
 t←(groupids=group←1⍳⍨(dropdown←sf,'.GRP.GRUPPE')eWG 'SelItems')⌿0 1↓t    ⍝ Selected group
 :If 0≠≢t
-    t[;4]←{0=≢⍵:'' ⋄ {⍕((⍴⍵)⍴1 0)/⍵}⎕JSON ⍵}¨t[;4]    ⍝ Antal "tilmeldinger"
+    t[;4]←{0=≢⍵:'' ⋄ {⍕((⍴⍵)⍴1 0)/⍵}⎕JSON ⍵}¨t[;4] ⍝ Antal "tilmeldinger"
 :EndIf
 
 form←2⊃pluck sf
@@ -27,7 +26,7 @@ ctl←2⊃pluck ⊃args
            WriteTable 'WORK'
            WriteTable 'WORKGROUPS'
            items←m/dropdown eWG 'Items'
-           z←DisplayPopup'Slet Gruppe' ('Gruppen "',name,'" er slettet.') 'Info' 'OK'
+           z←name DisplayPopup'Slet Gruppe' ('Gruppen "%1" er slettet.') 'Info' 'OK'
            updateWorkDropDowns items ((≢items)↑1)
 
        :Else
@@ -37,12 +36,12 @@ ctl←2⊃pluck ⊃args
     :Case 'ADD'
        :If 6>≢name←(sf,'.GRP.DESC.C') eWG 'Text'
        :OrIf (⊂name) ∊⍥⎕C WORKGROUPS.Gruppe
-           z←DisplayPopup'Opret Ny Gruppe' 'Navnet skal ha mindst 6 tegn og ikke allerede eksistere.' 'Error' 'OK'
+           z←DisplayPopup'Opret Ny Gruppe' 'Navnet skal ha mindst 6 tegn og ikke allerede være i brug.' 'Error' 'OK'
        :Else
            items←(dropdown eWG 'Items'),⊂name,' (0 opgaver)'
            WORKGROUPS.Gruppe,←⊂name
            WriteTable 'WORKGROUPS'
-           z←DisplayPopup'Opret Ny Gruppe' ('Gruppen "',name,'" er oprettet.') 'Info' 'OK'
+           z←name DisplayPopup'Opret Ny Gruppe' ('Gruppen "%1" er oprettet.') 'Info' 'OK'
            updateWorkDropDowns items ((-≢items)↑1)
        :EndIf
     :EndSelect

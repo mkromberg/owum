@@ -5,12 +5,12 @@ Work_Make sf;btns;select
 
  select←'Event' 'Select' 'Work_Actions'
  btns←(sf,'.BTNS') eWC 'SubForm' ('Flex' 'row')('CSS' 'justify-content: flex-start')
- (btns,'.TIL')eWC 'Button' 'Til/Fra' ('Size' (23 100))select buttoncol
- (btns,'.STA')eWC 'Button' 'Status' ('Size' (23 100))select buttoncol
- (btns,'.NEW')eWC 'Button' 'Opret Ny' ('Size' (23 100))select buttoncol
- (btns,'.OPD')eWC 'Button' 'Ret Bekrivelse' ('Size' (23 100))select buttoncol
- (btns,'.PRT')eWC 'Button' 'Send som E-mail' ('Size' (23 110))select buttoncol
+ (btns,'.TIL')eWC 'Button' (T 'Til/Fra') ('Size' (23 100))select buttoncol
+ (btns,'.STA')eWC 'Button' (T 'Status') ('Size' (23 100))select buttoncol
+ (btns,'.NEW')eWC 'Button' (T 'Opret Ny') ('Size' (23 100))select buttoncol
+ (btns,'.OPD')eWC 'Button' (T 'Ret Beskrivelse') ('Size' (23 100))select buttoncol
+ (btns,'.PRT')eWC 'Button' (T 'Send som E-mail') ('Size' (23 110))select buttoncol
 
  :If ADMIN
-     (btns,'.DEL')eWC 'Button' 'Slet' ('Size' (23 100))select buttoncol
+     (btns,'.DEL')eWC 'Button' (T 'Slet') ('Size' (23 100))select buttoncol
  :EndIf

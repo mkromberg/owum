@@ -1,14 +1,15 @@
-CBSendMedlemmer args;filename;subject;cap;t
+CBSendMedlemmer args;filename;subject;cap;t;date
 ⍝ Send medlemsliste
-cap←'OWUM: Send medlemsliste'
+cap←T 'Send medlemsliste'
 
 :If ⎕NEXISTS filename←ROOT,'/Data/Medlemsliste.xlsx'
-   subject←'Anna Elise medlemsliste dateret ',⊃'__da__DD. mmm YYYY' (1200⌶) ¯1 1 ⎕DT 3 ⎕NINFO filename
+   date←⊃'__',LANGUAGE,'__DD. mmm YYYY' (1200⌶) ¯1 1 ⎕DT 3 ⎕NINFO filename
+   subject←date T 'Medlemsliste dateret %1'
 :Else
    →ERROR
 :EndIf
 
-t←MEDLEMMER.((~Status∊⊂'Støttemedlem')⌿⍉↑ID Navn Tlf Mail By)
+t←MEMBERS.((~Status∊⊂'Støttemedlem')⌿⍉↑ID Navn Tlf Mail By)
 t←t[⍋t;]
 t←HtmlTable (t[;1])('Navn' 'Telefon' 'Mail' 'By')(0 1↓t)
 

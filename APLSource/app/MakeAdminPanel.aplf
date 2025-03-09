@@ -4,19 +4,19 @@
  sf,←'.'
  (sf,'DLUSERS')eWC'Link' 'Data/Medlemsliste.xlsx' 'Hent Medlemsliste'('Download' 1)
  (sf,'ULU')eWC'Upload' ⍝ Users
- (sf,'BTNU')eWC'Button' 'Upload ny Medlemsliste'('Size'(20 200))('Event' 'Select' 'CBUpload') buttoncol
+ (sf,'BTNU')eWC'Button' (T 'Upload ny Medlemsliste')('Size'(20 200))('Event' 'Select' 'CBUpload') buttoncol
 
  select←('Event' 'Select' 'CBWorkGroup')
 
  w←WORKGROUPS.Gruppe
  n←¯1+{≢⍵}⌸(⍳≢w),2⊃⎕VFI⍕WORK.Gruppe
- w←w,¨' ('∘,¨(⍕¨n),¨⊂' opgaver)'
+ w←w,¨' ('∘,¨(⍕¨n),¨⊂' ',(T'opgaver'),')'
  css←'place-content: start; background-color: gold; gap: 5px; padding: 10px; margin: 0px;'
  (grp←sf,'GRP')eWC'SubForm'('Flex' 'row')('CSS' css)
- (grp,'.HDR')eWC 'Label' 'Vedligehold af arbejdsopgave-grupper'
+ (grp,'.HDR')eWC 'Label' (T 'Vedligehold af arbejdsopgave-grupper')
  (grp,'.GRUPPE')eWC'Combo'w(⊃⌽w)('SelItems'((-≢w)↑1))('Size'(23 250))select
- (grp,'.DEL')eWC 'Button' 'Slet Gruppe' ('Size' (23 100))select buttoncol
+ (grp,'.DEL')eWC 'Button' (T 'Slet Gruppe') ('Size' (23 100))select buttoncol
  (grp,'.DESC') 'Ny Gruppe:' LabelBefore 'Edit' ''('Size'(20 490))
- (grp,'.ADD')eWC 'Button' 'Opret Ny Gruppe' ('Size' (23 120))select buttoncol
+ (grp,'.ADD')eWC 'Button' (T 'Opret Ny Gruppe') ('Size' (23 120))select buttoncol
 
  eNQ (grp,'.GRUPPE') 'Select'

@@ -1,6 +1,6 @@
 [
  'USERS'      'Users.csv'
- 'MEDLEMMER'  'Medlemsliste.csv'
+ 'MEMBERS'    'Members.csv'
  'WORK'       'Worklists.csv'
  'WORKGROUPS' 'Workgroups.csv'
  'STATUSES'   'Statuses.csv'

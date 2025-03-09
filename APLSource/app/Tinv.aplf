@@ -1,0 +1,6 @@
+ text←Tinv text
+⍝ Reverse-Translate - only with nice whole words, no substitution
+
+ :If 1≠LANGUAGEIX
+     text←⊃(LANGTXT[;1],⊂text)[LANGTXT[;LANGUAGEIX]⍳⊂text]
+ :EndIf
