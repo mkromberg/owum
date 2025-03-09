@@ -15,10 +15,9 @@
      ∘∘∘
  :EndIf
 
- ReadTables ROOT←root
-
  resources←root,'/Resources'
  EWC.RESOURCES←1 2⍴'resources' resources
  'e'EWC.Init mode
+ ReadTables ROOT←root
 
   ⎕←'Running in ',mode,' mode on port ',(⍕EWC.PORT)
