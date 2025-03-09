@@ -1,0 +1,132 @@
+﻿Comment;da;en
+Label;Søg;Search
+Label;Fra;From
+Label;Til;To
+Label;Ny gruppe;New group
+Label;User ID;User ID
+Label;Nuværende passord;Current password
+Label;Nyt passord;New password
+Label;Gentag nyt;Repeat new
+Label;Kommentar;Comment
+Label;Skipper;Skipper
+Label;Beskrivelse;Description
+;Fejl;Error
+;Beskrivelse mangler;Description missing
+;Bekræft sletning;Confirm deletion
+;"Vil du slette filen ""%1""";"Delete file ""%1"""
+;Fil Slettet;File deleted
+;"Filen ""%1"" er slettet";"File ""%1"" deleted"
+;Login;Login
+;Check din indbakke og prøv at logge ind igen. Husk at du kan skifte passord når du er logget ind.;Check your inbox. Remember that you can change your password once you are logged in.
+;Dit nye passord er %1;Your new password is %1
+;Klik OK for at få sendt et nyt passord til %1;Click OK to send a new password to %1
+;Forkert bruger eller passord;Incorrect user or password
+;Intern fejl - kan ikke logge ind;Internal error - Login not possible 
+;De to passord er ikke ens ;Passwords do not match
+;Det nye passord må ha mindst 6 tegn ;Password lengths must be at least 6
+;Passord er skiftet;Password changed
+;Send medlemsliste;Send member list
+;Medlemsliste dateret %1 ;Member list dated %1
+;Tak for denne gang;Bye for now
+;Upload;Upload
+;Fik ikke hentet filen - prøv at vælge den igen ;Unable to find file - please reselect
+;Listen er ikke opdateret: %1 ;List not updated: %1
+;Medlemslisten er opdateret;List updated
+;Dokumentbeskrivelsen skal være mindst 20 tegn og et gyldigt filnavn;Document description must be at least 20 characters and a valid file name
+;"Filen ""%1"" findes allerede. Skal den opdateres";File %1 already exists - overwrite
+;Upload afbrudt;Upload cancelled
+;tilføjet;added
+;opdateret;updated
+;"Filen ""%1"" er %2";File %1 is %2
+;Slet Gruppe;Delete Group
+;Opret Ny Gruppe;Create Group
+;"Gruppen ""%1"" er slettet";"Group ""%1"" deleted"
+;Gruppen kan ikke slettes da den ikke er tom;Group cannot be deleted, it is not empty
+;Navnet skal ha mindst 6 tegn og ikke allerede være i brug;Name must be 6 characters and not already be in use
+;"Gruppen ""%1"" er oprettet";"Group ""%1"" created"
+;Bekræft sletning af dokument ;Confirm deletion of document
+;"Vil du slette ""%1""";"Delete ""%1"""
+;Dokument slettet;Document deleted
+;"""%1"" er slettet";"""%1"" deleted"
+;Upload Nyt Dokument ;Upload New Document
+Button;Opret;Create
+Button;Opdater;Update
+Button;Send som E-mail;Send as E-mail
+Button;Slet;Delete
+Label;Vælg noget;Select something
+;Intern fejl - finder ikke opgaven! ;Internal error - task not found!
+;Intern fejl - finder ikke sejladsen! ;Internal error - trip not found!
+;Til-dato må ikke være før Fra-dato ;To date must not be ealier than From date
+;Kan du bekræfte at mødet/arbejdsdagen varer i %1 dage;Confirm event duration is %1 days
+;"Bekræft oprettelse af event ""%1"" ";"Confirm creation of event ""%1"""
+;Tilmeld;Enroll
+;Frameld;Un-enroll
+;Opdater Møde/Arbejdsdag;Update Event
+;Opret Møde/Arbejdsdag ;Create Event
+;"Bekræft slætning af event ""%1"" ";"Confirm deletion of event ""%1"""
+;Møder & Arbejdsdage;Events
+;dateret %1;dated %1
+;Filter: %1;Filter: %1
+;Tilmeldt;Enrolled
+;Til/Fra;[Un]enroll
+;(ingen tilmeldinger);(none enrolled)
+;Tilmeldt: %1 ;Enrolled: %1
+;Upload ny Medlemsliste;Upload new member list
+;Vedligehold af arbejdsopgave-grupper ;Maintain task groups
+;Slet Gruppe;Delete Group
+;Opret Ny Gruppe;Create Group
+;Ny gruppe;New group
+;Husk;Remember
+;Læs;Read
+;Hurtige aktioner;Shortcuts
+;Send medlemsliste til %1 ;Send member list to %1
+;User ID;User ID
+;Skift passord;Change password
+;År;Year
+;Dato;Date
+;ID;ID
+;Datoer;Dates
+;#Tilm;#Enrolled
+;Glemt passord;Forgot password
+;Oversigt;Overview
+;Opgaver;Tasks
+;Sejlplan;Sailing
+;Møder/Arbejde;Events
+;Dokumenter;Documents
+;Diverse;Misc
+;Admin;Admin
+;Kunne ikke finde dine oplysninger;Could not find your details
+;Velkommen;Welcome
+;Log Ud;Log Out
+;Status;Status
+;Hvem;Who
+;Du må tilmeldes til sejladsen først;You must be enrolled first
+;Opdater kommentar ;Update comment
+;Opdater sejlads;Update voyage
+;Opret ny sejlads;Create voyage
+;Kan du bekræfte at sejladsen varer i %1 dage;Confirm voyage duration is %1 days
+;"Bekræft oprettelse af sejlads ""%1"" ";"Confirm creation of voyage ""%1"""
+;"Bekræft slætning af sejlads ""%1"" ";"Confirm deletion of voyage ""%1"""
+;Sejlads;Voyage
+;er sendt til %1 ;sent to %1
+;Kan ikke sende %1;Cannot send %1
+;"Der er ikke en tab med navn ""Medlemsliste"" i regnearket ";"Tab ""Medlemsliste"" not found in workbook"
+;Kolonner ikke fundet i regnearket;Columns not found in workbook
+;Findes mere end een gang;Repeated
+;Kan ikke udtrække medlemslisten fra regnearket;Unable to extract member list from workbook
+;Opret ny arbejdsopgave ;Create new task
+;Opgavebeskrivelsen findes allerede;A task with that description already exists
+;Start;Start
+;Afslut;Complete
+;Nulstil;Reset
+;Startet;Started
+;Afsluttet;Completed
+;"Bekræft oprettelse af opgave ""%1"" ";"Confirm creation of task ""%1"""
+;"Bekræft slætning af opgave ""%1"" ";"Confirm deletion of task ""%1"""
+;"Arbejdsliste for gruppen ""%1"" ";"Task list for group ""%1"""
+;Ret Beskrivelse;Update Description
+;Valgt;Selected
+;Ansvarlig;Responsible
+;Passord;Password
+;Opret Ny;Create New
+;Valgt: #%1: %2;Selected: #%1: %2

@@ -7,8 +7,8 @@ data←root,'/Data/'
     VSET ⊂table (ReadCSV data,file)
 :EndFor
 
-(LANGTXT LANGUAGES)←1↓⍤1¨⎕CSV⍠('DoubleQuote' 1)('QuoteChar' '"')('Separator' ';')⊢(data,'Text.csv') ⍬ ⍬ 1
+(LANGTXT LANGUAGES)←1↓⍤1¨⎕CSV⍠('DoubleQuote' 1)('QuoteChar' '"')('Separator' ';')⊢(root,'/APLSource/Text.csv') ⍬ ⍬ 1
 SelectLanguage 1
 
 DOCS←ReadDocs root,'/Documents/'
-APPNAME←(⊃⎕NGET data,'AppName.txt')~⎕UCS 13 10
+APPNAME←(⊃⎕NGET root,'/AppName.txt')~⎕UCS 13 10
