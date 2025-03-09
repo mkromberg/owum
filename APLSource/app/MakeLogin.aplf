@@ -16,13 +16,16 @@
  'F1.INPUT'eWC'SubForm'('Flex' 'row')('CSS' 'margin-top: calc(30%);')
 
  'F1.INPUT.CREDS'eWC'SubForm'('Flex' 'row')('CSS'rows)('BCol'bcol)
- :Trap 0
+
+ :Trap 999
      user←1 2⊃2 eNQ 'F1' 'GetCookie' 'OWUMUSER'
-     LANGUAGE←(LANGUAGES⍳1 2⊃2 eNQ 'F1' 'GetCookie' 'OWUMLANGUAGE')⊃(1+≢LANGUAGES)⍴LANGUAGES
+     LANGUAGE←(LANGUAGES⍳⊂1 2⊃(2 eNQ 'F1' 'GetCookie' 'OWUMLANGUAGE'),⊂'' '')⊃(1+≢LANGUAGES)⍴LANGUAGES
  :Else
      ⎕←'No cookies :('
-     user←''
+     user←'' ⋄ LANGUAGE←'da'
  :EndTrap
+ SelectLanguage LANGUAGE
+
  'F1.INPUT.CREDS.USERID' 'User ID'LabelAbove'Edit' user('Size'(23 150))
  'F1.INPUT.CREDS.PWD' 'Passord'LabelAbove'Edit' ''('Size'(23 100))('Password' '*')
 

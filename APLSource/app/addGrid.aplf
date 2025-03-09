@@ -1,6 +1,8 @@
-addGrid (name class props);grid
+addGrid (name class props);grid;div
 
 grid←name,'.GRID'
 grid eWC props,(⊂'Event' 'CellMove' 'CBCellMove' class)
+(div←grid,'.DIV') eWC 'Div'
+grid eWS ('Input' div)('CellTypes' (1⍨¨grid eWG 'Values'))
 eNQ grid 'CellMove' 1 1
 class CBCellMove grid 'CellMove' 1 1 ⍝ /// NQ not currently working

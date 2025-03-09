@@ -1,4 +1,8 @@
 SelectLanguage lix
+:If ' '=1⍴0↑lix
+    lix←1⌈(1+≢LANGUAGES)|LANGUAGES⍳⊂lix
+:EndIf
 LANGUAGEIX←lix
 LANGUAGE←LANGUAGEIX⊃LANGUAGES
 Tix←(1500⌶⎕C LANGTXT[;1])∘⍳
+2 eNQ'F1' 'SetCookie'('OWUMLANGUAGE=',LANGUAGE)
