@@ -1,8 +1,10 @@
 addGrid (name class props);grid;div
+⍝ Create a Grid on behalf of one of the Tabs
 
 grid←name,'.GRID'
 grid eWC props,(⊂'Event' 'CellMove' 'CBCellMove' class)
-(div←grid,'.DIV') eWC 'Div'
-grid eWS ('Input' div)('CellTypes' (1⍨¨grid eWG 'Values'))
-eNQ grid 'CellMove' 1 1
-class CBCellMove grid 'CellMove' 1 1 ⍝ /// NQ not currently working
+(div←grid,'.DIV') eWC 'Div'                                 ⍝ a Div as an Input allows us to display HTML
+grid eWS ('Input' div)('CellTypes' (1⍨¨grid eWG 'Values'))  ⍝ Set all CellTypes to point to the Div
+
+eNQ grid 'CellMove' 1 1              ⍝ Move to top left cell
+class CBCellMove grid 'CellMove' 1 1 ⍝ /// Execute CellMove callback directly: eNQ not currently working

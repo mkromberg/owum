@@ -1,5 +1,6 @@
  CBTop args;ctl;lix
- ⍝ Log Out or Change Password
+ ⍝ Log Out, Change Password, or select language
+ ⍝ (buttons on the top line of the form)
 
  ctl←⊃⌽'.'(≠⊆⊢)⊃args
  :Select ctl
@@ -9,10 +10,10 @@
      MakeLogin
 
  :Case 'NEWPWD'
-     eNQ 'F1.TC.DivTB' 'Select'
+     eNQ 'F1.TC.DivTB' 'Select' ⍝ Redirect user to the Diverse (Misc) Tab
 
  :Else
-     :If 'FLAG_'≡5↑ctl
+     :If 'FLAG_'≡5↑ctl          ⍝ Clicked on a flag to change language
      :AndIf (≢LANGUAGES)≥lix←LANGUAGES⍳⊂¯2↑ctl
          SelectLanguage lix
          MakeMain

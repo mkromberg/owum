@@ -1,2 +1,4 @@
 CBActivateSF args
-ACTIVESF←⊃args
+⍝ Called each time a tab is clicked
+
+ACTIVESF←⊃args ⍝ Record which tab is active (user if language is changed)

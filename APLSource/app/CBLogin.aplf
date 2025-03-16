@@ -1,33 +1,32 @@
  CBLogin args;MSG;msgmode;ctl;t;user;pwd;error;i;SALT;HASH;z;h;s
- ⍝ Handle buttons on Login form
+ ⍝ Handle "Login" and "Forgot Password" buttons on Login form
 
  ctl←⊃⌽'.'(≠⊆⊢)⊃args
-
  MSG←''
  msgmode←'Error'
 
- t←{'F1.INPUT.CREDS.',⍵,'.C'}¨'USERID' 'PWD'
- (user pwd)←t eWG¨⊂'Text'
+ t←{'F1.INPUT.CREDS.',⍵,'.C'}¨'USERID' 'PWD' ⍝ Full names of controls
+ (user pwd)←t eWG¨⊂'Text'                    ⍝ /// Someday try F1.INPUT.CREDS.(USERID PWD).C.Text
  error←T 'Forkert bruger eller passord'
- i←USERS.(⎕C UserId)⍳⊂⎕C user
- :Hold 'USERS.Login'
+ i←USERS.(⎕C UserId)⍳⊂⎕C user                ⍝ Find the user?
+ :Hold 'USERS.Login'                         ⍝ Just in case maintenance happens at the same time
      →(i>≢USERS.UserId)⍴ERROR
      (USERID NAME ADMIN)←i⊃¨USERS.(UserId Name Admin)
  :EndHold
 
- ID←(MEMBERS.Mail⍳⍥⎕C⊂USERID)⊃MEMBERS.ID,⊂''
+ ID←(MEMBERS.Mail⍳⍥⎕C⊂USERID)⊃MEMBERS.ID,⊂'' ⍝ The USERID we log in with is the Mail address, translate to initials
 
  :Select ctl
  :Case 'LOGIN'
      →(0≠≢error←ValidatePassword i pwd)⍴ERROR
      ⍝ /// Only Admins should be able to link to sensitive documents
-     ⍝ /// This logic is broken in a multi-user system
+     ⍝ /// This logic is broken in a multi-user system - we need conditional access to folders
      ADMIN←∨/'1yY'∊ADMIN
      #.EWC.WSS.Aliases←(1 1,ADMIN)⌿{⍵(ROOT,'/',⍵)}¨'Resources' 'Documents' 'Data'
      z←#.EWC.WSS.CheckAliases
 
-     2 eNQ'F1' 'SetCookie'('OWUMUSER=',USERID)
-     MakeMain
+     2 eNQ'F1' 'SetCookie'('OWUMUSER=',USERID) ⍝ Remember user name until next time
+     MakeMain                                ⍝ Bring up the main form
 
  :Case 'FORGOT'
      z←user DisplayPopup'Login' 'Klik OK for at få sendt et nyt passord til %1.' 'Query'('OK' 'Cancel')

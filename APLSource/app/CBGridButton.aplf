@@ -1,4 +1,6 @@
  grid CBGridButton args;val;cc;parent;leaf;cols;i;desc;obj;p;which;sf
+⍝ /// Not called anywhere?
+
  leaf←2⊃pluck⊃args
  (cc val cols)←grid eWG'CurCell' 'Values' 'ColTitles'
  :If (≢cols)<i←cols⍳⊂'Beskrivelse'

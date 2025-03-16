@@ -2,7 +2,8 @@ CBNewPass args;obj;event;ctl;parent;i;nyt2;nyt1;pwd;error;p
 ⍝ Change Password
 
 (obj event)←2↑args
-parent←⍎(-p←(⌽obj)⍳'.')↓obj
+parent←⍎(-p←(⌽obj)⍳'.')↓obj ⍝ This will be the "Diverse" Tab
+
 :If (,'C')≡ctl←(1-p)↑obj ⍝ One of the LabelBefore controls
     parent←parent.##.##
 :EndIf
@@ -13,19 +14,19 @@ parent←⍎(-p←(⌽obj)⍳'.')↓obj
 :Case 'KeyPress'
     →0 ⊣ eNQ (1001@2)args ⍝ Enqueue after the event
 :Case 1001
-    →0 ⊣ parent.CHANGE.Active←((nyt1≡nyt2)∧6≤≢nyt1)
+    →0 ⊣ parent.CHANGE.Active←((nyt1≡nyt2)∧6≤≢nyt1)  ⍝ Activate button if passwords are identical and length is at least 6
 :EndSelect
 
 :If 'CHANGE'≡ctl
-    :If nyt1≢nyt2 ⍝ This should not be possible
+    :If nyt1≢nyt2   ⍝ PARANOIA: This should not be possible - button should be inactive
         →0 ⊣ DisplayPopup 'Skift passord' 'De to passord er ikke ens' 'Error' 'OK'
-    :ElseIf 6>≢nyt1
+    :ElseIf 6>≢nyt1 ⍝ More paranoia
         →0 ⊣ DisplayPopup 'Skift passord' 'Det nye passord må ha mindst 6 tegn' 'Error' 'OK'
     :EndIf
 
     :Hold 'USERS.UserId'
         i←USERS.UserId⍳⊂USERID
-        →(0≠≢error←ValidatePassword i pwd)⍴ERROR
+        →(0≠≢error←ValidatePassword i pwd)⍴ERROR ⍝ Check user knows the current password
         SetPassword i nyt1
         DisplayPopup 'OWUM' 'Passord er skiftet' 'Info' 'OK'
     :EndHold

@@ -1,60 +1,30 @@
- CBUpload args;p;parent;obj;leaf;src;b64;bytes;type;name;t;tn;tempfile;z;msg;data;backup;filename;cols;mode;ext;date;i;exists
- p←'.'⍳⍨⌽obj←1⊃args
- parent←(-p)↓obj ⋄ leaf←(1-p)↑obj
- src←parent,'.ULU' '.ULD'⊃⍨'UD'⍳mode←⊃⌽leaf
+ CBUpload args;p;parent;obj;leaf;src;t;b64;name;type;bytes;ext;tn
+ ⍝ Handle uploads - of new Member list or a new Document
 
- (t #.EWC.LOGMODES)←#.EWC.LOGMODES'' ⍝ Don't dump data to session
- :Trap 6
-     (b64 name type)←src eWG'FileBytes' 'FileName' 'FileType'
- :Else
-     (b64 name type)←'' '' ''
- :EndTrap
- #.EWC.LOGMODES←t
+ p←'.'⍳⍨⌽obj←1⊃args                          ⍝ These two lines
+ parent←(-p)↓obj ⋄ leaf←(1-p)↑obj            ⍝     should be replaced by utilities
+
+ src←parent,'.ULU' '.ULD'⊃⍨'UD'⍳mode←⊃⌽leaf  ⍝ Translate button name to name of Upload control
+ (t #.EWC.LOGMODES)←#.EWC.LOGMODES''         ⍝ Turn off EWC logging: don't dump file contents to session
+ (b64 name type)←src eWG'FileBytes' 'FileName' 'FileType' ⍝ The upload actuall happens now
+ #.EWC.LOGMODES←t                            ⍝ Restore logging
+
  :If 0∊≢¨b64 name type
      →0⊣DisplayPopup'Upload' 'Fik ikke hentet filen - prøv at vælge den igen' 'Error' 'OK'
  :EndIf
 
- bytes←EWC.Base64.Decode b64
+ bytes←EWC.Base64.Decode b64                 ⍝ /// Agreed with Neil Base64.Decode should become unnecessary
  ext←(-'.'⍳⍨⌽name)↑name
  1 ⎕NDELETE tempfile←ROOT,'/Data/temp',ext
  tn←tempfile ⎕NCREATE 0
- bytes ⎕NAPPEND tn 80
+ bytes ⎕NAPPEND tn 80                        ⍝ Transfer incoming bytes to temp file
  ⎕NUNTIE tn
 
  :Select mode
  :Case 'U' ⍝ Users
-
-     z←#.XL2APL.Main.GetEntireWorkbook tempfile
-     :If 0≠≢⊃(msg cols data)←ValidateMedlemsliste z
-         →0⊣msg DisplayPopup'Upload'('Listen er ikke opdateret: %1')'Error' 'OK'
-     :Else
-         MEMBERS VSET(↑cols)data
-         backup←(ROOT,'/Data/Archive/Medlemsliste_',⊃'YYYY-MM-DD'(1200⌶)1 ⎕DT'J'),'.xlsx'
-         1 ⎕NDELETE backup
-         backup ⎕NMOVE filename←ROOT,'/Data/Medlemsliste.xlsx'
-         filename ⎕NMOVE tempfile
-         MEMBERS SaveCSV ROOT,'/Data/Medlemsliste.csv'
-         DisplayPopup'Upload' 'Medlemslisten er opdateret' 'Info' 'OK'
-     :EndIf
+     UpdateMemberFile tempfile
 
  :Case 'D' ⍝ New Document
-     t←(parent,'.ULDOKNAME')eWG 'Text'
-     :If 20>≢t
-         →0 ⊣ DisplayPopup 'Upload'('Dokumentbeskrivelsen skal være mindst 20 tegn og et gyldigt filnavn')'Error' 'OK'
-     :EndIf
-     date←{(∧/⍵[1 2 3 4 6 7 9 10]∊⎕D)∧⍵[5 8 11]≡'-- '}11↑t
-     name←((~date)/⊃'YYYY-MM-DD '(1200⌶)1 ⎕DT 'J'),t,ext ⍝ Add date and extension
-
-     :If exists←⎕NEXISTS filename←ROOT,'/Documents/',name
-        t←name DisplayPopup'Upload' ('Filen "%1" findes allerede. Skal den opdateres?') 'Warn' ('OK' 'Cancel')
-     :AndIf 2=t
-        →0 ⊣ DisplayPopup'Upload' 'Upload afbrudt' 'Info' 'OK'
-     :EndIf
-
-     1 ⎕NDELETE filename
-     filename ⎕NMOVE tempfile
-     DOCS←ReadDocs ROOT,'/Documents/'
-     MakeDokGrid parent
-     t←(1+exists)⊃'tilføjet' 'opdateret'
-     name t DisplayPopup 'OWUM Upload' ('Filen "%1" er %2.') 'Info' 'OK'
+     t←(parent,'.ULDOKNAME')eWG 'Text' ⍝ The name that the user wants to give the file on the server
+     t ProcessNewDocument tempfile
  :EndSelect

@@ -1,4 +1,4 @@
 tab CBGOTO args
-⍝ Activate a Tab
+⍝ Activate a specific Tab
 
 eNQ ('F1.TC.',tab,'TB') 'Select'

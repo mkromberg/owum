@@ -12,7 +12,13 @@ tail←(t←-+/∧\⌽m)↑text
 body←h↓t↓text
 
 :If 1∨1≠LANGUAGEIX
-   body←⊃LANGTXT[Tix ⊂⎕C body;LANGUAGEIX]
+   :If 0=≢body
+       ⍝ Do nothing
+   :ElseIf (i←Tix ⊂⎕C body)>≢LANGTXT
+       ⎕←'Text is not translatable: "',body,'"'
+   :Else
+       body←⊃LANGTXT[i;LANGUAGEIX]
+   :EndIf
 :EndIf
 
 :If 2=⎕NC 'subst'
