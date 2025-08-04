@@ -123,10 +123,11 @@ Label;Vælg noget;Select something
 ;Afsluttet;Completed
 ;"Bekræft oprettelse af opgave ""%1"" ";"Confirm creation of task ""%1"""
 ;"Bekræft slætning af opgave ""%1"" ";"Confirm deletion of task ""%1"""
-;"Arbejdsliste for gruppen ""%1"" ";"Task list for group ""%1"""
-;Ret Beskrivelse;Update Description
+;"Arbejdsliste for gruppen ""%1""";"Task list for group ""%1"""
+;Ret Beskrivelse;Update Desc
 ;Valgt;Selected
 ;Ansvarlig;Responsible
 ;Passord;Password
 ;Opret Ny;Create New
 ;Valgt: #%1: %2;Selected: #%1: %2
+;Send;Send

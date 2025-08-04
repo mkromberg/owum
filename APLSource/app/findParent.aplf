@@ -1,4 +1,6 @@
 name←type findParent name
+⍝ Find nearest parent of given type
+
 :While (0≠≢name)∧type≢name eWG 'Type'
    name←(-(⌽name)⍳'.')↓name
 :EndWhile

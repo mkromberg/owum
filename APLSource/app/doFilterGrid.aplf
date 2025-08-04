@@ -1,32 +1,41 @@
  {row} doFilterGrid sf;grid;filter;data;cc;m;class;ed
+ ⍝ Apply filter to grid - used in most panels
+ ⍝   If "row" is set, select that row (used after add/delete operations)
+
  sf←⍕sf
  grid←sf,'.GRID'
  filter←(sf,'.FILTER.F.C')eWG'Text'
  class←(1-'.'⍳⍨⌽sf)↑sf
+
  :If filter∧.='2'
      ⎕←'*** filter.Text is "2" ***'
      filter←''
  :EndIf
  data←grid eWG'Data'
- :Trap 6
+
+ :Trap 6 ⍝ /// Work-around for EWC bug, probably fixed
     cc←grid eWG 'CurCell'
  :Else
     cc←1 1
     ⎕←'*** NO CurCell ***'
  :EndTrap
- cc[1]←1⌈(≢data)⌊cc[1]
+
+ cc[1]←1⌈(≢data)⌊cc[1] ⍝ /// Make sure CurCell is within legal limits - also workaround for EWC bug
+
  :If 2=⎕NC 'row'
      cc[1]←row
  :EndIf
- :If m←filter∧.=' '
+ :If m←filter∧.=' ' ⍝ "empty" filter
      m←(≢data)⍴1
  :Else
      m←∨/filter⍷⍥⎕C⍕data
  :EndIf
+
  data←m⌿data
  grid eWS'Values' data
- ed←0≠⎕NC sf,'.CLASS.EDIT'
+
+ ed←0≠⎕NC sf,'.CLASS.EDIT' ⍝ Update DESC.C or EDIT.DESC.C?
  (sf,'.CLASS.',(ed/'EDIT.'),'DESC.C')eWS 'Text' (cc[1]⊃(data[;3],⊂''))
 
  grid eWS'CurCell'cc
- class CBCellMove (⍕grid) 'CellMove', cc
+ class CBCellMove (⍕grid) 'CellMove', cc ⍝ Take class-specific actions

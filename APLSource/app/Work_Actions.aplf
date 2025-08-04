@@ -56,7 +56,7 @@
      data←(~data[;1]∊⊂id)⌿data
 
  :Case 'PRT'
-     cap←sf.##.GRUPPE.Text T 'Arbejdsliste for gruppen "%1"'
+     cap←sf.##.GRP.GRUPPE.Text T 'Arbejdsliste for gruppen "%1"'
      html←HtmlTable (values[;1]) (1↓grid.ColTitles) (0 1↓values)
      date←⊃('__',LANGUAGE,'__DD. mmmm YYYY') (1200⌶)1 ⎕DT'J'
      html←'<b>',cap,' ',(date T 'dateret %1'),' </b><br /><br />',html

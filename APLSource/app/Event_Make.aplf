@@ -1,4 +1,6 @@
  Event_Make sf;btns;edit;tilm
+ ⍝ Add Event-specific controls to panel
+
  (sf,'.T')eWC'Label' (T 'Vælg noget')
  (sf,'.HVEM')eWC'Label' (T 'Tilmeldt')
 

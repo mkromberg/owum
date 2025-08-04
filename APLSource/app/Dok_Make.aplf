@@ -1,13 +1,15 @@
  Dok_Make sf;btns
- (sf,'.T')eWC'Label' 'Vælg noget'
+ ⍝ Add Dokument specific controls to panel
+
+ (sf,'.T')eWC'Label' (T 'Vælg noget')
  (sf,'.DESC') 'Beskrivelse:' LabelBefore 'Edit' ''('Size'(20 400))
 
  btns←(sf,'.BTNS') eWC 'SubForm' ('Flex' 'row')('CSS' 'justify-content: flex-start')
  (btns,'.ULD')eWC'Upload' ⍝ Document
- (btns,'.BTND')eWC'Button' 'Upload Nyt Dokument'('Size'(20 200))('Event' 'Select' 'CBUpload') buttoncol
+ (btns,'.BTND')eWC'Button' (T 'Upload Nyt Dokument')('Size'(20 200))('Event' 'Select' 'CBUpload') buttoncol
 
  btns←(sf,'.ADMIN') eWC 'SubForm' ('Flex' 'row')('CSS' 'justify-content: flex-start')
  :If ADMIN
-    (btns,'.OPD')eWC 'Button' 'Opdater' ('Size' (23 100))('Event' 'Select' 'Dok_Actions') buttoncol
-    (btns,'.DEL')eWC 'Button' 'Slet' ('Size' (23 100))('Event' 'Select' 'Dok_Actions') buttoncol
+    (btns,'.OPD')eWC 'Button' (T 'Opdater') ('Size' (23 100))('Event' 'Select' 'Dok_Actions') buttoncol
+    (btns,'.DEL')eWC 'Button' (T 'Slet') ('Size' (23 100))('Event' 'Select' 'Dok_Actions') buttoncol
  :EndIf

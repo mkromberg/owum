@@ -1,23 +1,29 @@
-R←CBWorkGroup args;t;sf;form;ctl;i;z;groupids;items;name;group;m;dropdown
+R←CBWorkGroup args;t;sf;panel;ctl;i;z;groupids;items;name;group;m;dropdown
+⍝ WorkGroup related callbacks:
+⍝   In the WorkGroup panel: Selection of a new workgroup using combo
+⍝   In the Admin panel: add/delete work groups
+
 R←1
 
 sf←⊃pluck∘⊃⍣2⊢args
-t←WORK.(⍉↑Gruppe ID Beskrivelse Status Hvem)
+t←WORK.(⍉↑Gruppe ID Beskrivelse Status Hvem)        ⍝ Entire work item table
 groupids←2⊃⎕VFI ⍕t[;1]
-t←(groupids=group←1⍳⍨(dropdown←sf,'.GRP.GRUPPE')eWG 'SelItems')⌿0 1↓t    ⍝ Selected group
+dropdown←sf,'.GRP.GRUPPE'
+t←(groupids=group←1⍳⍨dropdown eWG 'SelItems')⌿0 1↓t ⍝ Work in selected group
 :If 0≠≢t
-    t[;4]←{0=≢⍵:'' ⋄ {⍕((⍴⍵)⍴1 0)/⍵}⎕JSON ⍵}¨t[;4] ⍝ Antal "tilmeldinger"
+    t[;4]←{0=≢⍵:'' ⋄ {⍕((⍴⍵)⍴1 0)/⍵}⎕JSON ⍵}¨t[;4]  ⍝ Count enrollments
 :EndIf
 
-form←2⊃pluck sf
+panel←2⊃pluck sf
 ctl←2⊃pluck ⊃args
-:Select form
+
+:Select panel
 :Case 'Admin'
     :Select ctl
-    :Case 'GRUPPE'
+    :Case 'GRUPPE' ⍝ Group dropdown
        i←(⊃args) eWG 'SelItems'
        (sf,'.GRP.DEL') eWS 'Active' (0=≢t)
-    :Case 'DEL'
+    :Case 'DEL'    ⍝ Delete group
        :If 0=≢t
            name←group⊃WORKGROUPS.Gruppe
            i←+\m←group≠⍳≢WORKGROUPS.Gruppe
@@ -29,13 +35,13 @@ ctl←2⊃pluck ⊃args
            z←name DisplayPopup'Slet Gruppe' ('Gruppen "%1" er slettet.') 'Info' 'OK'
            updateWorkDropDowns items ((≢items)↑1)
 
-       :Else
+       :Else  ⍝ Cannot delete group with items in it
            z←DisplayPopup'Slet Gruppe' 'Gruppen kan ikke slettes da den ikke er tom.' 'Error' 'OK'
        :EndIf
 
-    :Case 'ADD'
-       :If 6>≢name←(sf,'.GRP.DESC.C') eWG 'Text'
-       :OrIf (⊂name) ∊⍥⎕C WORKGROUPS.Gruppe
+    :Case 'ADD'    ⍝ Add a group
+       :If 6>≢name←(sf,'.GRP.DESC.C') eWG 'Text'  ⍝ Too short
+       :OrIf (⊂name) ∊⍥⎕C WORKGROUPS.Gruppe       ⍝ Name in use
            z←DisplayPopup'Opret Ny Gruppe' 'Navnet skal ha mindst 6 tegn og ikke allerede være i brug.' 'Error' 'OK'
        :Else
            items←(dropdown eWG 'Items'),⊂name,' (0 opgaver)'
@@ -46,9 +52,9 @@ ctl←2⊃pluck ⊃args
        :EndIf
     :EndSelect
 :Case 'Work'
-   (sf,'.GRID') eWS ('Values' t)('Data' t)
-   'Work' CBCellMove (sf,'.GRID') 'CellMove' 1 1
-   doFilterGrid sf
+   (sf,'.GRID') eWS ('Values' t)('Data' t)         ⍝ Update the grid with selected group items
+   'Work' CBCellMove (sf,'.GRID') 'CellMove' 1 1   ⍝ Move to top left
+   doFilterGrid sf                                 ⍝ Apply filters
 :Else
    ...
 :EndSelect

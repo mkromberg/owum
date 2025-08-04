@@ -1,4 +1,6 @@
 left LabelAbove props;parts;label;sf
+⍝ Create a Subform with a (translated) Label above some other control
+
 (sf label)←left
 sf eWC 'SubForm' ('Flex' 'column')
 (sf,'.L') eWC'Label' (T label)

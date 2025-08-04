@@ -17,6 +17,7 @@
 
  resources←root,'/Resources'
  EWC.RESOURCES←1 2⍴'resources' resources
+ EWC.LOGMODES←⎕A
  'e'EWC.Init mode
  ReadTables ROOT←root
 
