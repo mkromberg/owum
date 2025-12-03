@@ -16,7 +16,7 @@
  :EndIf
 
  resources←root,'/Resources'
- EWC.RESOURCES←1 2⍴'resources' resources
+ EWC.RESOURCES←1 2⍴'Resources' resources
  EWC.LOGMODES←⎕A
  'e'EWC.Init mode
  ReadTables ROOT←root
