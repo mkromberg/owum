@@ -3,3 +3,4 @@ APLSource/mailinglist.txt
 APLSource/app_*
 Data/*
 Documents/*.*
+.DS_Store

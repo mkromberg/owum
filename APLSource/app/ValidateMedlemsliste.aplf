@@ -4,21 +4,21 @@
  msg←cols←data←⍬
 :Trap 999
     :If (≢book)<i←book.SheetName⍳⊂'Medlemsliste'
-        →0 ⊣ msg←'Der er ikke en tab med navn Medlesliste i regnearket'
+        →0 ⊣ msg←T 'Der er ikke en tab med navn Medlemsliste i regnearket'
     :Else
         sheet←i⊃book
     :EndIf
-    cols←MEDLEMMER.⎕nl -2
+    cols←MEMBERS.⎕nl -2
     :If ∨/m←~(c←⎕C cols)∊hdr←⎕C,sheet.Header
-        →0 ⊣ msg←'Kolonner ikke fundet i regnearket: ',,⍕m/cols
+        →0 ⊣ msg←(T 'Kolonner ikke fundet i regnearket:'),' ',,⍕m/cols
     :EndIf
     data←sheet.Data[hdr⍳c]
     i←⍸80=⎕DR¨data
     data[i]←{(-+/∧\' '=⌽⍵)↓¨↓⍵}¨data[i]
     ids←(cols⍳⊂'ID')⊃data
     :If ∨/m←(⍳≢ids)≠ids⍳ids
-        →0 ⊣ msg←'ID''er gentaget: ',∪m/ids
+        →0 ⊣ msg←(T 'Findes mere end een gang:'),' ',∪m/ids
     :EndIf
 :Else
-   msg←'Kan ikke udtrække medlemslisten fra regnearket.'
+   msg←T 'Kan ikke udtrække medlemslisten fra regnearket.'
 :EndTrap

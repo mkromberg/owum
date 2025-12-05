@@ -1,34 +1,31 @@
- MakeLogin;formsize;rows;bcol;size;image;aspect;user;background;formcss
- size←'.'eWG'DevCaps'
- aspect←'wide' ⍝ (1+>/⊃size)⊃'wide' 'tall'
- image←'/resources/images/ae-',aspect,'-frame.jpg'
+ MakeLogin;image;bcol;USERID;background;formcss;rows;user;lang
+⍝ Create Login form
+
+ image←'/Resources/images/ae-wide-frame.jpg'
  bcol←219 252 252 ⍝ Pale blue
- formsize←100 300
  USERID←'' ⍝ Global state
 
- background←'background-image: url("',image,'"), background-size: contain, background-position: center, background-repeat: no-repeat' ⍝ ; width: 100vw, height: 100vw'
+ background←'background-image: url("',image,'"), background-size: contain, background-position: center, background-repeat: no-repeat'
  formcss←background,', flex-direction: row, align-items: center, justify-content: center'
  rows←'flex-direction: row, flex-wrap: wrap, justify-content: space-between, gap: 5px, align-items: flex-start'
 
  'F1'eWC'Form' 'Please Login'('Coord' 'Pixel')('Flex' 'fill')('BCol'bcol)('CSS' formcss)
- 2 eNQ 'F1' 'SetTitle' 'OWUM Medlem'
+ 2 eNQ 'F1' 'SetTitle' APPNAME
 
- 'F1.INPUT'eWC'SubForm'('Flex' 'row')('CSS' 'margin-top: calc(30%);')
-
+ 'F1.INPUT'eWC'SubForm'('Flex' 'row')('CSS' 'margin-top: 66vh; justify-content: center;')
  'F1.INPUT.CREDS'eWC'SubForm'('Flex' 'row')('CSS'rows)('BCol'bcol)
- :Trap 0
-     user←1 2⊃2 eNQ 'F1' 'GetCookie' 'OWUMUSER'
- :Else
-     ⎕←'No cookies :('
-     user←''
- :EndTrap
+
+ user←1 2⊃(2 eNQ 'F1' 'GetCookie' 'OWUMUSER'),⊂'' ''
+ lang←1 2⊃(2 eNQ 'F1' 'GetCookie' 'OWUMLANGUAGE'),⊂'' ''
+
+ LANGUAGE←(LANGUAGES⍳⊂lang)⊃(1+≢LANGUAGES)⍴LANGUAGES
+ SelectLanguage LANGUAGE
+
  'F1.INPUT.CREDS.USERID' 'User ID'LabelAbove'Edit' user('Size'(23 150))
- 'F1.INPUT.CREDS.PWD' 'Password'LabelAbove'Edit' ''('Size'(23 100))('Password' '*')
+ 'F1.INPUT.CREDS.PWD' 'Passord'LabelAbove'Edit' ''('Size'(23 100))('Password' '*')
 
  'F1.INPUT.CREDS.BTNS'eWC'SubForm'('Flex' 'column')
- 'F1.INPUT.CREDS.BTNS.LOGIN'eWC'Button' 'Login'('Size'(23 120))('Default' 1)('Event' 'Select' 'CBLogin')
- 'F1.INPUT.CREDS.BTNS.FORGOT'eWC'Button' 'Glemt passord'('Size'(23 120))('Default' 1)('Event' 'Select' 'CBLogin')
-
- ⍝ 'F1.INPUT.FILL'eWC'SubForm'('Size'(400 400))
+ 'F1.INPUT.CREDS.BTNS.LOGIN'eWC'Button' (T 'Login')('Size'(23 120))('Default' 1)('Event' 'Select' 'CBLogin')
+ 'F1.INPUT.CREDS.BTNS.FORGOT'eWC'Button' (T 'Glemt passord')('Size'(23 120))('Default' 0)('Event' 'Select' 'CBLogin')
 
  eNQ'F1.INPUT.CREDS.USERID' 'GotFocus'

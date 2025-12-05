@@ -1,4 +1,6 @@
  Initialise dummy;z
+⍝ Called when a new client connects - start a new session
+
  MakeLogin
  :If EWC.MODE=2 ⍝ Multi Mode
      :Repeat

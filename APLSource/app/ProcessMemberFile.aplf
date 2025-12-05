@@ -1,0 +1,15 @@
+ ProcessMemberFile tempfile;z;msg;cols;data;backup;filename
+ z←#.XL2APL.Main.GetEntireWorkbook tempfile
+     ⍝ /// Above was failing in .NET Core, awaiting fix to new .NET bridge
+     ⍝ /// Please retest and remove this comment when possible
+ :If 0≠≢⊃(msg cols data)←ValidateMedlemsliste z ⍝ Check that workbook as the right format and extract data
+     →0⊣msg DisplayPopup'Upload'('Listen er ikke opdateret: %1')'Error' 'OK'
+ :Else
+     MEMBERS VSET(↑cols)data
+     backup←(ROOT,'/Data/Archive/Members_',⊃'YYYY-MM-DD'(1200⌶)1 ⎕DT'J'),'.xlsx'
+     1 ⎕NDELETE backup
+     backup ⎕NMOVE filename←ROOT,'/Data/Members.xlsx'
+     filename ⎕NMOVE tempfile
+     MEMBERS SaveCSV ROOT,'/Data/Members.csv'
+     DisplayPopup'Upload' 'Medlemslisten er opdateret' 'Info' 'OK'
+ :EndIf

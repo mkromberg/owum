@@ -1,4 +1,7 @@
 {class} CBCellMove args
+⍝ Callback when a new cell is selected in one of the grids
+⍝ Call class_Move to update class-specific controls if it exists
+
 :If 2=⎕NC 'class'
 :AndIf 3=⎕NC class,'_Move'
     (⍎class,'_Move') args

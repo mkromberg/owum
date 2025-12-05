@@ -1,4 +1,6 @@
 r←GetNames json
+⍝ Get Participant names from a (name comment, name comment ... list)
+
 :If json∧.=' '
    r←0 2⍴⊂''
 :Else

@@ -1,8 +1,8 @@
 SendText (subject text);cap
-cap←'OWUM: Send ',subject
+cap←APPNAME,': ',(T 'Send'),' ',subject
 :Trap 0
    SendMessage USERID subject text ''
-   DisplayPopup cap (subject,' er sendt til ',USERID) 'Info' 'OK'
+   DisplayPopup cap (subject,' ',USERID T 'er sendt til %1') 'Info' 'OK'
 :Else
-   DisplayPopup cap ('Kan ikke sende ',subject) 'Error' 'OK'
+   DisplayPopup cap (subject T 'Kan ikke sende %1') 'Error' 'OK'
 :EndTrap

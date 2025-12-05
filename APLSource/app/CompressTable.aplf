@@ -1,4 +1,6 @@
 mask CompressTable name;vars
+⍝ Compress any table namespace using mask
+
 vars←name ⎕VGET ¯2
 (2⊃¨vars)←mask∘/¨2⊃¨vars
 name ⎕VSET vars

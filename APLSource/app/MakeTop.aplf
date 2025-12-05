@@ -1,7 +1,12 @@
-MakeTop sf;z
+MakeTop sf;z;lang;flag
 (sf,'.TOP') eWC 'SubForm' ('Flex' 'row')('CSS' 'align-items: flex-start')
-z←'Velkommen, ',name,((0≠≢ID)/' (',ID,')'),(ADMIN/' [Administrator]'),'!'
+z←(T 'Velkommen'),', ',name,((0≠≢ID)/' (',ID,')'),(ADMIN/' [Administrator]'),'!'
 (sf,'.TOP.HEJ') eWC 'Label' z ('CSS' 'font-weight: bold')
 
-(sf,'.TOP.LOGOUT') eWC 'Button' 'Log Ud' ('Event' 'Select' 'CBTop')
-(sf,'.TOP.NEWPWD') eWC 'Button' 'Skift Passord' ('Event' 'Select' 'CBGOTO' 'Div')
+(sf,'.TOP.LOGOUT') eWC 'Button' (T 'Log Ud') ('Event' 'Select' 'CBTop')
+(sf,'.TOP.NEWPWD') eWC 'Button' (T 'Skift Passord') ('Event' 'Select' 'CBGOTO' 'Div')
+
+:For lang :In LANGUAGES
+    (flag←'FLAG_',lang) eWC 'BitMap' ('/Resources/images/',lang,'.png')
+    (sf,'.TOP.',flag) eWC 'Button' ('Size' 18 20) ('Picture' flag)('Event' 'Select' 'CBTop')
+:EndFor

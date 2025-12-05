@@ -1,50 +1,48 @@
  CBLogin args;MSG;msgmode;ctl;t;user;pwd;error;i;SALT;HASH;z;h;s
- ⍝ Handle buttons on Login form
+ ⍝ Handle "Login" and "Forgot Password" buttons on Login form
 
  ctl←⊃⌽'.'(≠⊆⊢)⊃args
-
  MSG←''
  msgmode←'Error'
 
- t←{'F1.INPUT.CREDS.',⍵,'.C'}¨'USERID' 'PWD'
- (user pwd)←t eWG¨⊂'Text'
- error←'Forkert bruger eller passord'
- i←USERS.(⎕C UserId)⍳⊂⎕C user
- :Hold 'USERS.Login'
+ t←{'F1.INPUT.CREDS.',⍵,'.C'}¨'USERID' 'PWD' ⍝ Full names of controls
+ (user pwd)←t eWG¨⊂'Text'                    ⍝ /// Someday try F1.INPUT.CREDS.(USERID PWD).C.Text
+ error←T 'Forkert bruger eller passord'
+ i←USERS.(⎕C UserId)⍳⊂⎕C user                ⍝ Find the user?
+ :Hold 'USERS.Login'                         ⍝ Just in case maintenance happens at the same time
      →(i>≢USERS.UserId)⍴ERROR
      (USERID NAME ADMIN)←i⊃¨USERS.(UserId Name Admin)
  :EndHold
 
- ID←(MEDLEMMER.Mail⍳⍥⎕C⊂USERID)⊃MEDLEMMER.ID,⊂''
+ ID←(MEMBERS.Mail⍳⍥⎕C⊂USERID)⊃MEMBERS.ID,⊂'' ⍝ The USERID we log in with is the Mail address, translate to initials
 
  :Select ctl
  :Case 'LOGIN'
      →(0≠≢error←ValidatePassword i pwd)⍴ERROR
      ⍝ /// Only Admins should be able to link to sensitive documents
-     ⍝ /// This logic is broken in a multi-user system
+     ⍝ /// This logic is broken in a multi-user system - we need conditional access to folders
      ADMIN←∨/'1yY'∊ADMIN
      #.EWC.WSS.Aliases←(1 1,ADMIN)⌿{⍵(ROOT,'/',⍵)}¨'Resources' 'Documents' 'Data'
      z←#.EWC.WSS.CheckAliases
 
-     2 eNQ'F1' 'SetCookie'('OWUMUSER=',USERID)
-     MakeMain
+     2 eNQ'F1' 'SetCookie'('OWUMUSER=',USERID) ⍝ Remember user name until next time
+     MakeMain                                ⍝ Bring up the main form
 
  :Case 'FORGOT'
-     z←'Klik OK for at få sendt et nyt passord til ',user,'.'
-     z←DisplayPopup'OWUM Login'z'Query'('OK' 'Cancel')
+     z←user DisplayPopup'Login' 'Klik OK for at få sendt et nyt passord til %1.' 'Query'('OK' 'Cancel')
      :If 1=z
          z←{⍵[?8⍴≢⍵]}'?!@&',⎕D,⎕A,⎕C ⎕A ⍝ Generate random password
          SetPassword i z
-         z←'Dit nye passord er ',z
+         z←z T 'Dit nye passord er %1.'
          :If 0≠⊃z←SendMessage user'Nyt passord'z ⍬
              →ERROR⊣error←2⊃z
          :EndIf
-         z←DisplayPopup'OWUM Login' 'Check din indbakke og prøv at logge ind igen. Husk at du kan skifte passord når du er logget ind.' 'Info' 'OK'
+         z←DisplayPopup'Login' 'Check din indbakke og prøv at logge ind igen. Husk at du kan skifte passord når du er logget ind.' 'Info' 'OK'
      :EndIf
  :Else
-     →ERROR⊣error←'Internal error - Login not possible'
+     →ERROR⊣error←'Intern fejl - kan ikke logge ind.'
  :EndSelect
  →0
 
 ERROR:
- DisplayPopup'OWUM Login'error msgmode'OK'
+ DisplayPopup'Login'error msgmode'OK'

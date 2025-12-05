@@ -1,0 +1,21 @@
+ name ProcessNewDocument tempfile;date;exists;filename;t
+ ⍝ Add a document file which can be found in tempfile
+
+ :If 20>≢name
+     →0⊣DisplayPopup'Upload'('Dokumentbeskrivelsen skal være mindst 20 tegn og et gyldigt filnavn')'Error' 'OK'
+ :EndIf
+ date←{(∧/⍵[1 2 3 4 6 7 9 10]∊⎕D)∧⍵[5 8 11]≡'-- '}11↑name
+ name←((~date)/⊃'YYYY-MM-DD '(1200⌶)1 ⎕DT'J'),t,ext ⍝ Add date if none found - and extension
+
+ :If exists←⎕NEXISTS filename←ROOT,'/Documents/',name
+     t←name DisplayPopup'Upload'('Filen "%1" findes allerede. Skal den opdateres?')'Warn'('OK' 'Cancel')
+ :AndIf 2=t
+     →0⊣DisplayPopup'Upload' 'Upload afbrudt' 'Info' 'OK'
+ :EndIf
+
+ 1 ⎕NDELETE filename
+ filename ⎕NMOVE tempfile
+ DOCS←ReadDocs ROOT,'/Documents/'
+ MakeDokGrid parent
+ t←(1+exists)⊃'tilføjet' 'opdateret'
+ name t DisplayPopup'OWUM Upload'('Filen "%1" er %2.')'Info' 'OK'

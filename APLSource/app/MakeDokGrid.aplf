@@ -1,7 +1,11 @@
- MakeDokGrid sf;props;t;m;class
+ MakeDokGrid sf;props;t;m;class;z;grid
  t←DOCS.(⍉↑Year Date File)
+
  class←'Dok'
 
  addGridHeader sf class
- props←'Grid't('Data' t)('CellWidths'(50 150 300))('ColTitles'('År' 'Dato' 'Beskrivelse'))('TitleWidth' 0)('Size'(500 600))
+ props←'Grid't('Data' t)('CellWidths'(50 150 300))('ColTitles'(T 'År' 'Dato' 'Beskrivelse'))('TitleWidth' 0)('Size'(500 600))
  addGrid sf class props
+ z←(grid←sf,'.GRID') eWG 'Values'
+ z[;3]←'<a href="Documents/'∘,¨z[;3],¨'" target="_blank">'∘,¨( ¯4↓¨11↓¨z[;3]),¨⊂'</a>' ⍝ Turn file names into links
+ grid eWS 'Values' z

@@ -1,3 +1,5 @@
 (parent leaf)←pluck obj;p
+⍝ Split GUI object name into parent and leaf
+
 p←(⌽obj)⍳'.'
 parent←(-p)↓obj ⋄ leaf←(1-p)↑obj

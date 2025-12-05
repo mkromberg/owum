@@ -5,17 +5,17 @@
  hvem←GetNames hvem
 
  sf←⍎((-'.'⍳⍨⌽grid)↓grid),'.CLASS' ⍝ This is where we may write
- sf.T.Caption←'Sejlads: ','#',id,': ',desc
+ sf.T.Caption←(T 'Sejlads:'),' #',id,': ',desc
  :If 0=≢hvem
-    sf.HVEM.Caption←'(ingen tilmeldinger)'
+    sf.HVEM.Caption←T '(ingen tilmeldinger)'
  :Else
-    sf.HVEM.Caption←'Tilmeldt: ',2↓⍕', '∘,¨hvem[;1],¨{(0≠≢⍵)/' (',⍵,')'}¨hvem[;2]
+    sf.HVEM.Caption←(T 'Tilmeldt:'),' ',2↓⍕', '∘,¨hvem[;1],¨{(0≠≢⍵)/' (',⍵,')'}¨hvem[;2]
  :EndIf
 
  tilm←sf⍎'TILM'
  med←(⊂ID)∊hvem[;1]
  tilm.KOM.C.Text←(hvem[;1]⍳⊂ID)⊃hvem[;2],⊂''
- tilm.TIL.Caption←(1+med)⊃'Tilmeld' 'Frameld'
+ tilm.TIL.Caption←T (1+med)⊃'Tilmeld' 'Frameld'
 
  edit←sf⍎'EDIT'
  edit.(FRA TIL SKIP DESC).C.Value←({1 ⎕DT⊂⌽2⊃'-' ⎕VFI ⍵}¨fra til), skip desc

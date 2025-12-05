@@ -1,9 +1,11 @@
 CBFilterGrid args;event;obj;sf
+⍝ Callback on changes to the filter field at the top of each form
+
 (obj event)←2↑args
 :Select event←2⊃args
 :Case 'KeyPress'
-    →0 ⊣ eNQ (1001@2)args ⍝ Enqueue after the event
+    →0 ⊣ eNQ (1001@2)args ⍝ Enqueue after the event, to pick up the modified Text
 :Case 1001
-    sf←obj↑⍨¯1+3⍳⍨+\'.'='SubForm'findParent obj ⍝ First 3 segments, i.e. F1.TC.Work
-    doFilterGrid sf
+    sf←obj↑⍨¯1+3⍳⍨+\'.'='SubForm' findParent obj ⍝ First 3 segments, i.e. F1.TC.Work
+    doFilterGrid sf ⍝ Change displayed contents of the grid
 :EndSelect
